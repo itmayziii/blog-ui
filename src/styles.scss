@@ -1,6 +1,4 @@
-//// Google Material Design - https://material.io/guidelines/material-design/introduction.html
-//@import "assets/scss/variables";
-//@import "@material/theme/mdc-theme";
-//@import "@material/button/mdc-button";
-// Bootstrap
+@import "assets/scss/variables";
+// Vendor
+@import "assets/scss/vendor/material-design";
 @import "assets/scss/vendor/bootstrap";
