@@ -8,46 +8,47 @@
   $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
 
-  .primary-color {
-    color: mat-color($primary);
-  }
-
-  .accent-color {
-    color: mat-color($accent);
-  }
-
-  .warn-color {
-    color: mat-color($warn);
-  }
-
-  .primary-background-color {
-    color: mat-color($primary);
-  }
-
-  .accent-background-color {
-    color: mat-color($accent);
-  }
-
-  .warn-background-color {
-    color: mat-color($warn);
-  }
-
-  .primary-background {
-    background-color: mat-color($primary, 500);
-  }
-
   .mat-input-container {
     label {
-      color: mat-color($primary);
+      color: mat-color($primary, 400);
     }
 
     .mat-input-underline {
-      border-color: mat-color($primary);
+      border-color: mat-color($primary, 400);
     }
 
     input, textarea {
-      color: white;
+      color: mat-color($accent);
     }
   }
 
+  form {
+    border-radius: 10px;
+    background-color: mat-color($primary, 900);
+    padding-top: 10px;
+  }
+
+  .main-navigation {
+    top: 0;
+    position: fixed;
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background-color: mat-color($primary);
+    border-bottom: solid 4px mat-color($primary, 400);
+    a {
+      padding: 10px 15px;
+      text-decoration: none;
+      font-size: 1.4rem;
+      color: white;
+    }
+    a:hover {
+      color: mat-color($accent);
+      text-decoration: none;
+    }
+
+  }
 }

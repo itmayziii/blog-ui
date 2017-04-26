@@ -4,16 +4,12 @@
 @import "assets/scss/vendor/bootstrap";
 
 html, body {
-  width: 100%;
   height: 100%;
-  padding: .1px;
-  margin: 0;
-  background-color: white;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
-form {
-  border-radius: 10px;
-  background-color: #504a4a;
-  padding-top: 10px;
+body {
+  padding-top: 70px;
+  background-color: $background-color;
 }
+
