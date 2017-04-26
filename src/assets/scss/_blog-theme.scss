@@ -1,0 +1,53 @@
+// Import all the tools needed to customize the theme and extract parts of it
+@import '~@angular/material/theming';
+
+// Define a mixin that accepts a theme and outputs the color styles for the component.
+@mixin blog-theme($theme) {
+  // Extract whichever individual palettes you need from the theme.
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+
+  .primary-color {
+    color: mat-color($primary);
+  }
+
+  .accent-color {
+    color: mat-color($accent);
+  }
+
+  .warn-color {
+    color: mat-color($warn);
+  }
+
+  .primary-background-color {
+    color: mat-color($primary);
+  }
+
+  .accent-background-color {
+    color: mat-color($accent);
+  }
+
+  .warn-background-color {
+    color: mat-color($warn);
+  }
+
+  .primary-background {
+    background-color: mat-color($primary, 500);
+  }
+
+  .mat-input-container {
+    label {
+      color: mat-color($primary);
+    }
+
+    .mat-input-underline {
+      border-color: mat-color($primary);
+    }
+
+    input, textarea {
+      color: white;
+    }
+  }
+
+}
