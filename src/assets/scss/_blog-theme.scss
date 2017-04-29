@@ -45,6 +45,10 @@
     }
   }
 
+  button[md-raised-button][disabled] {
+    color: mat-color($warn) !important;
+  }
+
   .main-footer {
     background-color: mat-color($primary, 200);
   }

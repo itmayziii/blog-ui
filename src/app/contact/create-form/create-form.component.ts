@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'tm3-contact-create-form',
@@ -18,7 +18,7 @@ export class ContactCreateFormComponent {
             "first-name": this.formBuilder.control(null),
             "last-name": this.formBuilder.control(null),
             "email": this.formBuilder.control(null),
-            "comments": this.formBuilder.control(null)
+            "comments": this.formBuilder.control(null, Validators.required)
         })
     }
 
