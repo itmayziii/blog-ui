@@ -5,7 +5,7 @@ import { Component, OnInit } from "@angular/core";
     templateUrl: './create-form.component.html',
     styleUrls: ['./create-form.component.scss']
 })
-export class CreateFormComponent implements OnInit {
+export class ContactCreateFormComponent implements OnInit {
 
     constructor() { }
 

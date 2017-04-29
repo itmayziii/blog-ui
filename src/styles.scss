@@ -1,6 +1,7 @@
 @import "assets/scss/variables";
 // Vendor
 @import "assets/scss/vendor/material-design";
+@import "../node_modules/material-design-icons/iconfont/material-icons.css";
 @import "assets/scss/vendor/bootstrap";
 
 html, body {
@@ -12,4 +13,3 @@ body {
   padding-top: 70px;
   background-color: $background-color;
 }
-
