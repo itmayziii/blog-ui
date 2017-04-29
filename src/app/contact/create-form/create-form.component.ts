@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { JsonApiService } from "../../services/json-api/json-api.service";
 
 @Component({
     selector: 'tm3-contact-create-form',
@@ -9,7 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class ContactCreateFormComponent {
     private contactCreateForm: FormGroup;
 
-    constructor(private formBuilder: FormBuilder) {
+    constructor(private formBuilder: FormBuilder, private jsonApi: JsonApiService) {
         this.createForm();
     }
 
@@ -24,5 +25,6 @@ export class ContactCreateFormComponent {
 
     private onSubmit() {
         console.log(this.contactCreateForm.value);
+        this.jsonApi.get();
     }
 }
