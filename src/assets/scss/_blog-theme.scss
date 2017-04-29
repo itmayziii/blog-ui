@@ -8,6 +8,12 @@
   $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
 
+  // Auto fill ugliness on forms
+  input:-webkit-autofill, textarea:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px mat-color($primary, 900) inset !important;
+    -webkit-text-fill-color: mat-color($accent);
+  }
+
   .mat-input-container {
     label {
       color: mat-color($primary, 400);
