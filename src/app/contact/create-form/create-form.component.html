@@ -1,26 +1,56 @@
 <div class="container-fluid">
     <div class="row">
 
-        <div class="col-xs-12 col-md-6"></div>
+        <div class="col-xs-offset-1 col-xs-10 col-md-offset-0 col-md-6">
+            <div class="row">
+
+                <h2 class="col-xs-12 text-center">Get In Touch</h2>
+                <dl class="dl-horizontal">
+                    <dt>Given:</dt>
+                    <dd><i class="material-icons">group</i> You are looking for developers.</dd>
+                    <dd><i class="material-icons">forum</i> You enjoy reading my blogs.</dd>
+                    <dd><i class="material-icons">school</i> You want to learn something new.</dd>
+                    <br/>
+
+                    <dt>When:</dt>
+                    <dd><i class="material-icons">business</i> You have a project inquiry.</dd>
+                    <dd><i class="material-icons">info_outline</i> You want me to cover a specific topic on my blog.
+                    </dd>
+                    <dd><i class="material-icons">notifications</i> You have a question.</dd>
+                    <dd><i class="material-icons">add_location</i> You want to play a round of golf.
+                    </dd>
+                    <dd><i class="material-icons">do_not_disturb</i> <s>Your bored and have nothing better to do.</s>
+                    </dd>
+                    <br/>
+
+                    <dt>Then:</dt>
+                    <dd><i class="material-icons">create</i> Fill out this form.</dd>
+                    <dd><i class="material-icons">group_add</i> Contact me on social media.</dd>
+                </dl>
+
+            </div>
+        </div>
 
         <div class="col-xs-12 col-md-6">
             <div class="row">
 
-                <form action="/action_page.php" method="get" class="col-xs-offset-1 col-xs-10">
+                <h2 class="col-xs-12 text-center">Fill This Out</h2>
+                <form action="/action_page.php" method="get" class="col-xs-offset-1 col-xs-10 form">
                     <div class="row">
-                        <md-input-container class="col-xs-10" color="accent">
-                            <input mdInput placeholder="First Name">
+                        <md-input-container class="col-xs-offset-1 col-xs-10" color="accent">
+                            <input mdInput placeholder="First Name" maxlength="100">
                         </md-input-container>
-                        <md-input-container class="col-xs-10" color="accent">
-                            <input mdInput placeholder="Last Name">
+                        <md-input-container class="col-xs-offset-1 col-xs-10" color="accent">
+                            <input mdInput placeholder="Last Name" maxlength="100">
                         </md-input-container>
-                        <md-input-container class="col-xs-10" color="accent">
-                            <input mdInput placeholder="Email">
+                        <md-input-container class="col-xs-offset-1 col-xs-10" color="accent">
+                            <input mdInput placeholder="Email" maxlength="100">
                         </md-input-container>
-                        <md-input-container class="col-xs-10" color="accent">
+                        <md-input-container class="col-xs-offset-1 col-xs-10" color="accent">
                             <textarea mdInput autofocus required mdTextareaAutosize minRows="6"
-                                      placeholder="Comments"></textarea>
+                                      placeholder="Comments" maxlength="4000"></textarea>
                         </md-input-container>
+                        <button class="col-xs-10" md-raised-button color="accent">Submit</button>
                     </div>
                 </form>
 

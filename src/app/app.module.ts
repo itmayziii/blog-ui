@@ -6,14 +6,20 @@ import { HttpModule } from "@angular/http";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { CreateFormComponent } from "./contact/create-form/create-form.component";
-import { MdInputModule } from "@angular/material";
+import { ContactCreateFormComponent } from "./contact/create-form/create-form.component";
+import { MdButtonModule, MdInputModule } from "@angular/material";
+import { NotFoundComponent } from './not-found/not-found.component';
+import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
 
 
 @NgModule({
     declarations: [
         AppComponent,
-        CreateFormComponent,
+        ContactCreateFormComponent,
+        NotFoundComponent,
+        FooterComponent,
+        HeaderComponent,
     ],
     imports: [
         BrowserModule,
@@ -21,7 +27,8 @@ import { MdInputModule } from "@angular/material";
         HttpModule,
         AppRoutingModule,
         BrowserAnimationsModule,
-        MdInputModule
+        MdInputModule,
+        MdButtonModule
     ],
     providers: [],
     bootstrap: [AppComponent]
