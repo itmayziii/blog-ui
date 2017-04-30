@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open=true -e=dev -pc=proxy.conf.json",
-    "build": "./node_modules/.bin/ng build -oh=all -e=prod -prod",
+    "build": "./node_modules/.bin/ng build -oh=all -e=prod -prod -aot=false",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

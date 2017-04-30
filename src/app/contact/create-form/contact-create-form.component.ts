@@ -9,7 +9,7 @@ import { NotificationsService } from "angular2-notifications/dist";
     styleUrls: ['./contact-create-form.component.scss']
 })
 export class ContactCreateFormComponent {
-    private contactCreateForm: FormGroup;
+    public contactCreateForm: FormGroup;
 
     constructor(private formBuilder: FormBuilder, private jsonApi: JsonApiService, private notifications: NotificationsService) {
         this.createForm();
@@ -24,7 +24,7 @@ export class ContactCreateFormComponent {
         })
     }
 
-    private onSubmit() {
+    public onSubmit() {
         this.contactCreateForm.disable();
         this.jsonApi.post('contacts', this.contactCreateForm.value)
             .then((results) => {
