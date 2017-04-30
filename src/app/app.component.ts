@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
     public notificationOptions = {
         position: ["bottom", "left"],
-        timeOut: 5000,
+        timeOut: 10000,
         lastOnBottom: true
     }
 }

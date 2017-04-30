@@ -28,13 +28,13 @@ export class ContactCreateFormComponent {
         this.contactCreateForm.disable();
         this.jsonApi.post('contacts', this.contactCreateForm.value)
             .then((results) => {
+                this.notifications.success('Thank you for your submission!');
                 this.contactCreateForm.reset();
                 this.contactCreateForm.enable();
-                console.log('success!!!');
-                this.notifications.success('Yay you'); // TODO create alert class to show general system alerts
             })
             .catch((error: any) => {
-                console.log('there was a problem'); // TODO give a notifaction on failure
+                this.notifications.error('There was a problem! Please try again later');
+                this.contactCreateForm.enable();
             });
 
     }

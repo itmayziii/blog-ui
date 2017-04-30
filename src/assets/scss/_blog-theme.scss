@@ -56,4 +56,19 @@
   .material-icons {
     color: mat-color($primary);
   }
+
+  simple-notification {
+    .simple-notification.error {
+      background-color: mat-color($warn);
+    }
+
+    .simple-notification.success {
+      background-color: mat-color($accent, A700);
+    }
+
+    .sn-progress-loader {
+      background-color: white;
+    }
+  }
+
 }
