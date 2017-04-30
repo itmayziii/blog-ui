@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { JsonApiService } from "../../services/json-api/json-api.service";
+import { NotificationsService } from "angular2-notifications/dist";
 
 @Component({
     selector: 'blog-contact-create-form',
@@ -10,7 +11,7 @@ import { JsonApiService } from "../../services/json-api/json-api.service";
 export class ContactCreateFormComponent {
     private contactCreateForm: FormGroup;
 
-    constructor(private formBuilder: FormBuilder, private jsonApi: JsonApiService) {
+    constructor(private formBuilder: FormBuilder, private jsonApi: JsonApiService, private notifications: NotificationsService) {
         this.createForm();
     }
 
@@ -30,7 +31,7 @@ export class ContactCreateFormComponent {
                 this.contactCreateForm.reset();
                 this.contactCreateForm.enable();
                 console.log('success!!!');
-                // this.alert.success(); // TODO create alert class to show general system alerts
+                this.notifications.success('Yay you'); // TODO create alert class to show general system alerts
             })
             .catch((error: any) => {
                 console.log('there was a problem'); // TODO give a notifaction on failure

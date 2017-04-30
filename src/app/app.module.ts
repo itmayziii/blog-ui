@@ -14,13 +14,16 @@ import { HeaderComponent } from './header/header.component';
 import { JsonApiService } from './services/json-api/json-api.service';
 import { RequestOptions } from './requests/RequestOptions.class';
 
+// vendor
+import { SimpleNotificationsModule } from 'angular2-notifications';
+
 @NgModule({
     declarations: [
         AppComponent,
         ContactCreateFormComponent,
         NotFoundComponent,
         FooterComponent,
-        HeaderComponent,
+        HeaderComponent
     ],
     imports: [
         BrowserModule,
@@ -29,7 +32,8 @@ import { RequestOptions } from './requests/RequestOptions.class';
         AppRoutingModule,
         BrowserAnimationsModule,
         MdInputModule,
-        MdButtonModule
+        MdButtonModule,
+        SimpleNotificationsModule.forRoot()
     ],
     providers: [JsonApiService, {provide: RequestOptions, useClass: RequestOptions}],
     bootstrap: [AppComponent]
