@@ -36,6 +36,5 @@ export class ContactCreateFormComponent {
                 this.notifications.error('There was a problem! Please try again later');
                 this.contactCreateForm.enable();
             });
-
     }
 }
