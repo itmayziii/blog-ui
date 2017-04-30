@@ -14,6 +14,7 @@ import { HeaderComponent } from './header/header.component';
 import { JsonApiService } from './services/json-api/json-api.service';
 import { RequestOptions } from './requests/RequestOptions.class';
 
+
 // vendor
 import { SimpleNotificationsModule } from 'angular2-notifications';
 
