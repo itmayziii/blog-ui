@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, RequestOptions } from '@angular/http';
 import { environment } from '../../../environments/environment';
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class JsonApiService {
@@ -17,11 +18,9 @@ export class JsonApiService {
         // format that model to a angular model
     }
 
-    public post(model: string, body: object) {
+    public post(model: string, body: object): Promise<object> {
         console.log(body);
         console.log(`${environment.apiVersion}/${model}`);
-        this.http.post(`${environment.apiVersion}/${model}`, body).subscribe((results) => {
-            console.log(results.json());
-        })
+        return this.http.post(`${environment.apiVersion}/${model}`, body).toPromise();
     }
 }
