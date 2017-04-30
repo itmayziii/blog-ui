@@ -8,6 +8,12 @@
   $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
 
+  // Auto fill ugliness on forms
+  input:-webkit-autofill, textarea:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px mat-color($primary, 900) inset !important;
+    -webkit-text-fill-color: mat-color($accent);
+  }
+
   .mat-input-container {
     label {
       color: mat-color($primary, 400);
@@ -39,11 +45,30 @@
     }
   }
 
+  button[md-raised-button][disabled] {
+    color: mat-color($warn) !important;
+  }
+
   .main-footer {
     background-color: mat-color($primary, 200);
   }
 
   .material-icons {
     color: mat-color($primary);
+  }
+
+  simple-notification {
+    .simple-notification.error {
+      background-color: mat-color($warn);
+    }
+
+    .simple-notification.success {
+      background-color: mat-color($accent, A700);
+    }
+
+    .sn-progress-loader {
+      background-color: white;
+
+    }
   }
 }

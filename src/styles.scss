@@ -13,3 +13,7 @@ body {
   padding-top: 70px;
   background-color: $background-color;
 }
+
+button[md-raised-button][disabled] {
+  background-color: $background-color !important;
+}

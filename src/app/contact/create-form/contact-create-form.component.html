@@ -35,22 +35,24 @@
             <div class="row">
 
                 <h2 class="col-xs-12 text-center">Fill This Out</h2>
-                <form action="/action_page.php" method="get" class="col-xs-offset-1 col-xs-10 form">
+                <form [formGroup]="contactCreateForm" (ngSubmit)="onSubmit()" method="get" class="col-xs-offset-1 col-xs-10 form" novalidate>
                     <div class="row">
                         <md-input-container class="col-xs-offset-1 col-xs-10" color="accent">
-                            <input mdInput placeholder="First Name" maxlength="100">
+                            <input mdInput placeholder="First Name" maxlength="100" formControlName="first-name">
                         </md-input-container>
                         <md-input-container class="col-xs-offset-1 col-xs-10" color="accent">
-                            <input mdInput placeholder="Last Name" maxlength="100">
+                            <input mdInput placeholder="Last Name" maxlength="100" formControlName="last-name">
                         </md-input-container>
                         <md-input-container class="col-xs-offset-1 col-xs-10" color="accent">
-                            <input mdInput placeholder="Email" maxlength="100">
+                            <input mdInput placeholder="Email" maxlength="100" formControlName="email">
                         </md-input-container>
                         <md-input-container class="col-xs-offset-1 col-xs-10" color="accent">
                             <textarea mdInput autofocus required mdTextareaAutosize minRows="6"
-                                      placeholder="Comments" maxlength="4000"></textarea>
+                                      placeholder="Comments" maxlength="4000" formControlName="comments"></textarea>
                         </md-input-container>
-                        <button class="col-xs-10" md-raised-button color="accent">Submit</button>
+                        <button class="col-xs-10" md-raised-button color="accent" type="submit" disabled="{{contactCreateForm.status === 'INVALID'}}">
+                            Submit
+                        </button>
                     </div>
                 </form>
 
