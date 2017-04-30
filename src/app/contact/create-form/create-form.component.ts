@@ -24,7 +24,6 @@ export class ContactCreateFormComponent {
     }
 
     private onSubmit() {
-        console.log(this.contactCreateForm.value);
-        this.jsonApi.get();
+        this.jsonApi.post('contacts', this.contactCreateForm.value);
     }
 }
