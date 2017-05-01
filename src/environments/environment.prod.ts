@@ -1,5 +1,5 @@
 export const environment = {
     production: true,
     apiVersion: 'v1',
-    apiUri: 'api.tommytrio.com'
+    apiUri: 'http://api.tommytrio.com'
 };

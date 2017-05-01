@@ -5,6 +5,7 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class JsonApiService {
+    private baseUri = `${environment.apiUri}/${environment.apiVersion}`;
 
     constructor(private http: Http) {}
 
@@ -19,8 +20,6 @@ export class JsonApiService {
     }
 
     public post(model: string, body: object): Promise<object> {
-        console.log(body);
-        console.log(`${environment.apiVersion}/${model}`);
-        return this.http.post(`${environment.apiVersion}/${model}`, body).toPromise();
+        return this.http.post(`${this.baseUri}/${model}`, body).toPromise();
     }
 }
