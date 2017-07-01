@@ -10,9 +10,12 @@ import { Component, OnInit } from '@angular/core';
                   <a href="/css/">Contact</a>
               </div>
             </nav>
+            
         </header>
+
   `,
     styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
+
 }
