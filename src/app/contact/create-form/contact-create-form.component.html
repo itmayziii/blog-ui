@@ -1,14 +1,17 @@
 <div class="container-fluid">
-    <div class="row">
-        <div class="contact-description col">Content</div>
+    <div class="row justify-content-center">
+        <div class="contact-description col-10 col-lg-6">Content</div>
 
-        <form [formGroup]="contactCreateForm" (ngSubmit)="onSubmit()" method="get" class="contact-form col" novalidate>
-            <blog-input fieldName="test" fieldLabel="Label">
-                <input name="test" id="test" type="text">
-            </blog-input>
-            <button md-raised-button class="contact-submit-button" color="accent" type="submit" disabled="{{contactCreateForm.status === 'INVALID'}}">
-                Submit
-            </button>
+        <form [formGroup]="contactCreateForm" (ngSubmit)="onSubmit()" method="get" class="contact-form col-10 col-lg-6" novalidate>
+            <div class="row justify-content-center">
+                <blog-input class="col-10" fieldName="test" fieldLabel="Label">
+                    <input name="test" id="test" type="text">
+                </blog-input>
+                <button class="btn btn-primary col-10" type="submit" disabled="{{contactCreateForm.status === 'INVALID'}}">
+                    Submit
+                </button>
+            </div>
         </form>
     </div>
+
 </div>
