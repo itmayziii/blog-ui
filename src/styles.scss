@@ -1,6 +1,6 @@
 // All styles are meant to style mobile first, media queries are used to handle larger devices
 @import "assets/scss/defaults";
-// Vendor
+@import "assets/scss/utilities";
 @import "assets/scss/bootstrap-overrides";
 @import "~bootstrap/scss/bootstrap";
 

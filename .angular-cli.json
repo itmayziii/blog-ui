@@ -19,14 +19,9 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "blog",
       "styles": [
-        "styles.scss"
+        "styles.scss",
+        "../node_modules/font-awesome/css/font-awesome.min.css"
       ],
-      "stylePreprocessorOptions": {
-        "includePaths": [
-          "assets/scss",
-          "../node_modules"
-        ]
-      },
       "scripts": [
       ],
       "environmentSource": "environments/environment.ts",

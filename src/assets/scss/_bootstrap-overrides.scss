@@ -1,5 +1,7 @@
-$brand-primary: #009688;
-$brand-success: #76ff03;
+@import "variables";
+
+$brand-primary: $primary-color;
+$brand-success: $accent-color;
 
 // TODO pick colors
 $brand-info: #000;

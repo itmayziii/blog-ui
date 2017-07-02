@@ -1,6 +1,56 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <div class="contact-description col-10 col-lg-6">Content</div>
+
+        <div class="contact-description-container col-10 col-lg-6">
+            <div class="row">
+
+                <h2 class="col-12 text-center">Get In Touch</h2>
+                <dl class="contact-description-groups">
+                    <div class="contact-description-group">
+                        <dt class="contact-description-group-title">Given:</dt>
+                        <dd class="contact-description-group-item">
+                            <i class="fa fa-users" aria-hidden="true"></i> You are looking for developers.
+                        </dd>
+                        <dd class="contact-description-group-item">
+                            <i class="fa fa-rss" aria-hidden="true"></i> You enjoy reading my blogs.
+                        </dd>
+                        <dd class="contact-description-group-item">
+                            <i class="fa fa-book" aria-hidden="true"></i>You want to learn something new.
+                        </dd>
+                    </div>
+
+                    <div class="contact-description-group">
+                        <dt class="contact-description-group-title">When:</dt>
+                        <dd class="contact-description-group-item">
+                            <i class="fa fa-briefcase" aria-hidden="true"></i> You have a project inquiry.
+                        </dd>
+                        <dd class="contact-description-group-item">
+                            <i class="fa fa-rss-square" aria-hidden="true"></i> You want me to cover a specific topic on my blog.
+                        </dd>
+                        <dd class="contact-description-group-item">
+                            <i class="fa fa-question-circle" aria-hidden="true"></i> You have a question.
+                        </dd>
+                        <dd class="contact-description-group-item">
+                            <i class="fa fa-smile-o" aria-hidden="true"></i> You want to play a round of golf.
+                        </dd>
+                        <dd class="strike-through contact-description-group-item">
+                            <i class="fa fa-ban" aria-hidden="true"></i> Your bored and have nothing better to do.
+                        </dd>
+                    </div>
+
+                    <div class="contact-description-group">
+                        <dt class="contact-description-group-title">Then:</dt>
+                        <dd class="contact-description-group-item">
+                            <i class="fa fa-keyboard-o" aria-hidden="true"></i> Fill out this form.
+                        </dd>
+                        <dd class="contact-description-group-item">
+                            <i class="fa fa-address-card" aria-hidden="true"></i> Contact me on social media.
+                        </dd>
+                    </div>
+                </dl>
+
+            </div>
+        </div>
 
         <form [formGroup]="contactCreateForm" (ngSubmit)="onSubmit()" method="get" class="contact-form col-10 col-lg-6" novalidate>
             <div class="row justify-content-center">
