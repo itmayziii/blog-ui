@@ -1,3 +1,28 @@
-$primary-color: #009688;
-$accent-color: #76ff03;
 $background-color: #e1e2e1;
+
+/*
+ * Bootstrap Overrides
+ */
+
+// colors
+$white: #fff;
+
+// branding
+$brand-primary: #009688;
+$brand-success: #76ff03;
+// TODO pick colors
+$brand-info: #000;
+$brand-warning: #000;
+$brand-danger: #000;
+$brand-inverse: #000;
+
+// nav
+$navbar-light-color: $white;
+$navbar-light-hover-color: $brand-success;
+$navbar-light-active-color: #brand-success;
+$navbar-light-toggler-border: $background-color;
+
+// links
+$link-color: $white;
+
+// End Bootstrap Overrides

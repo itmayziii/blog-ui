@@ -1,16 +1,12 @@
 // All styles are meant to style mobile first, media queries are used to handle larger devices
 @import "assets/scss/defaults";
 @import "assets/scss/utilities";
-@import "assets/scss/bootstrap-overrides";
+@import "assets/scss/variables";
 @import "~bootstrap/scss/bootstrap";
 
 .root {
   width: 100%;
   height: 100%;
   position: fixed;
-  top: 47px;
-  bottom: 0;
-  left: 0;
-  right: 0;
   overflow: auto;
 }
