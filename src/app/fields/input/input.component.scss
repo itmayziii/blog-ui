@@ -1,21 +1,33 @@
-:host {
+@import "../../../assets/scss/variables";
+
+.form-group {
+  height: 4rem;
   position: relative;
+
+  /deep/ .form-control {
+    height: 2rem;
+    position: absolute;
+    bottom: 0;
+    background-color: transparent;
+    border: 0;
+    border-bottom: 1px solid $brand-primary;
+    border-radius: 0;
+    color: $brand-primary;
+  }
 }
 
 .input-label {
   position: absolute;
-  top: 2px;
-  left: 3px;
-  font-size: 1.0rem;
-  color: teal;
+  top: 2.1rem;
+  left: .7rem;
+  font-size: 1.2rem;
+  color: $brand-primary;
+  transition: top 250ms ease-in;
 
-  &:active {
-    
+  &.active {
+    top: .8rem;
+    font-size: 1rem;
+    transition: top 250ms ease-in, font-size 150ms linear;
+    color: white;
   }
-}
-
-/deep/ input {
-  width: 500px;
-  background-color: transparent;
-  border: 0 none;
 }
