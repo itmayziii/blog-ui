@@ -37,4 +37,8 @@ export class ContactCreateFormComponent {
                 this.contactCreateForm.enable();
             });
     }
+
+    public test() {
+        console.log(this.contactCreateForm);
+    }
 }
