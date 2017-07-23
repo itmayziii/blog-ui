@@ -21,9 +21,7 @@ import { NavLink } from "../models/nav-link";
                     </ul>
                 </div>
             </nav>
-   
         </header>
-
   `,
     styleUrls: ['./header.component.scss']
 })
