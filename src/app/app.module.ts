@@ -9,7 +9,7 @@ import { ContactCreateFormComponent } from "./contact/create-form/contact-create
 import { NotFoundComponent } from './not-found/not-found.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
-import { JsonApiService } from './services/json-api/json-api.service';
+import { HttpService } from './services/http/http.service';
 import { RequestOptions } from './requests/RequestOptions.class';
 import { InputComponent } from './fields/input/input.component';
 
@@ -34,7 +34,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
         BrowserAnimationsModule,
         SimpleNotificationsModule.forRoot()
     ],
-    providers: [JsonApiService, {provide: RequestOptions, useClass: RequestOptions}],
+    providers: [HttpService, {provide: RequestOptions, useClass: RequestOptions}],
     bootstrap: [AppComponent]
 })
 export class AppModule {

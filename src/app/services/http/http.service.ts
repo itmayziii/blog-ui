@@ -4,7 +4,7 @@ import { environment } from '../../../environments/environment';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class JsonApiService {
+export class HttpService {
     private baseUri = `${environment.apiUri}/${environment.apiVersion}`;
 
     constructor(private http: Http) {}

@@ -1,16 +1,17 @@
 @import "~bootstrap/scss/bootstrap-grid";
 @import "../../../assets/scss/variables";
 
-.fa {
-  color: $brand-primary;
-}
+.contact-description-groups {
+  text-align: center;
 
-@include media-breakpoint-down(md) {
-  .contact-description-groups {
-    text-align: center;
+  .contact-description-group {
+    margin-top: 15px;
   }
 }
 
-.contact-description-group {
-  margin-top: 15px;
+.contact-form {
+  .contact-form-submit-button {
+    margin-bottom: 30px;
+  }
+
 }

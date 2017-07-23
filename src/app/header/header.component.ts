@@ -9,7 +9,9 @@ import { NavLink } from "../models/nav-link";
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsible-nav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand" href="#">Navbar</a>
+                <!--<a class="navbar-brand" href="#">-->
+                    <!--<img src="../../assets/images/"-->
+                <!--</a>-->
                 
                 <div class="collapse navbar-collapse" id="collapsible-nav">
                     <ul class="navbar-nav">
