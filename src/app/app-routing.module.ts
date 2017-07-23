@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ContactCreateFormComponent } from './contact/create-form/contact-create-form.component';
-
 import { NotFoundComponent } from "./not-found/not-found.component";
 
 const routes: Routes = [
@@ -11,12 +10,15 @@ const routes: Routes = [
     },
     {
         path: '**',
-        component: ContactCreateFormComponent //TODO use not found component
+        component: NotFoundComponent
     },
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
+    imports: [RouterModule.forRoot(
+        routes,
+        {enableTracing: true} // Debugging purposes only
+    )],
     exports: [RouterModule],
     providers: []
 })

@@ -1,6 +1,10 @@
 @import "~bootstrap/scss/bootstrap-grid";
 @import "../../assets/scss/variables";
 
+.active-route {
+  color: $brand-success;
+}
+
 @include media-breakpoint-down(md) {
   .nav-item {
     border-top: solid 1px $background-color;
