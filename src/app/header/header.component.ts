@@ -16,7 +16,7 @@ import { NavLink } from "../models/nav-link";
                 <div class="collapse navbar-collapse" id="collapsible-nav">
                     <ul class="navbar-nav">
                         <li *ngFor="let link of links" class="nav-item">
-                            <a routerLink="{{link.path}}" routerLinkActive="active-route" class="nav-link">{{link.title}}</a>
+                            <a routerLink="{{link.path}}" routerLinkActive="active" class="nav-link">{{link.title}}</a>
                         </li>
                     </ul>
                 </div>
