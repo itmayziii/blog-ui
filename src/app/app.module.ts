@@ -12,7 +12,7 @@ import { HeaderComponent } from './header/header.component';
 import { HttpService } from './services/http/http.service';
 import { RequestOptions } from './requests/RequestOptions.class';
 import { InputComponent } from './fields/input/input.component';
-
+import { AuthGuardComponent } from './auth-guard/auth-guard.component';
 
 // vendor
 import { SimpleNotificationsModule } from 'angular2-notifications';
@@ -34,7 +34,11 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
         BrowserAnimationsModule,
         SimpleNotificationsModule.forRoot()
     ],
-    providers: [HttpService, {provide: RequestOptions, useClass: RequestOptions}],
+    providers: [
+        AuthGuardComponent,
+        HttpService,
+        {provide: RequestOptions, useClass: RequestOptions}
+        ],
     bootstrap: [AppComponent]
 })
 export class AppModule {
