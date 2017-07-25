@@ -15,7 +15,8 @@ import { AuthGuard } from './auth-guard/auth-guard.class';
 import { RouterModule } from "@angular/router";
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { routes } from './router/routes';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './users/login/login.component';
+import { RegisterComponent } from './users/register/register.component';
 
 @NgModule({
     declarations: [
@@ -25,7 +26,8 @@ import { LoginComponent } from './login/login.component';
         FooterComponent,
         HeaderComponent,
         InputComponent,
-        LoginComponent
+        LoginComponent,
+        RegisterComponent
     ],
     imports: [
         BrowserModule,

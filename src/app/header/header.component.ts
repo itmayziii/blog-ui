@@ -12,7 +12,7 @@ import { NavLink } from "../models/nav-link";
                 <a class="navbar-brand" href="#">
                     Placeholder
                 </a>
-                
+
                 <div class="collapse navbar-collapse" id="collapsible-nav">
                     <ul class="navbar-nav">
                         <li *ngFor="let link of links" class="nav-item">
@@ -22,13 +22,13 @@ import { NavLink } from "../models/nav-link";
                 </div>
             </nav>
         </header>
-  `,
+    `,
     styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
     public links: Array<NavLink> = [
         {title: 'Blog', path: '/blog'},
         {title: 'Contact', path: '/contacts/create'},
-        {title: 'Login', path: '/login'}
+        {title: 'Login', path: '/users/login'}
     ];
 }
