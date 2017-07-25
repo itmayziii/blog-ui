@@ -9,14 +9,10 @@ export class HttpService {
 
     constructor(private http: Http) {}
 
-    public get(model: string) {
-        this.http.get(`${environment.apiVersion}/${model}`).subscribe((results) => {
+    public get(url: string) {
+        this.http.get(`${environment.apiVersion}/${url}`).subscribe((results) => {
             console.log(results);
         });
-
-        // Get the config url and use it to make the request
-        // use specified model to make request
-        // format that model to a angular model
     }
 
     public post(model: string, body: object): Promise<object> {

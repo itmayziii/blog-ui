@@ -17,10 +17,10 @@ export class ContactCreateFormComponent {
 
     private createForm() {
         this.contactCreateForm = this.formBuilder.group({
-            "first-name": this.formBuilder.control(null),
-            "last-name": this.formBuilder.control(null),
-            "email": this.formBuilder.control(null),
-            "comments": this.formBuilder.control(null, Validators.required)
+            "first-name": null,
+            "last-name": null,
+            "email": null,
+            "comments": [null, [Validators.required]]
         })
     }
 
