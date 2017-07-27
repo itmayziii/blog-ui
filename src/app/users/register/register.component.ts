@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { HttpService } from "../../services/http/http.service";
-import { Subscription } from "rxjs/Subscription";
-import { EqualValidator } from "../../validators/equal-validator.directive";
+import { equalTo } from 'ng2-validation/dist/equal-to';
 
 @Component({
     selector: 'blog-register',
@@ -23,13 +22,15 @@ export class RegisterComponent implements OnInit {
     }
 
     private createForm() {
-        let equalValidator = new EqualValidator();
         this.registerForm = this.formBuilder.group({
             "first-name": [null, [Validators.required]],
             "last-name": [null, [Validators.required]],
-            "email": [null, [Validators.required]],
-            "password": [null, [Validators.required]],
-            "password-confirmation": [null, [Validators.required, equalValidator.validate]]
+            "email": [null, [Validators.required]]
         });
+
+        const passwordControl = this.formBuilder.control(null, [Validators.required]);
+        const passwordConfirmationControl = this.formBuilder.control(null, [Validators.required, equalTo(passwordControl)]);
+        this.registerForm.addControl('password', passwordControl);
+        this.registerForm.addControl('password-confirmation', passwordConfirmationControl);
     }
 }

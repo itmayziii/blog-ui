@@ -26,6 +26,8 @@
                 <input id="password-confirmation" class="form-control" formControlName="password-confirmation">
             </fieldset>
 
+            <h1 *ngIf="registerForm.controls['password-confirmation']">{{registerForm.controls['password-confirmation'].valid}}</h1>
+
             <button type="submit" class="btn btn-primary">Register</button>
         </form>
     </div>

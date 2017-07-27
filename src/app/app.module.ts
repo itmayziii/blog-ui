@@ -17,6 +17,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 import { routes } from './router/routes';
 import { LoginComponent } from './users/login/login.component';
 import { RegisterComponent } from './users/register/register.component';
+import { CustomFormsModule } from 'ng2-validation'
 
 @NgModule({
     declarations: [
@@ -35,7 +36,8 @@ import { RegisterComponent } from './users/register/register.component';
         ReactiveFormsModule,
         HttpModule,
         BrowserAnimationsModule,
-        SimpleNotificationsModule.forRoot()
+        SimpleNotificationsModule.forRoot(),
+        CustomFormsModule
     ],
     providers: [
         AuthGuard,
