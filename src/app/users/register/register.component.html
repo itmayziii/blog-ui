@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="col-6 register-form" novalidate>
+        <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="col-12 col-md-8 col-lg-6 register-form" novalidate>
             <fieldset class="form-group">
                 <label for="first-name">First Name</label>
                 <input id="first-name" class="form-control" formControlName="first-name">
@@ -24,9 +24,8 @@
             <fieldset class="form-group">
                 <label for="password-confirmation">Confirm Password</label>
                 <input id="password-confirmation" class="form-control" formControlName="password-confirmation">
+                <div *ngIf="!doPasswordsMatch()" class="text-right text-danger">Passwords do not match</div>
             </fieldset>
-
-            <h1 *ngIf="registerForm.controls['password-confirmation']">{{registerForm.controls['password-confirmation'].valid}}</h1>
 
             <button type="submit" class="btn btn-primary">Register</button>
         </form>

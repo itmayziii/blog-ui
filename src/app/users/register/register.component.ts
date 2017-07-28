@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { HttpService } from "../../services/http/http.service";
 import { equalTo } from 'ng2-validation/dist/equal-to';
 
@@ -18,7 +18,22 @@ export class RegisterComponent implements OnInit {
     }
 
     public onRegister() {
+        console.log(this.registerForm.controls['password-confirmation']);
+    }
 
+    public doPasswordsMatch() {
+        const passwordConfirmationControl = this.registerForm.controls['password-confirmation'];
+
+        // We will not determine if the passwords match unless the confirmation has been modified
+        if (!passwordConfirmationControl.dirty) {
+            return true;
+        }
+
+        if (!this.isPasswordConfirmationErrors(passwordConfirmationControl)) {
+            return true;
+        }
+
+        return !passwordConfirmationControl.errors['equalTo'];
     }
 
     private createForm() {
@@ -32,5 +47,9 @@ export class RegisterComponent implements OnInit {
         const passwordConfirmationControl = this.formBuilder.control(null, [Validators.required, equalTo(passwordControl)]);
         this.registerForm.addControl('password', passwordControl);
         this.registerForm.addControl('password-confirmation', passwordConfirmationControl);
+    }
+
+    private isPasswordConfirmationErrors(passwordConfirmationFormControl: AbstractControl) {
+        return (passwordConfirmationFormControl && passwordConfirmationFormControl.errors)
     }
 }
