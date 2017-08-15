@@ -28,12 +28,12 @@ export class ContactCreateFormComponent {
         this.contactCreateForm.disable();
         this.jsonApi.post('contacts', this.contactCreateForm.value)
             .then((results) => {
-                this.notifications.success('Thank you for your submission!');
+                this.notifications.success('Success', 'Thank you for your submission!');
                 this.contactCreateForm.reset();
                 this.contactCreateForm.enable();
             })
             .catch((error: any) => {
-                this.notifications.error('There was a problem! Please try again later');
+                this.notifications.error('Error', 'There was a problem! Please try again later');
                 this.contactCreateForm.enable();
             });
     }

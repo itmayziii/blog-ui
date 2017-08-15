@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { JsonApiService } from "../../services/http/json-api.service";
 import { equalTo } from 'ng2-validation/dist/equal-to';
+import { NotificationsService } from "angular2-notifications/dist";
+import { JsonApiErrors } from "../../models/json-api/json-api-errors";
+import { Router } from "@angular/router";
 
 @Component({
     selector: 'blog-register',
@@ -11,7 +14,11 @@ import { equalTo } from 'ng2-validation/dist/equal-to';
 export class RegisterComponent implements OnInit {
     public registerForm: FormGroup;
 
-    public constructor(private formBuilder: FormBuilder, private jsonApi: JsonApiService) { }
+    public constructor(
+        private formBuilder: FormBuilder,
+        private jsonApi: JsonApiService,
+        private notifications: NotificationsService,
+        private router: Router) { }
 
     public ngOnInit(): void {
         this.createForm();
@@ -20,10 +27,12 @@ export class RegisterComponent implements OnInit {
     public onRegister(): void {
         this.jsonApi.post('users', this.registerForm.value)
             .then((results) => {
-                console.log(results);
+                // TODO open the users page
+                this.router.navigate([`/users/putIDHere`]);
             })
-            .catch((error) => {
-                console.log('an error occured ', error);
+            .catch((error: JsonApiErrors) => {
+                console.log(error);
+                this.notifications.error(error.errors.title, error.errors.source.email[0]);
             });
     }
 

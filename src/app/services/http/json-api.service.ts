@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, RequestOptionsArgs } from '@angular/http';
+import { Http, RequestOptionsArgs, Response } from '@angular/http';
 import { environment } from '../../../environments/environment';
 import { Headers } from "@angular/http";
 import 'rxjs/add/operator/toPromise';
@@ -22,6 +22,15 @@ export class JsonApiService {
             "Content-Type": "application/vnd.api+json",
             "Accept": "application/vnd.api+json"
         });
-        return this.http.post(`v1/${url}`, body, requestOptions).toPromise();
+
+        return new Promise((resolve, reject) => {
+            this.http.post(`v1/${url}`, body, requestOptions).toPromise()
+                .then((results: Response) => {
+                    resolve(results.json());
+                })
+                .catch((error: Response) => {
+                    reject(error.json());
+                });
+        });
     }
 }
