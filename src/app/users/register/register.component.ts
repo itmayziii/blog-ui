@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { JsonApiService } from "../../services/http/json-api.service";
 import { equalTo } from 'ng2-validation/dist/equal-to';
-import { Headers } from "@angular/http";
 
 @Component({
     selector: 'blog-register',
@@ -19,11 +18,7 @@ export class RegisterComponent implements OnInit {
     }
 
     public onRegister(): void {
-        const headers = new Headers({
-            "Content-Type": "application/vnd.api+json",
-            "Accept": "application/vnd.api+json"
-        });
-        this.jsonApi.post('users', this.registerForm.value, {headers: headers})
+        this.jsonApi.post('users', this.registerForm.value)
             .then((results) => {
                 console.log(results);
             })
