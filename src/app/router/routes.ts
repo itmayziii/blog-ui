@@ -38,11 +38,6 @@ export const routes: Routes = [
         ]
     },
     {
-        canActivate: [AuthGuard],
-        path: 'contacts/create',
-        component: ContactCreateFormComponent
-    },
-    {
         path: '**',
         component: NotFoundComponent
     },

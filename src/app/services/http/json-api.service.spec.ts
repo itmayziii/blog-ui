@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { HttpService } from './http.service';
+import { JsonApiService } from './json-api.service';
 
 describe('HttpService', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [HttpService]
+            providers: [JsonApiService]
         });
     });
 
-    it('should ...', inject([HttpService], (service: HttpService) => {
+    it('should ...', inject([JsonApiService], (service: JsonApiService) => {
         expect(service).toBeTruthy();
     }));
 });

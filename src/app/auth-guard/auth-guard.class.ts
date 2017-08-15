@@ -17,7 +17,7 @@ export class AuthGuard implements CanActivate {
             const apiToken = localStorage.getItem('API-Token');
             const apiTokenExpiration = localStorage.getItem('API-Token-Expiration');
             if (!apiToken || !apiTokenExpiration || this.isApiTokenExpired(apiTokenExpiration)) {
-                this.router.navigate(['/login']).then(() => {});
+                this.router.navigate(['/users/login']).then(() => {});
                 resolve(false);
             }
 

@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpService } from "../../services/http/http.service";
+import { JsonApiService } from "../../services/http/json-api.service";
 import { NotificationsService } from "angular2-notifications/dist";
 
 @Component({
@@ -11,7 +11,7 @@ import { NotificationsService } from "angular2-notifications/dist";
 export class ContactCreateFormComponent {
     public contactCreateForm: FormGroup;
 
-    constructor(private formBuilder: FormBuilder, private httpService: HttpService, private notifications: NotificationsService) {
+    constructor(private formBuilder: FormBuilder, private jsonApi: JsonApiService, private notifications: NotificationsService) {
         this.createForm();
     }
 
@@ -26,7 +26,7 @@ export class ContactCreateFormComponent {
 
     public onSubmit() {
         this.contactCreateForm.disable();
-        this.httpService.post('contacts', this.contactCreateForm.value)
+        this.jsonApi.post('contacts', this.contactCreateForm.value)
             .then((results) => {
                 this.notifications.success('Thank you for your submission!');
                 this.contactCreateForm.reset();

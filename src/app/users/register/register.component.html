@@ -7,7 +7,7 @@
             </fieldset>
 
             <fieldset class="form-group">
-                <label for="last-name">Email Address</label>
+                <label for="last-name">Last Name</label>
                 <input id="last-name" class="form-control" formControlName="last-name">
             </fieldset>
 
@@ -18,16 +18,16 @@
 
             <fieldset class="form-group">
                 <label for="password">Password</label>
-                <input id="password" class="form-control" formControlName="password">
+                <input type="password" id="password" class="form-control" formControlName="password">
             </fieldset>
 
             <fieldset class="form-group">
-                <label for="password-confirmation">Confirm Password</label>
-                <input id="password-confirmation" class="form-control" formControlName="password-confirmation">
+                <label for="password_confirmation">Confirm Password</label>
+                <input type="password" id="password_confirmation" class="form-control" formControlName="password_confirmation">
                 <div *ngIf="!doPasswordsMatch()" class="text-right text-danger">Passwords do not match</div>
             </fieldset>
 
-            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!registerForm.valid">Register</button>
         </form>
     </div>
 </div>

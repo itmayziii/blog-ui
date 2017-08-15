@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Http, RequestOptions } from '@angular/http';
+import { Http, RequestOptionsArgs } from '@angular/http';
 import { environment } from '../../../environments/environment';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class HttpService {
+export class JsonApiService {
     private baseUri = `${environment.apiUri}/${environment.apiVersion}`;
 
     constructor(private http: Http) {}
@@ -15,7 +15,9 @@ export class HttpService {
         });
     }
 
-    public post(model: string, body: object): Promise<object> {
-        return this.http.post(`${this.baseUri}/${model}`, body).toPromise();
+    public post(url: string, body: any, requestOptions?: RequestOptionsArgs): Promise<object> {
+        console.log(this.baseUri);
+        console.log(url);
+        return this.http.post(`v1/${url}`, body, requestOptions).toPromise();
     }
 }

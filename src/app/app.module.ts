@@ -8,7 +8,7 @@ import { ContactCreateFormComponent } from "./contact/create-form/contact-create
 import { NotFoundComponent } from './not-found/not-found.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
-import { HttpService } from './services/http/http.service';
+import { JsonApiService } from './services/http/json-api.service';
 import { RequestOptions } from './requests/RequestOptions.class';
 import { InputComponent } from './fields/input/input.component';
 import { AuthGuard } from './auth-guard/auth-guard.class';
@@ -41,9 +41,7 @@ import { CustomFormsModule } from 'ng2-validation'
     ],
     providers: [
         AuthGuard,
-        HttpService,
-        {provide: RequestOptions, useClass: RequestOptions}
-    ],
+        JsonApiService],
     bootstrap: [AppComponent]
 })
 export class AppModule {
