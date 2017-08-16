@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Http, Headers } from "@angular/http";
+import { HttpService } from "../../services/http/http.service";
 
 @Component({
     selector: 'blog-login',
@@ -9,9 +11,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 export class LoginComponent implements OnInit {
     public loginForm: FormGroup;
 
-    public constructor(private formBuilder: FormBuilder) {
-
-    }
+    public constructor(private formBuilder: FormBuilder, private httpService: HttpService) {}
 
     public ngOnInit(): void {
         this.loginForm = this.formBuilder.group({
@@ -21,6 +21,11 @@ export class LoginComponent implements OnInit {
     }
 
     public onSubmit(): void {
-
+        const headers = new Headers({
+            Authorization: `Bearer ${this.loginForm.get('email').value}`
+        });
+        this.httpService.get('/authenticate', {headers: headers}).then((results) => {
+            console.log(results);
+        })
     }
 }

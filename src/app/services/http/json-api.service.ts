@@ -1,36 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Http, RequestOptionsArgs, Response } from '@angular/http';
-import { environment } from '../../../environments/environment';
+import { Http } from '@angular/http';
 import { Headers } from "@angular/http";
 import 'rxjs/add/operator/toPromise';
+import { HttpService } from "./http.service";
 
 @Injectable()
-export class JsonApiService {
-    private baseUri = `${environment.apiUri}/${environment.apiVersion}`;
+export class JsonApiService extends HttpService {
+    protected headers: Headers = new Headers({
+        "Content-Type": "application/vnd.api+json",
+        "Accept": "application/vnd.api+json"
+    });
 
-    constructor(private http: Http) {}
-
-    public get(url: string) {
-        this.http.get(`${environment.apiVersion}/${url}`).subscribe((results) => {
-            console.log(results);
-        });
-    }
-
-    public post(url: string, body: any, requestOptions?: RequestOptionsArgs): Promise<object> {
-        requestOptions = (requestOptions || {});
-        requestOptions.headers = new Headers({
-            "Content-Type": "application/vnd.api+json",
-            "Accept": "application/vnd.api+json"
-        });
-
-        return new Promise((resolve, reject) => {
-            this.http.post(`v1/${url}`, body, requestOptions).toPromise()
-                .then((results: Response) => {
-                    resolve(results.json());
-                })
-                .catch((error: Response) => {
-                    reject(error.json());
-                });
-        });
+    constructor(protected http: Http) {
+        super(http);
     }
 }

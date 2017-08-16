@@ -4,6 +4,7 @@ import { ContactCreateFormComponent } from "../contact/create-form/contact-creat
 import { NotFoundComponent } from "../not-found/not-found.component";
 import { LoginComponent } from "../users/login/login.component";
 import { RegisterComponent } from "../users/register/register.component";
+import { ContactShowComponent } from "../contact/show/contact-show.component";
 
 export const routes: Routes = [
     {
@@ -22,16 +23,17 @@ export const routes: Routes = [
     {
         path: 'contacts',
         children: [
-            // {
-            //     path: '',
-            //     component: ContactListComponent
-            // },
-            // {
-            //     path: ':id',
-            //     component: ContactShowComponent
-            // }
             {
                 canActivate: [AuthGuard],
+                path: '',
+                component: ContactShowComponent
+            },
+            {
+                canActivate: [AuthGuard],
+                path: ':id',
+                component: ContactShowComponent
+            },
+            {
                 path: 'create',
                 component: ContactCreateFormComponent
             }
