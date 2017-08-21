@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import { Headers } from "@angular/http";
 import 'rxjs/add/operator/toPromise';
 import { HttpService } from "./http.service";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class JsonApiService extends HttpService {
@@ -11,7 +12,7 @@ export class JsonApiService extends HttpService {
         "Accept": "application/vnd.api+json"
     });
 
-    constructor(protected http: Http) {
-        super(http);
+    constructor(protected http: Http, protected router: Router) {
+        super(http, router);
     }
 }

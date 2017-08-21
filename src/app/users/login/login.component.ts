@@ -22,10 +22,10 @@ export class LoginComponent implements OnInit {
 
     public onSubmit(): void {
         const headers = new Headers({
-            Authorization: `Bearer ${this.loginForm.get('email').value}`
+            Authorization: `Basic ${this.loginForm.get('email').value}:${this.loginForm.get('password')}`
         });
-        this.httpService.get('/authenticate', {headers: headers}).then((results) => {
+        this.httpService.get('/authenticate', {headers: headers}).subscribe((results: any) => {
             console.log(results);
-        })
+        });
     }
 }
