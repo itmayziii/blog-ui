@@ -28,18 +28,18 @@ export class HttpService {
             });
     }
 
-    // public post(url: string, body: any, requestOptions?: RequestOptionsArgs): Promise<object> {
-    //     requestOptions = this.prepareRequestOptions(requestOptions);
-    //     return new Promise((resolve, reject) => {
-    //         this.http.post(`v1/${url}`, body, requestOptions).toPromise()
-    //             .then((results: Response) => {
-    //                 resolve(results.json());
-    //             })
-    //             .catch((error: Response) => {
-    //                 reject(error.json());
-    //             });
-    //     });
-    // }
+    public post(url: string, body: any, requestOptions?: RequestOptionsArgs): Promise<object> {
+        requestOptions = this.prepareRequestOptions(requestOptions);
+        return new Promise((resolve, reject) => {
+            this.http.post(`${this.baseUri}/${url}`, body, requestOptions).toPromise()
+                .then((results: Response) => {
+                    resolve(results.json());
+                })
+                .catch((error: Response) => {
+                    reject(error.json());
+                });
+        });
+    }
 
     protected prepareRequestOptions(requestOptions: RequestOptionsArgs): RequestOptionsArgs {
         requestOptions = (requestOptions || {});
