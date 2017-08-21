@@ -20,26 +20,26 @@ export class HttpService {
         return this.http
             .get(`${this.baseUri}/${url}`, requestOptions)
             .map((response: Response) => {
-                response.json();
+                return response.json();
             })
             .catch((error: Response) => {
-                console.log('IN AN ERROR');
+                console.log('INSIDE CATCH');
                 return this.handleError(error);
             });
     }
 
-    public post(url: string, body: any, requestOptions?: RequestOptionsArgs): Promise<object> {
-        requestOptions = this.prepareRequestOptions(requestOptions);
-        return new Promise((resolve, reject) => {
-            this.http.post(`${this.baseUri}/${url}`, body, requestOptions).toPromise()
-                .then((results: Response) => {
-                    resolve(results.json());
-                })
-                .catch((error: Response) => {
-                    reject(error.json());
-                });
-        });
-    }
+    // public post(url: string, body: any, requestOptions?: RequestOptionsArgs): Promise<object> {
+    //     requestOptions = this.prepareRequestOptions(requestOptions);
+    //     return new Promise((resolve, reject) => {
+    //         this.http.post(`${this.baseUri}/${url}`, body, requestOptions).toPromise()
+    //             .then((results: Response) => {
+    //                 resolve(results.json());
+    //             })
+    //             .catch((error: Response) => {
+    //                 reject(error.json());
+    //             });
+    //     });
+    // }
 
     protected prepareRequestOptions(requestOptions: RequestOptionsArgs): RequestOptionsArgs {
         requestOptions = (requestOptions || {});
@@ -65,11 +65,9 @@ export class HttpService {
         console.error(`There was a problem making a GET request to URL:`, error);
 
         if (error.status === 401 && this.router.url !== '/users/login') {
-            console.log('abc');
-            this.router.navigate(['/users/login']).then(() => {});
+            return Observable.of(this.router.navigate(['/users/login']));
         } else {
             // Letting the error pass through to be handled on a per case basis
-            console.log('def');
             return Observable.throw(error);
         }
     }
