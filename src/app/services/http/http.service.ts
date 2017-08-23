@@ -63,7 +63,7 @@ export class HttpService {
             return Observable.of(this.router.navigate(['/users/login']));
         } else {
             // Letting the error pass through to be handled on a per case basis
-            return Observable.throw(error);
+            return Observable.throw(error.json());
         }
     }
 }

@@ -27,14 +27,17 @@ export class RegisterComponent implements OnInit {
 
     public onRegister(): void {
         this.jsonApi.post('users', this.registerForm.value)
-            .catch((error: JsonApiErrors) => {
-                this.notifications.error(error.errors.title, error.errors.source.email[0]);
-                return Observable.create('error tommy');
-            })
-            .subscribe((response: Response) => {
-                // TODO open the users page
-                this.router.navigate([`/users/putIDHere`]);
-            });
+            .subscribe(
+                (response: Response) => {
+                    // TODO open the users page
+                    this.router.navigate([`/users/putIDHere`]);
+                },
+                (error: JsonApiErrors) => {
+                    const errorSource = error.errors.source;
+                    const firstError = errorSource[Object.keys(errorSource)[0]];
+                    this.notifications.error(error.errors.title, firstError);
+                }
+            );
     }
 
     public doPasswordsMatch(): boolean {

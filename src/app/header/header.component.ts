@@ -4,8 +4,8 @@ import { NavLink } from "../models/nav-link";
 @Component({
     selector: 'app-header',
     template: `
-        <header>
-            <nav class="navbar navbar-toggleable-md sticky-top navbar-light bg-primary">
+        <header class="header">
+            <nav class="navbar navbar-toggleable-md sticky-top navbar-light">
                 <button class="navbar-toggler navbar-toggler-right" type="button" (click)="toggleNavigationMenu()">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -31,7 +31,8 @@ export class HeaderComponent {
     public links: Array<NavLink> = [
         {title: 'Blog', path: '/blog'},
         {title: 'Contact', path: '/contacts/create'},
-        {title: 'Login', path: '/users/login'}
+        {title: 'Login', path: '/users/login'},
+        {title: 'Register', path: '/users/register'}
     ];
 
     public toggleNavigationMenu() {
