@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { JsonApiService } from "../../services/http/json-api.service";
 import { NotificationsService } from "angular2-notifications/dist";
+import 'rxjs/add/operator/catch';
 
 @Component({
     selector: 'blog-contact-create-form',
@@ -15,7 +16,7 @@ export class ContactCreateFormComponent {
         this.createForm();
     }
 
-    private createForm() {
+    private createForm(): void {
         this.contactCreateForm = this.formBuilder.group({
             "first-name": null,
             "last-name": null,
@@ -24,17 +25,19 @@ export class ContactCreateFormComponent {
         })
     }
 
-    public onSubmit() {
+    public onSubmit(): void {
         this.contactCreateForm.disable();
-        this.jsonApi.post('contacts', this.contactCreateForm.value)
-            .then((results) => {
+        this.jsonApi.post('contacts', this.contactCreateForm.value).subscribe(
+            (response: any) => {
+                console.log('in subscription');
                 this.notifications.success('Success', 'Thank you for your submission!');
                 this.contactCreateForm.reset();
                 this.contactCreateForm.enable();
-            })
-            .catch((error: any) => {
+            },
+            (error: any) => {
                 this.notifications.error('Error', 'There was a problem! Please try again later');
                 this.contactCreateForm.enable();
-            });
+            }
+        );
     }
 }

@@ -17,29 +17,25 @@ export class HttpService {
 
     public get(url: string, requestOptions?: RequestOptionsArgs): Observable<any> {
         requestOptions = this.prepareRequestOptions(requestOptions);
-        return this.http
-            .get(`${this.baseUri}/${url}`, requestOptions)
+        return this.http.get(`${this.baseUri}/${url}`, requestOptions)
             .map((response: Response) => {
                 return response.json();
             })
             .catch((error: Response) => {
-                console.log('INSIDE CATCH');
-                return this.handleError(error);
+                return this.handleError(error, 'GET');
             });
     }
 
-    // public post(url: string, body: any, requestOptions?: RequestOptionsArgs): Promise<object> {
-    //     requestOptions = this.prepareRequestOptions(requestOptions);
-    //     return new Promise((resolve, reject) => {
-    //         this.http.post(`${this.baseUri}/${url}`, body, requestOptions).toPromise()
-    //             .then((results: Response) => {
-    //                 resolve(results.json());
-    //             })
-    //             .catch((error: Response) => {
-    //                 reject(error.json());
-    //             });
-    //     });
-    // }
+    public post(url: string, body: any, requestOptions?: RequestOptionsArgs): Observable<any> {
+        requestOptions = this.prepareRequestOptions(requestOptions);
+        return this.http.post(`${this.baseUri}/${url}`, body, requestOptions)
+            .map((response: Response) => {
+                return response.json();
+            })
+            .catch((error: Response) => {
+                return this.handleError(error, 'POST');
+            });
+    }
 
     protected prepareRequestOptions(requestOptions: RequestOptionsArgs): RequestOptionsArgs {
         requestOptions = (requestOptions || {});
@@ -54,15 +50,14 @@ export class HttpService {
     }
 
     private addHeaders(requestOptions: RequestOptionsArgs, headers: Headers): Headers {
-        for (let headerName of headers.keys()) {
-            console.log(headerName);
-            requestOptions.headers.set(headerName, headers.get(headerName));
+        for (let headerName of requestOptions.headers.keys()) {
+            headers.set(headerName, requestOptions.headers.get(headerName));
         }
-        return requestOptions.headers;
+        return headers;
     }
 
-    private handleError(error: Response): Observable<any> {
-        console.error(`There was a problem making a GET request to URL:`, error);
+    private handleError(error: Response, requestMethod: string): Observable<any> {
+        console.error(`There was a problem making a ${requestMethod} request to URL: ${error.url}`, error);
 
         if (error.status === 401 && this.router.url !== '/users/login') {
             return Observable.of(this.router.navigate(['/users/login']));

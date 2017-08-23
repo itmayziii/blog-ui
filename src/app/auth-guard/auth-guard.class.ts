@@ -9,10 +9,13 @@ export class AuthGuard implements CanActivate {
     }
 
     public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
+        console.log(route);
+        console.log(state);
         return this.checkLogin();
     }
 
     private checkLogin(): Promise<boolean> {
+        console.log('checking login');
         return new Promise((resolve) => {
             const apiToken = localStorage.getItem('API-Token');
             const apiTokenExpiration = localStorage.getItem('API-Token-Expiration');

@@ -24,9 +24,8 @@ export const routes: Routes = [
         path: 'contacts',
         children: [
             {
-                canActivate: [AuthGuard],
-                path: '',
-                component: ContactShowComponent
+                path: 'create',
+                component: ContactCreateFormComponent
             },
             {
                 canActivate: [AuthGuard],
@@ -34,9 +33,10 @@ export const routes: Routes = [
                 component: ContactShowComponent
             },
             {
-                path: 'create',
-                component: ContactCreateFormComponent
-            }
+                canActivate: [AuthGuard],
+                path: '',
+                component: ContactShowComponent
+            },
         ]
     },
     {
