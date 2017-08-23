@@ -33,20 +33,11 @@ describe('http.service.ts', () => {
 
     describe('get()', () => {
 
-        it('should make an http get request to the correct url with the correct options', (done) => {
-            inject([HttpService, MockBackend], (httpService: HttpService, mockBackend: MockBackend) => {
-                mockBackend.connections.subscribe((connection: MockConnection) => {
-                    const responseOptions = new ResponseOptions({
-                        body: '{"data":"Awesome Test"}',
-                        status: 200
-                    });
-
-                    // Using endsWith to prevent fragile tests when configuration changes
+        it('should make an HTTP GET request to the correct url with the correct options', (done) => {
+            inject([HttpService], (httpService: HttpService) => {
+                makeSuccessfulHttpRequest((connection: MockConnection) => {
                     expect(connection.request.url.endsWith('users')).toBeTruthy();
                     expect(connection.request.headers.toJSON()).toEqual({"Content-Type": ['JSON']});
-
-                    const response: Response = new Response(responseOptions);
-                    connection.mockRespond(response);
                 });
 
                 httpService.get('users').subscribe((response) => {
@@ -58,17 +49,8 @@ describe('http.service.ts', () => {
         });
 
         it('if an error occurs with the request then the router navigates to the login page', (done) => {
-            inject([HttpService, MockBackend, Router], (httpService: HttpService, mockBackend: MockBackend, router: Router) => {
-                mockBackend.connections.subscribe((connection: MockConnection) => {
-                    const responseOptions = new ResponseOptions({
-                        url: 'http://localhost/blogs',
-                        body: '{"error":"Unauthorized"}',
-                        status: 401
-                    });
-
-                    const response: any = new Response(responseOptions);
-                    connection.mockError(response);
-                });
+            inject([HttpService, Router], (httpService: HttpService, router: Router) => {
+                makeBadHttpRequest();
                 spyOn(router, 'navigate');
 
                 httpService.get('users').subscribe((response) => {
@@ -80,17 +62,9 @@ describe('http.service.ts', () => {
         });
 
         it('should allow passed in headers to override default headers', (done) => {
-            inject([HttpService, MockBackend], (httpService: HttpService, mockBackend: MockBackend) => {
-                mockBackend.connections.subscribe((connection: MockConnection) => {
-                    const responseOptions = new ResponseOptions({
-                        body: '{"data":"Amazing Test"}',
-                        status: 200
-                    });
-
+            inject([HttpService], (httpService: HttpService) => {
+                makeSuccessfulHttpRequest((connection: MockConnection) => {
                     expect(connection.request.headers.toJSON()).toEqual({"Content-Type": ["text/plain"]});
-
-                    const response: Response = new Response(responseOptions);
-                    connection.mockRespond(response);
                 });
 
                 const headers = new Headers({"Content-Type": "text/plain"});
@@ -104,11 +78,49 @@ describe('http.service.ts', () => {
 
     describe('post()', () => {
 
-        it('should make an http post request ')
+        it('should make an HTTP POST request')
 
     });
 });
 
 class RouterStub {
     public navigate() {}
+}
+
+function makeSuccessfulHttpRequest(callback?: Function) {
+    inject([MockBackend], (mockBackend: MockBackend) => {
+        mockBackend.connections.subscribe((connection: MockConnection) => {
+            const responseOptions = new ResponseOptions({
+                url: connection.request.url,
+                body: '{"data":"Awesome Test"}',
+                status: 200
+            });
+
+            if (callback) {
+                callback(connection);
+            }
+
+            const response: Response = new Response(responseOptions);
+            connection.mockRespond(response);
+        });
+    })();
+}
+
+function makeBadHttpRequest(callback?: Function) {
+    inject([MockBackend], (mockBackend: MockBackend) => {
+        mockBackend.connections.subscribe((connection: MockConnection) => {
+            const responseOptions = new ResponseOptions({
+                url: connection.request.url,
+                body: '{"error":"Unauthorized"}',
+                status: 401
+            });
+
+            if (callback) {
+                callback(connection);
+            }
+
+            const response: Response | any = new Response(responseOptions);
+            connection.mockError(response);
+        });
+    })();
 }
