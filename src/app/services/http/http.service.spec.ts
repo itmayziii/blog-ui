@@ -37,10 +37,11 @@ describe('http.service.ts', () => {
             inject([HttpService], (httpService: HttpService) => {
                 makeSuccessfulHttpRequest((connection: MockConnection) => {
                     expect(connection.request.url.endsWith('users')).toBeTruthy();
-                    expect(connection.request.headers.toJSON()).toEqual({"Content-Type": ['JSON']});
+                    expect(connection.request.headers.toJSON()).toEqual({"Content-Type": ['text/plain']});
                 });
 
-                httpService.get('users').subscribe((response) => {
+                const headers = new Headers({"Content-Type": "text/plain"});
+                httpService.get('users', {headers: headers}).subscribe((response) => {
                     expect(response.data).toBeDefined();
                     expect(response.data).toBe("Awesome Test");
                     done();
@@ -61,19 +62,6 @@ describe('http.service.ts', () => {
             })();
         });
 
-        it('should allow passed in headers to override default headers', (done) => {
-            inject([HttpService], (httpService: HttpService) => {
-                makeSuccessfulHttpRequest((connection: MockConnection) => {
-                    expect(connection.request.headers.toJSON()).toEqual({"Content-Type": ["text/plain"]});
-                });
-
-                const headers = new Headers({"Content-Type": "text/plain"});
-                httpService.get('users', {headers: headers}).subscribe(() => {
-                    done();
-                });
-            })();
-        });
-
     });
 
     describe('post()', () => {
@@ -82,10 +70,12 @@ describe('http.service.ts', () => {
             inject([HttpService], (httpService: HttpService) => {
                 makeSuccessfulHttpRequest((connection: MockConnection) => {
                     expect(connection.request.url.endsWith('users')).toBeTruthy();
-                    expect(connection.request.headers.toJSON()).toEqual({"Content-Type": ['JSON']});
+                    expect(connection.request.getBody()).toEqual('TestingBody');
+                    expect(connection.request.headers.toJSON()).toEqual({"Content-Type": ['text/plain']});
                 });
 
-                httpService.post('users', {}).subscribe((response) => {
+                const headers = new Headers({"Content-Type": "text/plain"});
+                httpService.post('users', 'TestingBody', {headers: headers}).subscribe((response) => {
                     expect(response.data).toBeDefined();
                     expect(response.data).toBe("Awesome Test");
                     done();
@@ -101,19 +91,6 @@ describe('http.service.ts', () => {
                 httpService.post('users', {}).subscribe(() => {
                     expect(router.navigate).toHaveBeenCalledTimes(1);
                     expect(router.navigate).toHaveBeenCalledWith(['/users/login']);
-                    done();
-                });
-            })();
-        });
-
-        it('should allow passed in headers to override default headers', (done) => {
-            inject([HttpService], (httpService: HttpService) => {
-                makeSuccessfulHttpRequest((connection: MockConnection) => {
-                    expect(connection.request.headers.toJSON()).toEqual({"Content-Type": ["text/plain"]});
-                });
-
-                const headers = new Headers({"Content-Type": "text/plain"});
-                httpService.post('users', {}, {headers: headers}).subscribe(() => {
                     done();
                 });
             })();
