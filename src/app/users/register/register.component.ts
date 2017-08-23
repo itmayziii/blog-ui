@@ -35,13 +35,6 @@ export class RegisterComponent implements OnInit {
                 // TODO open the users page
                 this.router.navigate([`/users/putIDHere`]);
             });
-        // .then((results) => {
-        //     // TODO open the users page
-        //     this.router.navigate([`/users/putIDHere`]);
-        // })
-        // .catch((error: JsonApiErrors) => {
-        //     this.notifications.error(error.errors.title, error.errors.source.email[0]);
-        // });
     }
 
     public doPasswordsMatch(): boolean {

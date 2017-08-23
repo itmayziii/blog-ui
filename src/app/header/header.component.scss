@@ -8,6 +8,7 @@
 @include media-breakpoint-down(md) {
   .nav-item {
     border-top: solid 1px $background-color;
+    text-align: center;
   }
 
   .navbar-nav:first-child {

@@ -9,6 +9,7 @@
   height: 100%;
   position: fixed;
   overflow: auto;
+  color: white;
 }
 
 .loader-container {
@@ -45,3 +46,10 @@
 .required {
   color: red;
 }
+
+// Notifications
+
+.sn-progress-loader span {
+  background: $brand-success !important;
+}
+
