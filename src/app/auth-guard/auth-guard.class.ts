@@ -1,41 +1,42 @@
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from "@angular/router";
 import { Injectable } from "@angular/core";
-import * as moment from "moment";
+import { RouteService } from "../services/route.service";
+import { HttpService } from "../services/http/http.service";
+import { Headers } from "@angular/http";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
 
-    public constructor(private router: Router) {
+    public constructor(private router: Router, private routeService: RouteService, private httpService: HttpService) {
     }
 
     public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
-        console.log(route);
-        console.log(state);
-        return this.checkLogin();
+        return this.checkLogin(state);
     }
 
-    private checkLogin(): Promise<boolean> {
-        console.log('checking login');
+    private checkLogin(state: RouterStateSnapshot): Promise<boolean> {
         return new Promise((resolve) => {
             const apiToken = localStorage.getItem('API-Token');
-            const apiTokenExpiration = localStorage.getItem('API-Token-Expiration');
-            if (!apiToken || !apiTokenExpiration || this.isApiTokenExpired(apiTokenExpiration)) {
+
+            if (!apiToken) {
+                this.routeService.redirectUrl = state.url;
                 this.router.navigate(['/users/login']).then(() => {});
                 resolve(false);
             }
 
-            resolve(true);
+            const headers = new Headers({
+                "API-Token": apiToken
+            });
+            this.httpService.get('token-validation', {headers}).subscribe(
+                (results: any) => {
+                    resolve(true);
+                },
+                (error: any) => {
+                    this.routeService.redirectUrl = state.url;
+                    this.router.navigate(['/users/login']).then(() => {});
+                    resolve(false);
+                }
+            );
         });
-    }
-
-    //noinspection JSMethodCanBeStatic
-    private isApiTokenExpired(apiTokenExpiration: string): boolean {
-        const now = moment();
-        const apiTokenExpirationDate = moment(apiTokenExpiration, 'MM-DD-YYYY HH-mm-ss');
-        if (!apiTokenExpirationDate.isValid()) {
-            return true;
-        }
-
-        return now.isAfter(apiTokenExpirationDate);
     }
 }

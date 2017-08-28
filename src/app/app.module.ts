@@ -19,6 +19,7 @@ import { RegisterComponent } from './users/register/register.component';
 import { CustomFormsModule } from 'ng2-validation';
 import { ContactShowComponent } from './contact/show/contact-show.component';
 import { HttpService } from "./services/http/http.service";
+import { RouteService } from "./services/route.service";
 
 @NgModule({
     declarations: [
@@ -42,6 +43,7 @@ import { HttpService } from "./services/http/http.service";
         CustomFormsModule
     ],
     providers: [
+        RouteService, // MUST remain as a singleton
         AuthGuard,
         JsonApiService,
         HttpService
