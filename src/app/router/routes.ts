@@ -5,6 +5,7 @@ import { NotFoundComponent } from "../not-found/not-found.component";
 import { LoginComponent } from "../users/login/login.component";
 import { RegisterComponent } from "../users/register/register.component";
 import { ContactShowComponent } from "../contact/show/contact-show.component";
+import { LogoutComponent } from "../users/logout/logout.component";
 
 export const routes: Routes = [
     {
@@ -17,6 +18,10 @@ export const routes: Routes = [
             {
                 path: 'register',
                 component: RegisterComponent
+            },
+            {
+                path: 'logout',
+                component: LogoutComponent
             }
         ]
     },

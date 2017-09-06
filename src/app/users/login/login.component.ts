@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
         });
         this.httpService.get('authenticate', {headers: headers}).subscribe(
             (results: any) => {
-                this.updateApiToken(results);
+                localStorage.setItem('API-Token', results["API-Token"]);
 
                 const navigateToUrl = (this.routeService.redirectUrl) ? this.routeService.redirectUrl : '/blogs';
                 this.router.navigate([navigateToUrl]);
@@ -46,9 +46,5 @@ export class LoginComponent implements OnInit {
                 this.loginForm.enable();
             }
         )
-    }
-
-    private updateApiToken(results: any) {
-        localStorage.setItem('API-Token', results["API-Token"]);
     }
 }

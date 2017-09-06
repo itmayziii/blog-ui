@@ -20,6 +20,7 @@ import { CustomFormsModule } from 'ng2-validation';
 import { ContactShowComponent } from './contact/show/contact-show.component';
 import { HttpService } from "./services/http/http.service";
 import { RouteService } from "./services/route.service";
+import { LogoutComponent } from './users/logout/logout.component';
 
 @NgModule({
     declarations: [
@@ -31,7 +32,8 @@ import { RouteService } from "./services/route.service";
         HeaderComponent,
         InputComponent,
         LoginComponent,
-        RegisterComponent
+        RegisterComponent,
+        LogoutComponent
     ],
     imports: [
         BrowserModule,

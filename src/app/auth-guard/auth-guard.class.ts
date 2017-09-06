@@ -32,6 +32,7 @@ export class AuthGuard implements CanActivate {
                     resolve(true);
                 },
                 (error: any) => {
+                    localStorage.removeItem('API-Token');
                     this.routeService.redirectUrl = state.url;
                     this.router.navigate(['/users/login']).then(() => {});
                     resolve(false);
