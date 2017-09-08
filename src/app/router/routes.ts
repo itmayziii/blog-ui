@@ -9,6 +9,10 @@ import { LogoutComponent } from "../users/logout/logout.component";
 
 export const routes: Routes = [
     {
+        path: '',
+        component: RegisterComponent
+    },
+    {
         path: 'users',
         children: [
             {

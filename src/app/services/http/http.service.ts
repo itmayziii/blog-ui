@@ -60,6 +60,7 @@ export class HttpService {
         console.error(`There was a problem making a ${requestMethod} request to URL: ${error.url}`, error);
 
         if (error.status === 401 && this.router.url !== '/users/login') {
+            localStorage.removeItem('API-Token');
             return Observable.of(this.router.navigate(['/users/login']));
         } else {
             // Letting the error pass through to be handled on a per case basis

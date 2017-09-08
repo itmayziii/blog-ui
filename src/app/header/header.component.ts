@@ -47,7 +47,7 @@ export class HeaderComponent {
     @ViewChild('collapsibleNav') public collapsibleNav: ElementRef;
     public navbarCollapsed: boolean = true;
     public leftLinks: Array<NavLink> = [
-        {title: 'Blog', path: '/blog',},
+        {title: 'Blog', path: '/blogs',},
         {title: 'Contact', path: '/contacts/create'}
     ];
     public rightLinks: Array<NavLink> = [
@@ -59,7 +59,6 @@ export class HeaderComponent {
             condition: this.isUserLoggedIn
         }
     ];
-
 
     public toggleNavigationMenu() {
         this.navbarCollapsed = !this.navbarCollapsed;

@@ -21,6 +21,7 @@ import { ContactShowComponent } from './contact/show/contact-show.component';
 import { HttpService } from "./services/http/http.service";
 import { RouteService } from "./services/route.service";
 import { LogoutComponent } from './users/logout/logout.component';
+import { AuthService } from "./services/auth.service";
 
 @NgModule({
     declarations: [
@@ -48,7 +49,8 @@ import { LogoutComponent } from './users/logout/logout.component';
         RouteService, // MUST remain as a singleton
         AuthGuard,
         JsonApiService,
-        HttpService
+        HttpService,
+        AuthService
     ],
     bootstrap: [AppComponent]
 })
