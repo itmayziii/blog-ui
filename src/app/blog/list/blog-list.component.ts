@@ -54,11 +54,16 @@ export class BlogListComponent implements OnInit, OnDestroy {
         this.jsonApi.get('blogs', requestOptions).subscribe(
             (response: JsonApiResources) => {
                 this._blogs = response.data;
+                console.log(this._blogs);
             }
         );
     }
 
     public get blogs(): JsonApiResourceObject[] {
         return this._blogs;
+    }
+
+    public limit(content: string): string {
+        return content.substr(0, 200);
     }
 }

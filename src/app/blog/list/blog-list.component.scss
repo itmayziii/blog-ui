@@ -1,7 +1,27 @@
-.blog-list-item {
-  background-color: red;
-}
+@import "../../../assets/scss/variables";
 
-.test {
-  background-color: green;
+.blog-list {
+  padding: 0;
+
+  .blog-list-item-image {
+    margin: auto;
+    border-radius: 50%;
+  }
+
+  .blog-list-item {
+    margin: 60px 0;
+  }
+
+  .blog-list-item-description {
+    color: white;
+  }
+
+  .blog-list-item-reference {
+    padding: 0 25px;
+
+    &:hover {
+      text-decoration: none;
+      color: $brand-success;
+    }
+  }
 }

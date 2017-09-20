@@ -1,8 +1,10 @@
 <div class="container-fluid">
-    <ul class="row justify-content-between">
-        <li *ngFor="let blog of blogs" class="test col-12 col-md-6 col-lg-4">
-            <a class="row">
-                <div class="col-12 blog-list-item">{{blog.attributes.title}}</div>
+    <ul class="blog-list row justify-content-between">
+        <li *ngFor="let blog of blogs" class="col-12 col-md-6 col-lg-4 blog-list-item">
+            <a class="row blog-list-item-reference" routerLink="{{blog.id}}">
+                <img src="{{blog.attributes['image_path']}}" class="blog-list-item-image">
+                <h4 class="col-12 text-center">{{blog.attributes.title}}</h4>
+                <p class="blog-list-item-description">{{limit(blog.attributes.content)}}...</p>
             </a>
         </li>
     </ul>
