@@ -8,7 +8,7 @@ import { Router } from "@angular/router";
 
 @Component({
     selector: 'blog-register',
-    templateUrl: './register.component.html',
+    templateUrl: './temporary-register.component.html',
     styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
@@ -21,7 +21,7 @@ export class RegisterComponent implements OnInit {
         private router: Router) { }
 
     public ngOnInit(): void {
-        this.createForm();
+        // this.createForm(); TODO uncomment this when it is time to allow registration
     }
 
     public onRegister(): void {
