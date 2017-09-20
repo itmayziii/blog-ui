@@ -1,6 +1,7 @@
+import { JsonApiMeta } from "./json-api-meta";
+import { JsonApiErrorBody } from "./json-api-error-body";
+
 export interface JsonApiError {
-    detail: string,
-    source: any,
-    status: number,
-    title: string
+    errors: JsonApiErrorBody
+    jsonapi: JsonApiMeta
 }

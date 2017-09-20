@@ -10,7 +10,6 @@ describe('contact-create-form.component.ts', () => {
     let fixture: ComponentFixture<ContactCreateFormComponent>, comp: ContactCreateFormComponent;
 
     beforeEach((done) => {
-        console.log('BEFORE EACH BEING CALLED');
         TestBed.configureTestingModule({
             imports: [FormsModule, SimpleNotificationsModule.forRoot(), ReactiveFormsModule, HttpModule, RouterTestingModule],
             declarations: [

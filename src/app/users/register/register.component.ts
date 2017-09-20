@@ -3,9 +3,8 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from "@angular/fo
 import { JsonApiService } from "../../services/http/json-api.service";
 import { equalTo } from 'ng2-validation/dist/equal-to';
 import { NotificationsService } from "angular2-notifications/dist";
-import { JsonApiErrors } from "../../models/json-api/json-api-errors";
+import { JsonApiError } from "../../models/json-api/json-api-error";
 import { Router } from "@angular/router";
-import { Observable } from "rxjs/Observable";
 
 @Component({
     selector: 'blog-register',
@@ -32,7 +31,7 @@ export class RegisterComponent implements OnInit {
                     // TODO open the users page
                     this.router.navigate([`/users/putIDHere`]);
                 },
-                (error: JsonApiErrors) => {
+                (error: JsonApiError) => {
                     const errorSource = error.errors.source;
                     const firstError = errorSource[Object.keys(errorSource)[0]];
                     this.notifications.error(error.errors.title, firstError);

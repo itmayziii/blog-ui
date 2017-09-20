@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import "rxjs/add/operator/filter";
-import { AuthService } from "./services/auth.service";
 
 @Component({
     selector: 'blog-root',
@@ -14,6 +13,4 @@ export class AppComponent {
         lastOnBottom: true,
         theClass: 'bg-primary'
     };
-
-    public constructor(private authService: AuthService) {}
 }

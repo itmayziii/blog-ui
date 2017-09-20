@@ -15,14 +15,14 @@ export class HttpService {
 
     public constructor(protected http: Http, protected router: Router) { }
 
-    public get(url: string, requestOptions?: RequestOptionsArgs): Observable<any> {
+    public get(url: string, requestOptions?: RequestOptionsArgs, navigateIfAuthenticationNeeded: boolean = true): Observable<any> {
         requestOptions = this.prepareRequestOptions(requestOptions);
         return this.http.get(`${this.baseUri}/${url}`, requestOptions)
             .map((response: Response) => {
                 return response.json();
             })
             .catch((error: Response) => {
-                return this.handleError(error, 'GET');
+                return this.handleError(error, 'GET', navigateIfAuthenticationNeeded);
             });
     }
 
@@ -56,15 +56,13 @@ export class HttpService {
         return headers;
     }
 
-    private handleError(error: Response, requestMethod: string): Observable<any> {
+    private handleError(error: Response, requestMethod: string, navigateToLogin: boolean = true): Observable<any> {
         console.error(`There was a problem making a ${requestMethod} request to URL: ${error.url}`, error);
 
-        if (error.status === 401 && this.router.url !== '/users/login') {
-            localStorage.removeItem('API-Token');
-            return Observable.of(this.router.navigate(['/users/login']));
-        } else {
-            // Letting the error pass through to be handled on a per case basis
-            return Observable.throw(error.json());
+        if (navigateToLogin) {
+            this.router.navigate(['/users/login']);
         }
+
+        return Observable.throw(error.json());
     }
 }

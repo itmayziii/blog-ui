@@ -6,22 +6,41 @@ import { LoginComponent } from "../users/login/login.component";
 import { RegisterComponent } from "../users/register/register.component";
 import { ContactShowComponent } from "../contact/show/contact-show.component";
 import { LogoutComponent } from "../users/logout/logout.component";
+import { BlogListComponent } from "../blog/list/blog-list.component";
 
 export const routes: Routes = [
     {
         path: '',
-        component: RegisterComponent
+        redirectTo: '/blogs',
+        pathMatch: 'full'
+    },
+    {
+        path: 'blogs',
+        data: {
+            'authorizedRole': 'Guest'
+        },
+        canActivateChild: [AuthGuard],
+        children: [
+            {
+                path: '',
+                component: BlogListComponent
+            }
+        ]
     },
     {
         path: 'users',
+        data: {
+            'authorizedRole': 'Guest'
+        },
+        canActivateChild: [AuthGuard],
         children: [
             {
                 path: 'login',
-                component: LoginComponent,
+                component: LoginComponent
             },
             {
                 path: 'register',
-                component: RegisterComponent
+                component: RegisterComponent,
             },
             {
                 path: 'logout',
@@ -31,21 +50,29 @@ export const routes: Routes = [
     },
     {
         path: 'contacts',
+        data: {
+            'authorizedRole': 'Guest'
+        },
+        canActivateChild: [AuthGuard],
         children: [
             {
                 path: 'create',
                 component: ContactCreateFormComponent
             },
             {
-                canActivate: [AuthGuard],
                 path: ':id',
-                component: ContactShowComponent
+                component: ContactShowComponent,
+                data: {
+                    'authorizedRole': 'Administrator'
+                },
             },
             {
-                canActivate: [AuthGuard],
                 path: '',
-                component: ContactShowComponent
-            },
+                component: ContactShowComponent, //TODO create contact list component
+                data: {
+                    'authorizedRole': 'Administrator'
+                },
+            }
         ]
     },
     {

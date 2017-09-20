@@ -28,7 +28,6 @@ export class InputComponent implements AfterViewInit {
     }
 
     public toggleActive(): void {
-        console.log(this.empty);
         this.active = !this.active && this.empty;
     }
 

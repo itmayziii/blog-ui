@@ -22,6 +22,8 @@ import { HttpService } from "./services/http/http.service";
 import { RouteService } from "./services/route.service";
 import { LogoutComponent } from './users/logout/logout.component';
 import { AuthService } from "./services/auth.service";
+import { BlogListComponent } from './blog/list/blog-list.component';
+import { UserService } from "./services/user.service";
 
 @NgModule({
     declarations: [
@@ -34,7 +36,8 @@ import { AuthService } from "./services/auth.service";
         InputComponent,
         LoginComponent,
         RegisterComponent,
-        LogoutComponent
+        LogoutComponent,
+        BlogListComponent
     ],
     imports: [
         BrowserModule,
@@ -47,6 +50,7 @@ import { AuthService } from "./services/auth.service";
     ],
     providers: [
         RouteService, // MUST remain as a singleton
+        UserService, // MUST remain as a singleton
         AuthGuard,
         JsonApiService,
         HttpService,
