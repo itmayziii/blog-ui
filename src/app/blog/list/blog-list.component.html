@@ -2,7 +2,7 @@
     <ul class="blog-list row justify-content-start">
         <li *ngFor="let blog of blogs" class="col-12 col-md-6 col-lg-4 blog-list-item">
             <a class="row blog-list-item-reference" routerLink="{{blog.id}}">
-                <img src="{{blog.attributes['image_path']}}" class="blog-list-item-image">
+                <img src="assets/images/lab_guys.jpg" class="blog-list-item-image">
                 <div class="blog-list-item-text">
                     <h4 class="col-12 text-center">{{blog.attributes.title}}</h4>
                     <p class="blog-list-item-description">{{limit(blog.attributes.content)}}...</p>
