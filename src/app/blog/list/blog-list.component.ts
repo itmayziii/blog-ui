@@ -14,7 +14,7 @@ import { JsonApiResourceObject } from "../../models/json-api/json-api-resource-o
 export class BlogListComponent implements OnInit, OnDestroy {
     private $params: Subscription;
     private page: string = '1';
-    private size: string = '20';
+    private size: string = '10';
     private _blogs: JsonApiResourceObject[];
 
     public constructor(private jsonApi: JsonApiService, private route: ActivatedRoute) { }

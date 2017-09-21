@@ -7,6 +7,7 @@ import { RegisterComponent } from "../users/register/register.component";
 import { ContactShowComponent } from "../contact/show/contact-show.component";
 import { LogoutComponent } from "../users/logout/logout.component";
 import { BlogListComponent } from "../blog/list/blog-list.component";
+import { BlogShowComponent } from "../blog/show/blog-show.component";
 
 export const routes: Routes = [
     {
@@ -21,6 +22,10 @@ export const routes: Routes = [
         },
         canActivateChild: [AuthGuard],
         children: [
+            {
+                path: ':id',
+                component: BlogShowComponent
+            },
             {
                 path: '',
                 component: BlogListComponent

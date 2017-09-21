@@ -24,6 +24,7 @@ import { LogoutComponent } from './users/logout/logout.component';
 import { AuthService } from "./services/auth.service";
 import { BlogListComponent } from './blog/list/blog-list.component';
 import { UserService } from "./services/user.service";
+import { BlogShowComponent } from './blog/show/blog-show.component';
 
 @NgModule({
     declarations: [
@@ -37,7 +38,8 @@ import { UserService } from "./services/user.service";
         LoginComponent,
         RegisterComponent,
         LogoutComponent,
-        BlogListComponent
+        BlogListComponent,
+        BlogShowComponent
     ],
     imports: [
         BrowserModule,
