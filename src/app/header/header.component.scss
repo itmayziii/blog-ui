@@ -5,6 +5,11 @@
   color: $brand-success;
 }
 
+.navbar-brand {
+  font-size: 45px;
+  font-family: "Baskerville Old Face";
+}
+
 @include media-breakpoint-down(md) {
   .nav-item {
     border-top: solid 1px $brand-primary;

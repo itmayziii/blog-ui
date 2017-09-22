@@ -25,6 +25,7 @@ import { AuthService } from "./services/auth.service";
 import { BlogListComponent } from './blog/list/blog-list.component';
 import { UserService } from "./services/user.service";
 import { BlogShowComponent } from './blog/show/blog-show.component';
+import { BlogCreateComponent } from './blog/create/blog-create.component';
 
 @NgModule({
     declarations: [
@@ -39,7 +40,8 @@ import { BlogShowComponent } from './blog/show/blog-show.component';
         RegisterComponent,
         LogoutComponent,
         BlogListComponent,
-        BlogShowComponent
+        BlogShowComponent,
+        BlogCreateComponent
     ],
     imports: [
         BrowserModule,

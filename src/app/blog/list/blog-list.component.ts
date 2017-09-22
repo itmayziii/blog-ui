@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { JsonApiService } from "../../services/http/json-api.service";
 import { RequestOptions, URLSearchParams } from "@angular/http";
-import { ActivatedRoute, ParamMap } from "@angular/router";
+import { ActivatedRoute, ParamMap, Router } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { JsonApiResources } from "../../models/json-api/json-api-resoures";
 import { JsonApiResourceObject } from "../../models/json-api/json-api-resource-object";
+import { UserService } from "../../services/user.service";
 
 @Component({
     selector: 'blog-list',
@@ -17,7 +18,7 @@ export class BlogListComponent implements OnInit, OnDestroy {
     private size: string = '10';
     private _blogs: JsonApiResourceObject[];
 
-    public constructor(private jsonApi: JsonApiService, private route: ActivatedRoute) { }
+    public constructor(private jsonApi: JsonApiService, private route: ActivatedRoute, private userService: UserService, private router: Router) { }
 
     public ngOnInit() {
         this.readQueryParameters().then(() => {
@@ -65,5 +66,13 @@ export class BlogListComponent implements OnInit, OnDestroy {
 
     public limit(content: string): string {
         return content.substr(0, 200);
+    }
+
+    public navigateToCreatePage(): void {
+        this.router.navigate(['blogs/create']);
+    }
+
+    public isAdmin(): boolean {
+        return this.userService.isAdmin();
     }
 }

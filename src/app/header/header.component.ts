@@ -9,9 +9,7 @@ import { NavLink } from "../models/nav-link";
                 <button class="navbar-toggler navbar-toggler-right" type="button" (click)="toggleNavigationMenu()">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand" href="#">
-                    Placeholder
-                </a>
+                <a class="navbar-brand" routerLink="/">TM3</a>
 
                 <div class="collapse navbar-collapse" [class.show]="!navbarCollapsed">
                     <ul class="navbar-nav">
