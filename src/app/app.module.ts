@@ -26,6 +26,8 @@ import { BlogListComponent } from './blog/list/blog-list.component';
 import { UserService } from "./services/user.service";
 import { BlogShowComponent } from './blog/show/blog-show.component';
 import { BlogCreateComponent } from './blog/create/blog-create.component';
+import { SlugDirective } from './blog/directives/slug.directive';
+import { SlugTitleDirective } from './blog/directives/slug-title.directive';
 
 @NgModule({
     declarations: [
@@ -41,7 +43,9 @@ import { BlogCreateComponent } from './blog/create/blog-create.component';
         LogoutComponent,
         BlogListComponent,
         BlogShowComponent,
-        BlogCreateComponent
+        BlogCreateComponent,
+        SlugDirective,
+        SlugTitleDirective
     ],
     imports: [
         BrowserModule,
