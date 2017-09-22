@@ -24,7 +24,6 @@ export class SlugifyDirective {
     }
 
     private findElementToPutSlug(): HTMLInputElement {
-        console.log(this.windowRef.nativeWindow);
         return this.windowRef.nativeWindow.document.getElementById(this.blogSlugify);
     }
 
