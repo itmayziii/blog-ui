@@ -1,5 +1,5 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { NavLink } from "../models/nav-link";
+import {Component, ElementRef, ViewChild} from '@angular/core';
+import {NavLink} from "../models/nav-link";
 
 @Component({
     selector: 'app-header',

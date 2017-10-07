@@ -22,7 +22,13 @@ export class HttpService {
                 return response.json();
             })
             .catch((error: Response) => {
-                return this.handleError(error, 'GET', navigateIfAuthenticationNeeded);
+                let navigateToLogin: boolean = false;
+
+                if (navigateIfAuthenticationNeeded) {
+                    navigateToLogin = error.status === 401;
+                }
+
+                return this.handleError(error, 'GET', navigateToLogin);
             });
     }
 

@@ -5,19 +5,26 @@
   color: $brand-success;
 }
 
-.navbar-brand {
-  font-size: 45px;
-  font-family: "Baskerville Old Face";
-}
+.navbar {
 
-@include media-breakpoint-down(md) {
-  .nav-item {
-    border-top: solid 1px $brand-primary;
-    text-align: center;
-    letter-spacing: 3px;
+  &-brand {
+    font-size: 45px;
+    font-family: "Baskerville Old Face";
   }
 
-  .navbar-nav:first-child {
-    margin-top: 15px;
+  .nav {
+
+    &-item {
+      border-top: solid 1px $brand-primary;
+      text-align: center;
+      letter-spacing: 3px;
+      font-size: 1.2rem;
+
+      @include media-breakpoint-up(lg) {
+        border: none;
+      }
+    }
+
   }
+
 }
