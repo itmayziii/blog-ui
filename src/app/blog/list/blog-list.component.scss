@@ -3,27 +3,28 @@
 .blog-list {
   padding: 0;
 
-  .blog-list-item-image {
-    margin: auto;
-    border-radius: 50%;
-    width: 150px;
-    height: 150px;
-  }
-
-  .blog-list-item {
+  &-item {
     margin: 40px 0;
-  }
 
-  .blog-list-item-description {
-    color: white;
-  }
-
-  .blog-list-item-reference {
-    padding: 0 25px;
-
-    &:hover {
-      text-decoration: none;
-      color: $brand-success;
+    &-description {
+      color: white;
     }
+
+    &-reference {
+      margin: 0 25px;
+
+      &:hover {
+        text-decoration: none;
+        color: $brand-success;
+      }
+    }
+
+    &-image {
+      border-radius: 50%;
+      margin: auto;
+      width: 250px;
+      height: 250px;
+    }
+
   }
 }
