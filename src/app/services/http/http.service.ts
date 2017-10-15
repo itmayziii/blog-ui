@@ -26,9 +26,7 @@ export class HttpService {
                 let navigateToLogin: boolean = false;
 
                 if (navigateIfAuthenticationNeeded) {
-                    console.log('ERROR IS HERE', error);
                     navigateToLogin = error.status === 401;
-                    console.log('NAVIGATETOLOGIN ', navigateToLogin);
                 }
 
                 return this.handleError(error, 'GET', navigateToLogin);

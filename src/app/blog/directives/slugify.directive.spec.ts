@@ -1,34 +1,35 @@
-// import { SlugifyDirective } from './slugify.directive';
-// import { ComponentFixture, inject, TestBed } from "@angular/core/testing";
-// import { ElementRef } from "@angular/core";
-// import { WindowRef } from "../../utils/window-ref";
-//
-// describe('SlugifyDirective', () => {
-//     let fixture: ComponentFixture<SlugifyDirective>, directive: SlugifyDirective;
-//
-//     beforeEach((done) => {
-//         TestBed.configureTestingModule({
-//             imports: [],
-//             declarations: [
-//                 SlugifyDirective
-//             ],
-//             providers: [
-//                 ElementRef,
-//                 WindowRef
-//             ]
-//         })
-//             .compileComponents()
-//             .then(() => {
-//                 fixture = TestBed.createComponent(SlugifyDirective);
-//                 directive = fixture.componentInstance;
-//                 done();
-//             });
-//     });
-//
-//     it('should create an instance', () => {
-//         inject([ElementRef, WindowRef], (el: ElementRef, window: WindowRef) => {
-//             expect(directive).toBeTruthy();
-//         });
-//     });
-//
-// });
+import { SlugifyDirective } from './slugify.directive';
+import { WindowRef } from "../../utils/window-ref";
+
+describe('slugify.directive.ts', () => {
+    let slugifyDirective: SlugifyDirective, mockHTMLInputElement, mockElementRef, windowRef;
+
+    beforeEach(() => {
+        mockHTMLInputElement = document.createElement('input');
+
+        mockElementRef = {
+            nativeElement: {
+                value: 'My 2nd Blog Post'
+            }
+        };
+
+        windowRef = new WindowRef();
+
+        slugifyDirective = new SlugifyDirective(mockElementRef, windowRef);
+    });
+
+    describe('slugifyValue()', () => {
+
+        it('should create a slug', () => {
+            spyOn(windowRef.nativeWindow.document, 'getElementById').and.returnValue(mockHTMLInputElement);
+
+            slugifyDirective.slugifyValue();
+
+            const actualResult = mockHTMLInputElement.value;
+            const expectedResult = 'my-2nd-blog-post';
+
+            expect(actualResult).toBe(expectedResult);
+        });
+
+    });
+});
