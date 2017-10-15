@@ -4,6 +4,7 @@ import { User } from "../models/user";
 @Injectable()
 export class UserService {
     private _user: User;
+    private _userId: number;
 
     public get user(): User {
         return this._user;
@@ -11,6 +12,14 @@ export class UserService {
 
     public set user(value: User) {
         this._user = value;
+    }
+
+    public get userId(): number {
+        return this._userId;
+    }
+
+    public set userId(value: number) {
+        this._userId = value;
     }
 
     public isAdmin(): boolean {

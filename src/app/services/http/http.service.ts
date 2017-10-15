@@ -13,7 +13,8 @@ export class HttpService {
     protected baseUri = `${environment.apiUri}/${environment.apiVersion}`;
     protected headers: Headers = new Headers({'Content-Type': 'JSON'});
 
-    public constructor(protected http: Http, protected router: Router) { }
+    public constructor(protected http: Http, protected router: Router) {
+    }
 
     public get(url: string, requestOptions?: RequestOptionsArgs, navigateIfAuthenticationNeeded: boolean = true): Observable<any> {
         requestOptions = this.prepareRequestOptions(requestOptions);
@@ -25,21 +26,29 @@ export class HttpService {
                 let navigateToLogin: boolean = false;
 
                 if (navigateIfAuthenticationNeeded) {
+                    console.log('ERROR IS HERE', error);
                     navigateToLogin = error.status === 401;
+                    console.log('NAVIGATETOLOGIN ', navigateToLogin);
                 }
 
                 return this.handleError(error, 'GET', navigateToLogin);
             });
     }
 
-    public post(url: string, body: any, requestOptions?: RequestOptionsArgs): Observable<any> {
+    public post(url: string, body: any, requestOptions?: RequestOptionsArgs, navigateIfAuthenticationNeeded: boolean = true): Observable<any> {
         requestOptions = this.prepareRequestOptions(requestOptions);
         return this.http.post(`${this.baseUri}/${url}`, body, requestOptions)
             .map((response: Response) => {
                 return response.json();
             })
             .catch((error: Response) => {
-                return this.handleError(error, 'POST');
+                let navigateToLogin: boolean = false;
+
+                if (navigateIfAuthenticationNeeded) {
+                    navigateToLogin = error.status === 401;
+                }
+
+                return this.handleError(error, 'POST', navigateToLogin);
             });
     }
 

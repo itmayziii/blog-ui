@@ -40,11 +40,12 @@ describe('http.service.ts', () => {
                 });
 
                 const headers = new Headers({"Content-Type": "text/plain"});
-                httpService.get('users', {headers: headers}).subscribe((response) => {
-                    expect(response.data).toBeDefined();
-                    expect(response.data).toBe("Awesome Test");
-                    done();
-                });
+                httpService.get('users', {headers: headers}).subscribe(
+                    (response) => {
+                        expect(response.data).toBeDefined();
+                        expect(response.data).toBe("Awesome Test");
+                        done();
+                    });
             })();
         });
 
@@ -53,11 +54,13 @@ describe('http.service.ts', () => {
                 makeBadHttpRequest();
                 spyOn(router, 'navigate');
 
-                httpService.get('users').subscribe(() => {
-                    expect(router.navigate).toHaveBeenCalledTimes(1);
-                    expect(router.navigate).toHaveBeenCalledWith(['/users/login']);
-                    done();
-                });
+                httpService.get('users').subscribe(
+                    () => {},
+                    () => {
+                        expect(router.navigate).toHaveBeenCalledTimes(1);
+                        expect(router.navigate).toHaveBeenCalledWith(['/users/login']);
+                        done();
+                    });
             })();
         });
 
@@ -74,11 +77,12 @@ describe('http.service.ts', () => {
                 });
 
                 const headers = new Headers({"Content-Type": "text/plain"});
-                httpService.post('users', 'TestingBody', {headers: headers}).subscribe((response) => {
-                    expect(response.data).toBeDefined();
-                    expect(response.data).toBe("Awesome Test");
-                    done();
-                });
+                httpService.post('users', 'TestingBody', {headers: headers}).subscribe(
+                    (response) => {
+                        expect(response.data).toBeDefined();
+                        expect(response.data).toBe("Awesome Test");
+                        done();
+                    });
             })();
         });
 
@@ -87,11 +91,13 @@ describe('http.service.ts', () => {
                 makeBadHttpRequest();
                 spyOn(router, 'navigate');
 
-                httpService.post('users', {}).subscribe(() => {
-                    expect(router.navigate).toHaveBeenCalledTimes(1);
-                    expect(router.navigate).toHaveBeenCalledWith(['/users/login']);
-                    done();
-                });
+                httpService.post('users', {}).subscribe(
+                    () => {},
+                    () => {
+                        expect(router.navigate).toHaveBeenCalledTimes(1);
+                        expect(router.navigate).toHaveBeenCalledWith(['/users/login']);
+                        done();
+                    });
             })();
         });
 

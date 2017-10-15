@@ -2,7 +2,6 @@ import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { JsonApiService } from "../../services/http/json-api.service";
 import { NotificationsService } from "angular2-notifications/dist";
-import 'rxjs/add/operator/catch';
 
 @Component({
     selector: 'blog-contact-create-form',

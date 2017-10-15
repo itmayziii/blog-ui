@@ -1,40 +1,47 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
 
-        <form [formGroup]="blogCreateForm" (ngSubmit)="onSubmit()" method="get" class="contact-form col-10 col-lg-8" novalidate>
+        <form [formGroup]="blogCreateForm" (ngSubmit)="onSubmit()" method="post" class="contact-form col-10 col-lg-8"
+              novalidate enctype="multipart/form-data" target="_blank">
             <div class="row justify-content-center">
                 <h2 class="col-10 text-center text-primary">Create Blog</h2>
 
                 <fieldset class="form-group col-10">
-                    <label for="title">Title</label>
-                    <input class="form-control" type="text" name="title" id="title" formControlName="title" autofocus blogSlugify="slug">
+                    <label for="title">Title<span class="required">*</span></label>
+                    <input class="form-control" type="text" name="title" id="title" formControlName="title" autofocus
+                           blogSlugify="slug">
                 </fieldset>
 
                 <fieldset class="form-group col-10">
-                    <label for="slug">Slug</label>
-                    <input class="form-control" type="text" name="slug" id="slug" formControlName="slug">
+                    <label for="category">Category<span class="required">*</span></label>
+                    <select name="category-id" id="category" class="form-control" formControlName="category-id">
+                        <option *ngFor="let category of categories" [value]="category.id">
+                            {{category.attributes.name}}
+                        </option>
+                    </select>
                 </fieldset>
 
                 <fieldset class="form-group col-10">
-                    <label for="content">Content</label>
-                    <input class="form-control" type="text" name="content" id="content" formControlName="content">
+                    <label for="content">Content<span class="required">*</span></label>
+                    <textarea class="form-control" name="content" id="content" rows="4"
+                              formControlName="content"></textarea>
                 </fieldset>
 
                 <fieldset class="form-group col-10">
-                    <label for="category">category<span class="required">*</span></label>
-                    <textarea class="form-control" name="category" id="category" rows="4" formControlName="category"></textarea>
+                    <label for="image">Image</label>
+                    <input type="file" class="form-control-file" id="image" aria-describedby="imageHelp" #image>
+                    <small id="imageHelp" class="form-text text-muted">Optimal images are sized with a height 1.5x the
+                        width.
+                    </small>
                 </fieldset>
 
-                <fieldset class="form-group col-10">
-                    <label for="image">image<span class="required">*</span></label>
-                    <textarea class="form-control" name="image" id="image" rows="4" formControlName="image"></textarea>
-                </fieldset>
-
-                <button class="btn btn-primary col-10 contact-form-submit-button" type="submit" [disabled]="!blogCreateForm.valid">
+                <button class="btn btn-primary col-10 contact-form-submit-button" type="submit"
+                        [disabled]="!blogCreateForm.valid">
                     Submit
                 </button>
             </div>
         </form>
+
     </div>
 
 </div>

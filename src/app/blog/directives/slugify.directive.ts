@@ -9,7 +9,7 @@ export class SlugifyDirective {
 
     @Input() private blogSlugify;
 
-    public constructor(private el: ElementRef, private windowRef: WindowRef) { }
+    public constructor(private el: ElementRef, private windowRef: WindowRef) {}
 
     @HostListener('blur')
     public slugifyValue() {
@@ -19,7 +19,10 @@ export class SlugifyDirective {
             return;
         }
 
-        const slugifiedValue = this.el.nativeElement.value.toLowerCase().trim().replace(/\s/g, '-');
+        const slugifiedValue = this.el.nativeElement.value
+            .toLowerCase()
+            .trim()
+            .replace(/\s/g, '-');
         elToPutSlug.value = slugifiedValue;
     }
 

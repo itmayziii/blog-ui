@@ -1,20 +1,22 @@
-import { Injectable } from '@angular/core';
-import { Headers } from "@angular/http";
-import { JsonApiService } from "./http/json-api.service";
-import { JsonApiError } from "../models/json-api/json-api-error";
-import { JsonApiResource } from "../models/json-api/json-api-resource";
-import { UserService } from "./user.service";
+import {Injectable} from '@angular/core';
+import {Headers} from "@angular/http";
+import {JsonApiService} from "./http/json-api.service";
+import {JsonApiError} from "../models/json-api/json-api-error";
+import {JsonApiResource} from "../models/json-api/json-api-resource";
+import {UserService} from "./user.service";
 
 @Injectable()
 export class AuthService {
 
-    public constructor(private jsonApi: JsonApiService, private userService: UserService) { }
+    public constructor(private jsonApi: JsonApiService, private userService: UserService) {
+    }
 
     public checkLogin(): Promise<boolean> {
         return new Promise((resolve, reject) => {
             const apiToken = localStorage.getItem('API-Token');
             if (!apiToken) {
                 this.userService.user = null;
+                this.userService.userId = null;
                 resolve(false);
                 return;
             }
@@ -30,6 +32,7 @@ export class AuthService {
                     }
 
                     this.userService.user = results.data.attributes;
+                    this.userService.userId = results.data.id;
                     resolve(apiTokenExists);
                 },
                 (error: JsonApiError) => {
