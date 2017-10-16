@@ -1,5 +1,6 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
-import {NavLink} from "../models/nav-link";
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { NavLink } from "../models/nav-link";
+import { UserService } from "../services/user.service";
 
 @Component({
     selector: 'app-header',
@@ -11,7 +12,7 @@ import {NavLink} from "../models/nav-link";
                 </button>
                 <a class="navbar-brand" routerLink="/">TM3</a>
 
-                <div class="collapse navbar-collapse" [class.show]="!navbarCollapsed">
+                <div class="collapse navbar-collapse" [class.show]="!isNavigationCollapsed">
                     <ul class="navbar-nav">
                         <li *ngFor="let link of leftLinks" class="nav-item">
                             <a routerLink="{{link.path}}"
@@ -24,7 +25,7 @@ import {NavLink} from "../models/nav-link";
                     </ul>
                 </div>
 
-                <div class="collapse navbar-collapse" [class.show]="!navbarCollapsed">
+                <div class="collapse navbar-collapse" [class.show]="!isNavigationCollapsed">
                     <ul class="navbar-nav ml-auto">
                         <li *ngFor="let link of rightLinks" class="nav-item">
                             <a routerLink="{{link.path}}"
@@ -43,26 +44,24 @@ import {NavLink} from "../models/nav-link";
 })
 export class HeaderComponent {
     @ViewChild('collapsibleNav') public collapsibleNav: ElementRef;
-    public navbarCollapsed: boolean = true;
+    public isNavigationCollapsed: boolean = true;
     public leftLinks: Array<NavLink> = [
         {title: 'Blog', path: '/blogs',},
         {title: 'Contact', path: '/contacts/create'}
     ];
     public rightLinks: Array<NavLink> = [
-        {title: 'Login', path: '/users/login', condition: () => !this.isUserLoggedIn()},
-        {title: 'Register', path: '/users/register', condition: () => !this.isUserLoggedIn()},
+        {title: 'Login', path: '/users/login', condition: () => !this.userService.isLoggedIn()},
+        {title: 'Register', path: '/users/register', condition: () => !this.userService.isLoggedIn()},
         {
             title: 'Logout',
             path: '/users/logout',
-            condition: this.isUserLoggedIn
+            condition: this.userService.isLoggedIn
         }
     ];
 
-    public toggleNavigationMenu() {
-        this.navbarCollapsed = !this.navbarCollapsed;
-    }
+    public constructor(private userService: UserService) {}
 
-    public isUserLoggedIn(): boolean {
-        return (localStorage.getItem('API-Token')) ? true : false;
+    public toggleNavigationMenu() {
+        this.isNavigationCollapsed = !this.isNavigationCollapsed;
     }
 }

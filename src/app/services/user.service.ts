@@ -33,4 +33,8 @@ export class UserService {
 
         return this.user.role;
     }
+
+    public isLoggedIn(): boolean {
+        return !this.user === null;
+    }
 }
