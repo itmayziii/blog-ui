@@ -1,13 +1,15 @@
 @import "variables";
 
 html, body {
-  height: 100%;
-  font-size: 18px;
-  background-color: $background-color;
-  position: fixed;
-  overflow: hidden;
+    height: 100%;
+    font-size: 18px;
+    background-color: $background-color;
+    position: fixed;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
 }
 
 ul {
-  list-style: none;
+    list-style: none;
 }
