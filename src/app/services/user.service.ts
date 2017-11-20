@@ -35,6 +35,10 @@ export class UserService {
     }
 
     public isLoggedIn(): boolean {
-        return !this.user === null;
+        if (this.user) {
+            return true;
+        }
+
+        return false;
     }
 }
