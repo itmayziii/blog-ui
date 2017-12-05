@@ -1,13 +1,13 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {JsonApiResourceObject} from "../../models/json-api/json-api-resource-object";
-import {JsonApiService} from "../../services/http/json-api.service";
-import {JsonApiResources} from "../../models/json-api/json-api-resoures";
-import {NotificationsService} from "angular2-notifications/dist";
-import {UserService} from "../../services/user.service";
-import {HttpService} from "../../services/http/http.service";
-import {RequestOptions, Headers} from "@angular/http";
-import {FileUploadService} from "../../services/http/file-upload.service";
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { JsonApiResourceObject } from "../../models/json-api/json-api-resource-object";
+import { JsonApiService } from "../../services/http/json-api.service";
+import { JsonApiResources } from "../../models/json-api/json-api-resoures";
+import { NotificationsService } from "angular2-notifications/dist";
+import { UserService } from "../../services/user.service";
+import { HttpService } from "../../services/http/http.service";
+import { RequestOptions, Headers } from "@angular/http";
+import { FileUploadService } from "../../services/http/file-upload.service";
 
 @Component({
     selector: 'blog-blog-create',
@@ -35,6 +35,7 @@ export class BlogCreateComponent implements OnInit {
     private createForm(): void {
         this.blogCreateForm = this.formBuilder.group({
             "title": [null, Validators.required],
+            "slug": [null, Validators.required],
             "content": [null, Validators.required],
             "category-id": [null, Validators.required],
             "user-id": null
@@ -44,7 +45,15 @@ export class BlogCreateComponent implements OnInit {
     }
 
     public onSubmit(): void {
-        this.fileUploadService.uploadFile(this.image);
+        this.notifications.info('Creating Blog', 'In Progress');
+        this.fileUploadService.uploadFile(this.image).subscribe((fileUploaded) => {
+            if (!fileUploaded) {
+                this.notifications.error('Creating Blog', 'Failed to upload image');
+                return;
+            }
+
+            console.log(fileUploaded);
+        });
 
         // this.jsonApi.post('blogs', this.blogCreateForm.value).subscribe(
         //     (response) => {

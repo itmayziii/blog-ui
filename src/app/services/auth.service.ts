@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {Headers} from "@angular/http";
-import {JsonApiService} from "./http/json-api.service";
-import {JsonApiError} from "../models/json-api/json-api-error";
-import {JsonApiResource} from "../models/json-api/json-api-resource";
-import {UserService} from "./user.service";
+import { Injectable } from '@angular/core';
+import { Headers } from "@angular/http";
+import { JsonApiService } from "./http/json-api.service";
+import { JsonApiError } from "../models/json-api/json-api-error";
+import { JsonApiResource } from "../models/json-api/json-api-resource";
+import { UserService } from "./user.service";
 
 @Injectable()
 export class AuthService {

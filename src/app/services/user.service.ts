@@ -35,10 +35,11 @@ export class UserService {
     }
 
     public isLoggedIn(): boolean {
-        if (this.user) {
-            return true;
+        // We use the presence of the API-Token to determine login, it is the only thing that is persistent and loaded at all times.
+        if (!localStorage.getItem('API-Token')) {
+            return false;
         }
 
-        return false;
+        return true;
     }
 }

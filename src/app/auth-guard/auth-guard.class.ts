@@ -1,18 +1,16 @@
-import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from "@angular/router";
+import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, CanLoad, Router, RouterStateSnapshot } from "@angular/router";
 import { Injectable } from "@angular/core";
 import { AuthService } from "../services/auth.service";
 import { RouteService } from "../services/route.service";
-import { Observable } from "rxjs/Observable";
 import { UserService } from "../services/user.service";
 
 @Injectable()
 export class AuthGuard implements CanActivate, CanActivateChild {
 
-    public constructor(
-        private authService: AuthService,
-        private router: Router,
-        private routeService: RouteService,
-        private userService: UserService) {}
+    public constructor(private authService: AuthService,
+                       private router: Router,
+                       private routeService: RouteService,
+                       private userService: UserService) {}
 
     public canActivate(route: ActivatedRouteSnapshot, routerState: RouterStateSnapshot): Promise<boolean> {
         return this.verifyAccess(route, routerState);
@@ -40,9 +38,10 @@ export class AuthGuard implements CanActivate, CanActivateChild {
                     if (this.hasAccess(route)) {
                         resolve(true);
                         return;
+                    } else {
+                        this.router.navigate(['/access-denied']).then(() => {});
+                        resolve(false);
                     }
-
-                    resolve(false);
                 })
                 .catch(() => {
                     reject(false);

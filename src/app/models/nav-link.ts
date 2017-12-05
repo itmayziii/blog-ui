@@ -1,6 +1,10 @@
 export interface NavLink {
     title: string,
     path: string,
-    condition?: () => boolean,
+    condition?: FunctionInterface
     task?: () => void
+}
+
+interface FunctionInterface {
+    (): boolean;
 }

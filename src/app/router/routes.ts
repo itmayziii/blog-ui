@@ -89,6 +89,10 @@ export const routes: Routes = [
         ]
     },
     {
+        path: 'access-denied', // TODO create access denied component
+        component: NotFoundComponent
+    },
+    {
         path: '**',
         component: NotFoundComponent
     },

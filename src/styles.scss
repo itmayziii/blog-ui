@@ -5,51 +5,51 @@
 @import "~bootstrap/scss/bootstrap";
 
 .root {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  overflow: auto;
-  color: white;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    overflow: auto;
+    color: white;
 }
 
 .loader-container {
-  display: flex;
-  justify-content: center;
-  height: 100%;
+    display: flex;
+    justify-content: center;
+    height: 100%;
 
-  .loader {
-    border: 16px solid $brand-primary;
-    border-top: 16px solid #f3f3f3;
-    border-radius: 50%;
-    align-self: center;
-    width: 120px;
-    height: 120px;
-    animation: spin 2s linear infinite;
-  }
+    .loader {
+        border: 16px solid $brand-primary;
+        border-top: 16px solid #f3f3f3;
+        border-radius: 50%;
+        align-self: center;
+        width: 120px;
+        height: 120px;
+        animation: spin 2s linear infinite;
+    }
 }
 
 @keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 // Font Awesome
 .fa {
-  color: $brand-primary;
+    color: $brand-primary;
 }
 
 // Temporary
 .required {
-  color: red;
+    color: red;
 }
 
 // Notifications
 
 .sn-progress-loader span {
-  background: $brand-success !important;
+    background: $brand-success !important;
 }
 
