@@ -27,7 +27,7 @@ export class FileUploadService {
                 }
 
                 if (xhr.status === 200) {
-                    observer.next(xhr.responseText);
+                    observer.next(JSON.parse(xhr.responseText));
                     observer.complete();
                     return;
                 }

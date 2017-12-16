@@ -6,7 +6,6 @@ import { JsonApiResources } from "../../models/json-api/json-api-resoures";
 import { NotificationsService } from "angular2-notifications/dist";
 import { UserService } from "../../services/user.service";
 import { HttpService } from "../../services/http/http.service";
-import { RequestOptions, Headers } from "@angular/http";
 import { FileUploadService } from "../../services/http/file-upload.service";
 
 @Component({
@@ -45,22 +44,23 @@ export class BlogCreateComponent implements OnInit {
     }
 
     public onSubmit(): void {
+        this.blogCreateForm.disable();
         this.notifications.info('Creating Blog', 'In Progress');
-        this.fileUploadService.uploadFile(this.image).subscribe((fileUploaded) => {
-            if (!fileUploaded) {
-                this.notifications.error('Creating Blog', 'Failed to upload image');
-                return;
-            }
 
-            console.log(fileUploaded);
-        });
+        if (this.image.nativeElement.files.length > 0) {
+            this.fileUploadService.uploadFile(this.image).subscribe((filesUploaded) => {
+                if (!filesUploaded) {
+                    this.notifications.error('Creating Blog', 'Failed to upload image');
+                    return;
+                }
 
-        // this.jsonApi.post('blogs', this.blogCreateForm.value).subscribe(
-        //     (response) => {
-        //         console.log(response);
-        //         this.uploadImage();
-        //     }
-        // )
+                let formValues = this.blogCreateForm.value;
+                formValues['image-path'] = filesUploaded[0];
+                this.createBlog(formValues);
+            });
+        } else {
+            this.createBlog(this.blogCreateForm.value);
+        }
     }
 
     private retrieveCategories(): void {
@@ -76,5 +76,18 @@ export class BlogCreateComponent implements OnInit {
 
     public get categories(): JsonApiResourceObject[] {
         return this._categories;
+    }
+
+    private createBlog(blog: object) {
+        this.jsonApi.post('blogs', blog).subscribe(
+            (response) => {
+                this.blogCreateForm.reset();
+                this.blogCreateForm.enable();
+                this.notifications.success('Success', 'Blog created');
+            },
+            (error) => {
+                this.notifications.error('Error', 'Blog could not be created')
+            }
+        )
     }
 }

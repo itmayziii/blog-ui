@@ -14,12 +14,11 @@ import { RouteService } from "../../services/route.service";
 export class LoginComponent implements OnInit {
     public loginForm: FormGroup;
 
-    public constructor(
-        private formBuilder: FormBuilder,
-        private httpService: HttpService,
-        private notifications: NotificationsService,
-        private router: Router,
-        private routeService: RouteService) {}
+    public constructor(private formBuilder: FormBuilder,
+                       private httpService: HttpService,
+                       private notifications: NotificationsService,
+                       private router: Router,
+                       private routeService: RouteService) {}
 
     public ngOnInit(): void {
         this.loginForm = this.formBuilder.group({
@@ -39,7 +38,7 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('API-Token', results["API-Token"]);
 
                 const navigateToUrl = (this.routeService.redirectUrl) ? this.routeService.redirectUrl : '/blogs';
-                this.router.navigate([navigateToUrl]);
+                this.router.navigate([navigateToUrl]).then(() => {});
             },
             (errorMessage: any) => {
                 this.notifications.error('Login Failed', errorMessage.error);
