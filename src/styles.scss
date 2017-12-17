@@ -3,6 +3,7 @@
 @import "assets/scss/utilities";
 @import "assets/scss/variables";
 @import "~bootstrap/scss/bootstrap";
+@import "../highlight.js/src/styles/github-gist";
 
 .root {
     width: 100%;
@@ -18,7 +19,9 @@
     height: 100%;
 
     .loader {
-        border: 16px solid $brand-primary;
+        border: 16px solid theme-color(" primary
+
+");
         border-top: 16px solid #f3f3f3;
         border-radius: 50%;
         align-self: center;
@@ -39,7 +42,10 @@
 
 // Font Awesome
 .fa {
-    color: $brand-primary;
+    color: theme-color("
+primary
+
+");
 }
 
 // Temporary
@@ -50,6 +56,9 @@
 // Notifications
 
 .sn-progress-loader span {
-    background: $brand-success !important;
+    background: theme-color("
+primary
+
+") !important;
 }
 

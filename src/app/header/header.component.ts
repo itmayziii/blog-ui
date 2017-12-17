@@ -6,12 +6,12 @@ import { UserService } from "../services/user.service";
     selector: 'app-header',
     template: `
         <header class="header">
-            <nav class="navbar navbar-toggleable-md sticky-top navbar-light">
+            <nav class="navbar navbar-expand-md sticky-top navbar-light">
+                <a class="navbar-brand text-success" routerLink="/">TM3</a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" (click)="toggleNavigationMenu()">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand" routerLink="/">TM3</a>
-
+                
                 <div class="collapse navbar-collapse" [class.show]="!isNavigationCollapsed">
                     <ul class="navbar-nav">
                         <li *ngFor="let rightLink of leftLinks" class="nav-item">

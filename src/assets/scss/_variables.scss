@@ -1,26 +1,38 @@
-$background-color: #0e2439;
+$primary: #1f2833;
+$secondary: #66fcf1;
+$success: #45a29e;
+$info: #0b0c10;
+$danger: #e61414;
+$light: #c5c6c7;
 
 /*
  * Bootstrap Overrides
  */
+$theme-colors: (
+        "primary": $primary,
+        "secondary": $secondary,
+        "success": $success,
+        "info": $info,
+        "danger": $danger,
+        "light": $light
+);
+$link-color: $secondary;
+$body-bg: $primary;
+$body-color: #fff;
+$code-bg: $light;
+$code-color: $primary;
 
-// colors
-$white: #fff;
+$sizes: (
+        25: 25%,
+        50: 50%,
+        75: 75%,
+        85: 85%,
+        100: 100%
+);
 
-// branding
-$brand-primary: #009688;
-$brand-success: #19ef21;
-$brand-info: #455a64;
-$brand-danger: #e61414;
-// TODO pick colors
-$brand-warning: #000;
-
-$brand-inverse: #000;
-
-// nav
-$navbar-light-color: $white;
-$navbar-light-hover-color: $brand-success;
-$navbar-light-active-color: $brand-success;
-$navbar-light-toggler-border: $background-color;
+$navbar-light-color: #fff;
+$navbar-light-hover-color: $secondary;
+$navbar-light-active-color: $secondary;
+$navbar-light-toggler-border-color: $secondary;
 
 // End Bootstrap Overrides

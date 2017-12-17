@@ -10,9 +10,9 @@
     bottom: 0;
     background-color: transparent;
     border: 0;
-    border-bottom: 1px solid $brand-primary;
+    border-bottom: 1px solid theme-color("primary");
     border-radius: 0;
-    color: $brand-primary;
+    color: theme-color("primary");
   }
 }
 
@@ -21,7 +21,7 @@
   top: 2.1rem;
   left: .7rem;
   font-size: 1.2rem;
-  color: $brand-primary;
+  color: theme-color("primary");
   transition: top 250ms ease-in;
 
   &.active {

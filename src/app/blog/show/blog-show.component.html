@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row">
-        <h1>{{blog?.attributes?.title}}</h1>
-        <p>{{blog?.attributes?.content}}</p>
+        <h1 class="blog-title text-center text-secondary w-100">{{blog?.attributes?.title}}</h1>
+        <div class="blog-content w-85 m-auto" [innerHTML]="parsedBlogContent"></div>
     </div>
 </div>

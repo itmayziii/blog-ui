@@ -1,5 +1,5 @@
 import { SlugifyDirective } from './slugify.directive';
-import { WindowRef } from "../../utils/window-ref";
+import { WindowRef } from "../../globals/window-ref";
 
 describe('slugify.directive.ts', () => {
     let slugifyDirective: SlugifyDirective, mockHTMLInputElement, mockElementRef, windowRef;

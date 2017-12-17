@@ -1,5 +1,5 @@
 import { Directive, ElementRef, HostListener, Input } from '@angular/core';
-import { WindowRef } from "../../utils/window-ref";
+import { WindowRef } from "../../globals/window-ref";
 import { BlogCreateComponent } from "../create/blog-create.component";
 
 @Directive({

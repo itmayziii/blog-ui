@@ -7,7 +7,7 @@
                 <h2 class="col-12 text-center text-primary">Get In Touch</h2>
                 <dl class="col-12 contact-description-groups">
                     <div class="contact-description-group">
-                        <dt class="contact-description-group-title text-success">Given:</dt>
+                        <dt class="contact-description-group-title text-secondary">Given:</dt>
                         <dd class="contact-description-group-item">
                             <i class="fa fa-users" aria-hidden="true"></i> You are looking for developers.
                         </dd>
@@ -20,7 +20,7 @@
                     </div>
 
                     <div class="contact-description-group">
-                        <dt class="contact-description-group-title text-success">When:</dt>
+                        <dt class="contact-description-group-title text-secondary">When:</dt>
                         <dd class="contact-description-group-item">
                             <i class="fa fa-briefcase" aria-hidden="true"></i> You have a project inquiry.
                         </dd>
@@ -39,7 +39,7 @@
                     </div>
 
                     <div class="contact-description-group">
-                        <dt class="contact-description-group-title text-success">Then:</dt>
+                        <dt class="contact-description-group-title text-secondary">Then:</dt>
                         <dd class="contact-description-group-item">
                             <i class="fa fa-keyboard-o" aria-hidden="true"></i> Fill out this form.
                         </dd>
@@ -54,7 +54,7 @@
 
         <form [formGroup]="contactCreateForm" (ngSubmit)="onSubmit()" method="get" class="contact-form col-10 col-lg-6" novalidate>
             <div class="row justify-content-center">
-                <h2 class="col-10 text-center text-primary">Fill This Out</h2>
+                <h2 class="col-10 text-center text-secondary">Fill This Out</h2>
 
                 <fieldset class="form-group col-10">
                     <label for="first-name">First Name</label>
@@ -76,7 +76,7 @@
                     <textarea class="form-control" name="comments" id="comments" rows="4" formControlName="comments"></textarea>
                 </fieldset>
 
-                <button class="btn btn-primary col-10 contact-form-submit-button" type="submit" [disabled]="!contactCreateForm.valid">
+                <button class="btn btn-secondary col-10 contact-form-submit-button" type="submit" [disabled]="!contactCreateForm.valid">
                     Submit
                 </button>
             </div>

@@ -1,4 +1,4 @@
-@import "../../../assets/scss/variables";
+@import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins/breakpoints";
 
@@ -17,7 +17,7 @@
 
             &:hover {
                 text-decoration: none;
-                color: $brand-success;
+                color: theme-color("success");
             }
         }
 
