@@ -1,0 +1,33 @@
+@import "../../../assets/scss/variables";
+
+.form-group {
+  height: 4rem;
+  position: relative;
+
+  /deep/ .form-control {
+    height: 2rem;
+    position: absolute;
+    bottom: 0;
+    background-color: transparent;
+    border: 0;
+    border-bottom: 1px solid theme-color("primary");
+    border-radius: 0;
+    color: theme-color("primary");
+  }
+}
+
+.input-label {
+  position: absolute;
+  top: 2.1rem;
+  left: .7rem;
+  font-size: 1.2rem;
+  color: theme-color("primary");
+  transition: top 250ms ease-in;
+
+  &.active {
+    top: .8rem;
+    font-size: 1rem;
+    transition: top 250ms ease-in, font-size 150ms linear;
+    color: white;
+  }
+}

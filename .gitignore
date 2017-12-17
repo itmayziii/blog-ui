@@ -7,6 +7,7 @@
 *.o
 *.so
 dist/
+features/output/
 
 # Packages #
 ############
@@ -44,3 +45,4 @@ Thumbs.db
 # Vendor #
 #######################
 node_modules/
+highlight.js/

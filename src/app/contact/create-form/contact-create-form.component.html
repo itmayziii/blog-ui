@@ -1,63 +1,86 @@
 <div class="container-fluid">
-    <div class="row">
+    <div class="row justify-content-center">
 
-        <div class="col-xs-offset-1 col-xs-10 col-md-offset-0 col-md-6">
-            <div class="row">
+        <div class="contact-description-container col-10 col-lg-6">
+            <div class="row justify-content-center">
 
-                <h2 class="col-xs-12 text-center">Get In Touch</h2>
-                <dl class="dl-horizontal">
-                    <dt>Given:</dt>
-                    <dd><i class="material-icons">group</i> You are looking for developers.</dd>
-                    <dd><i class="material-icons">forum</i> You enjoy reading my blogs.</dd>
-                    <dd><i class="material-icons">school</i> You want to learn something new.</dd>
-                    <br/>
+                <h2 class="col-12 text-center text-primary">Get In Touch</h2>
+                <dl class="col-12 contact-description-groups">
+                    <div class="contact-description-group">
+                        <dt class="contact-description-group-title text-secondary">Given:</dt>
+                        <dd class="contact-description-group-item">
+                            <i class="fa fa-users" aria-hidden="true"></i> You are looking for developers.
+                        </dd>
+                        <dd class="contact-description-group-item">
+                            <i class="fa fa-rss" aria-hidden="true"></i> You enjoy reading my blogs.
+                        </dd>
+                        <dd class="contact-description-group-item">
+                            <i class="fa fa-book" aria-hidden="true"></i> You want to learn something new.
+                        </dd>
+                    </div>
 
-                    <dt>When:</dt>
-                    <dd><i class="material-icons">business</i> You have a project inquiry.</dd>
-                    <dd><i class="material-icons">info_outline</i> You want me to cover a specific topic on my blog.
-                    </dd>
-                    <dd><i class="material-icons">notifications</i> You have a question.</dd>
-                    <dd><i class="material-icons">add_location</i> You want to play a round of golf.
-                    </dd>
-                    <dd><i class="material-icons">do_not_disturb</i> <s>Your bored and have nothing better to do.</s>
-                    </dd>
-                    <br/>
+                    <div class="contact-description-group">
+                        <dt class="contact-description-group-title text-secondary">When:</dt>
+                        <dd class="contact-description-group-item">
+                            <i class="fa fa-briefcase" aria-hidden="true"></i> You have a project inquiry.
+                        </dd>
+                        <dd class="contact-description-group-item">
+                            <i class="fa fa-rss-square" aria-hidden="true"></i> You want me to cover a specific topic on my blog.
+                        </dd>
+                        <dd class="contact-description-group-item">
+                            <i class="fa fa-question-circle" aria-hidden="true"></i> You have a question.
+                        </dd>
+                        <dd class="contact-description-group-item">
+                            <i class="fa fa-smile-o" aria-hidden="true"></i> You want to play a round of golf.
+                        </dd>
+                        <dd class="strike-through contact-description-group-item">
+                            <i class="fa fa-ban" aria-hidden="true"></i> Your bored and have nothing better to do.
+                        </dd>
+                    </div>
 
-                    <dt>Then:</dt>
-                    <dd><i class="material-icons">create</i> Fill out this form.</dd>
-                    <dd><i class="material-icons">group_add</i> Contact me on social media.</dd>
+                    <div class="contact-description-group">
+                        <dt class="contact-description-group-title text-secondary">Then:</dt>
+                        <dd class="contact-description-group-item">
+                            <i class="fa fa-keyboard-o" aria-hidden="true"></i> Fill out this form.
+                        </dd>
+                        <dd class="contact-description-group-item">
+                            <i class="fa fa-address-card" aria-hidden="true"></i> Contact me on social media.
+                        </dd>
+                    </div>
                 </dl>
 
             </div>
         </div>
 
-        <div class="col-xs-12 col-md-6">
-            <div class="row">
+        <form [formGroup]="contactCreateForm" (ngSubmit)="onSubmit()" method="get" class="contact-form col-10 col-lg-6" novalidate>
+            <div class="row justify-content-center">
+                <h2 class="col-10 text-center text-secondary">Fill This Out</h2>
 
-                <h2 class="col-xs-12 text-center">Fill This Out</h2>
-                <form [formGroup]="contactCreateForm" (ngSubmit)="onSubmit()" method="get" class="col-xs-offset-1 col-xs-10 form" novalidate>
-                    <div class="row">
-                        <md-input-container class="col-xs-offset-1 col-xs-10" color="accent">
-                            <input mdInput placeholder="First Name" maxlength="100" formControlName="first-name">
-                        </md-input-container>
-                        <md-input-container class="col-xs-offset-1 col-xs-10" color="accent">
-                            <input mdInput placeholder="Last Name" maxlength="100" formControlName="last-name">
-                        </md-input-container>
-                        <md-input-container class="col-xs-offset-1 col-xs-10" color="accent">
-                            <input mdInput placeholder="Email" maxlength="100" formControlName="email">
-                        </md-input-container>
-                        <md-input-container class="col-xs-offset-1 col-xs-10" color="accent">
-                            <textarea mdInput autofocus required mdTextareaAutosize minRows="6"
-                                      placeholder="Comments" maxlength="4000" formControlName="comments"></textarea>
-                        </md-input-container>
-                        <button class="col-xs-10" md-raised-button color="accent" type="submit" disabled="{{contactCreateForm.status === 'INVALID'}}">
-                            Submit
-                        </button>
-                    </div>
-                </form>
+                <fieldset class="form-group col-10">
+                    <label for="first-name">First Name</label>
+                    <input class="form-control" type="text" name="first-name" id="first-name" formControlName="first-name" autofocus>
+                </fieldset>
 
+                <fieldset class="form-group col-10">
+                    <label for="last-name">Last Name</label>
+                    <input class="form-control" type="text" name="last-name" id="last-name" formControlName="last-name">
+                </fieldset>
+
+                <fieldset class="form-group col-10">
+                    <label for="email">Email</label>
+                    <input class="form-control" type="text" name="email" id="email" formControlName="email">
+                </fieldset>
+
+                <fieldset class="form-group col-10">
+                    <label for="comments">Comments<span class="required">*</span></label>
+                    <textarea class="form-control" name="comments" id="comments" rows="4" formControlName="comments"></textarea>
+                </fieldset>
+
+                <button class="btn btn-secondary col-10 contact-form-submit-button" type="submit" [disabled]="!contactCreateForm.valid">
+                    Submit
+                </button>
             </div>
-        </div>
-
+        </form>
     </div>
+
 </div>

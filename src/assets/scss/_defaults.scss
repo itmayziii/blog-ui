@@ -1,0 +1,10 @@
+@import "variables";
+
+html, body {
+    height: 100%;
+    font-size: 18px;
+    position: fixed;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}

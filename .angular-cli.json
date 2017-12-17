@@ -19,15 +19,14 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "blog",
       "styles": [
-        "styles.scss"
+        "styles.scss",
+        "../node_modules/font-awesome/css/font-awesome.min.css"
       ],
-      "stylePreprocessorOptions": {
-        "includePaths": [
-          "assets/scss",
-          "../node_modules"
-        ]
-      },
       "scripts": [
+        "../node_modules/jquery/dist/jquery.min.js",
+        "../node_modules/popper.js/dist/umd/popper.min.js",
+        "../node_modules/bootstrap/dist/js/bootstrap.min.js",
+        "../highlight.js/build/highlight.pack.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

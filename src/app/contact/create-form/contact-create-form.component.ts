@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { JsonApiService } from "../../services/json-api/json-api.service";
+import { JsonApiService } from "../../services/http/json-api.service";
 import { NotificationsService } from "angular2-notifications/dist";
 
 @Component({
@@ -15,26 +15,31 @@ export class ContactCreateFormComponent {
         this.createForm();
     }
 
-    private createForm() {
+    private createForm(): void {
         this.contactCreateForm = this.formBuilder.group({
-            "first-name": this.formBuilder.control(null),
-            "last-name": this.formBuilder.control(null),
-            "email": this.formBuilder.control(null),
-            "comments": this.formBuilder.control(null, Validators.required)
+            "first-name": null,
+            "last-name": null,
+            "email": null,
+            "comments": [null, [Validators.required]]
         })
     }
 
-    public onSubmit() {
-        this.contactCreateForm.disable();
-        this.jsonApi.post('contacts', this.contactCreateForm.value)
-            .then((results) => {
-                this.notifications.success('Thank you for your submission!');
-                this.contactCreateForm.reset();
-                this.contactCreateForm.enable();
-            })
-            .catch((error: any) => {
-                this.notifications.error('There was a problem! Please try again later');
-                this.contactCreateForm.enable();
-            });
+    public onSubmit(): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.contactCreateForm.disable();
+            this.jsonApi.post('contacts', this.contactCreateForm.value).subscribe(
+                (response: any) => {
+                    this.notifications.success('Success', 'Thank you for your submission!');
+                    this.contactCreateForm.reset();
+                    this.contactCreateForm.enable();
+                    resolve(response);
+                },
+                (error: any) => {
+                    this.notifications.error('Error', 'There was a problem! Please try again later');
+                    this.contactCreateForm.enable();
+                    reject(error);
+                },
+            );
+        });
     }
 }

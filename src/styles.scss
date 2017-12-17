@@ -1,19 +1,64 @@
+// All styles are meant to style mobile first, media queries are used to handle larger devices
+@import "assets/scss/defaults";
+@import "assets/scss/utilities";
 @import "assets/scss/variables";
-// Vendor
-@import "assets/scss/vendor/material-design";
-@import "../node_modules/material-design-icons/iconfont/material-icons.css";
-@import "assets/scss/vendor/bootstrap";
+@import "~bootstrap/scss/bootstrap";
+@import "../highlight.js/src/styles/github-gist";
 
-html, body {
-  height: 100%;
-  font-size: 1.1rem;
+.root {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    overflow: auto;
+    color: white;
 }
 
-body {
-  padding-top: 70px;
-  background-color: $background-color;
+.loader-container {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+
+    .loader {
+        border: 16px solid theme-color(" primary
+
+");
+        border-top: 16px solid #f3f3f3;
+        border-radius: 50%;
+        align-self: center;
+        width: 120px;
+        height: 120px;
+        animation: spin 2s linear infinite;
+    }
 }
 
-button[md-raised-button][disabled] {
-  background-color: $background-color !important;
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
+
+// Font Awesome
+.fa {
+    color: theme-color("
+primary
+
+");
+}
+
+// Temporary
+.required {
+    color: red;
+}
+
+// Notifications
+
+.sn-progress-loader span {
+    background: theme-color("
+primary
+
+") !important;
+}
+

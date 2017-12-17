@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-footer',
     template: `
-    <footer class="main-footer"></footer>
-  `,
+        <footer class="main-footer"></footer>
+    `,
     styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent {
