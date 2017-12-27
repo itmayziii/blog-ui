@@ -9,12 +9,12 @@ import { HttpService } from "../../services/http/http.service";
 import { FileUploadService } from "../../services/http/file-upload.service";
 
 @Component({
-    selector: 'blog-blog-create',
-    templateUrl: './blog-create.component.html',
-    styleUrls: ['./blog-create.component.scss']
+    selector: 'blog-post-create',
+    templateUrl: './post-create.component.html',
+    styleUrls: ['./post-create.component.scss']
 })
-export class BlogCreateComponent implements OnInit {
-    public blogCreateForm: FormGroup;
+export class PostCreateComponent implements OnInit {
+    public postCreateForm: FormGroup;
     private _categories: JsonApiResourceObject[];
     @ViewChild('image') public image: ElementRef;
 
@@ -32,7 +32,7 @@ export class BlogCreateComponent implements OnInit {
     }
 
     private createForm(): void {
-        this.blogCreateForm = this.formBuilder.group({
+        this.postCreateForm = this.formBuilder.group({
             "title": [null, Validators.required],
             "slug": [null, Validators.required],
             "content": [null, Validators.required],
@@ -40,26 +40,26 @@ export class BlogCreateComponent implements OnInit {
             "user-id": null
         });
 
-        this.blogCreateForm.get('user-id').setValue(this.userService.userId);
+        this.postCreateForm.get('user-id').setValue(this.userService.userId);
     }
 
     public onSubmit(): void {
-        this.blogCreateForm.disable();
-        this.notifications.info('Creating Blog', 'In Progress');
+        this.postCreateForm.disable();
+        this.notifications.info('Creating Post', 'In Progress');
 
         if (this.image.nativeElement.files.length > 0) {
             this.fileUploadService.uploadFile(this.image).subscribe((filesUploaded) => {
                 if (!filesUploaded) {
-                    this.notifications.error('Creating Blog', 'Failed to upload image');
+                    this.notifications.error('Creating Post', 'Failed to upload image');
                     return;
                 }
 
-                let formValues = this.blogCreateForm.value;
+                let formValues = this.postCreateForm.value;
                 formValues['image-path'] = filesUploaded[0];
-                this.createBlog(formValues);
+                this.createPost(formValues);
             });
         } else {
-            this.createBlog(this.blogCreateForm.value);
+            this.createPost(this.postCreateForm.value);
         }
     }
 
@@ -78,15 +78,15 @@ export class BlogCreateComponent implements OnInit {
         return this._categories;
     }
 
-    private createBlog(blog: object) {
-        this.jsonApi.post('blogs', blog).subscribe(
+    private createPost(post: object) {
+        this.jsonApi.post('posts', post).subscribe(
             (response) => {
-                this.blogCreateForm.reset();
-                this.blogCreateForm.enable();
-                this.notifications.success('Success', 'Blog created');
+                this.postCreateForm.reset();
+                this.postCreateForm.enable();
+                this.notifications.success('Success', 'Post created');
             },
             (error) => {
-                this.notifications.error('Error', 'Blog could not be created')
+                this.notifications.error('Error', 'Post could not be created')
             }
         )
     }

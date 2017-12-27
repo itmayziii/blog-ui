@@ -8,35 +8,34 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { MarkdownService } from "../../services/markdown.service";
 
 @Component({
-    selector: 'blog-blog-show',
-    templateUrl: './blog-show.component.html',
-    styleUrls: ['./blog-show.component.scss']
+    selector: 'blog-post-show',
+    templateUrl: './post-show.component.html',
+    styleUrls: ['./post-show.component.scss']
 })
-export class BlogShowComponent implements OnInit {
-    private _blog: JsonApiResourceObject;
+export class PostShowComponent implements OnInit {
+    private _post: JsonApiResourceObject;
     private $url: Subscription;
-    private _parsedBlogContent: SafeHtml;
+    private _parsedPostContent: SafeHtml;
 
     public constructor(private jsonApiService: JsonApiService, private route: ActivatedRoute, private sanitizer: DomSanitizer, private markdownService: MarkdownService) { }
 
     public ngOnInit() {
-        this.readBlogSlug().then((blogSlug: string) => {
+        this.readPostSlug().then((blogSlug: string) => {
             this.getBlog(blogSlug);
         });
     }
 
-    private getBlog(blogSlug: string) {
-        this.jsonApiService.get(`blogs/${blogSlug}`).subscribe((jsonApiResource: JsonApiResource) => {
-            this._blog = jsonApiResource.data;
+    private getBlog(postSlug: string) {
+        this.jsonApiService.get(`posts/${postSlug}`).subscribe((jsonApiResource: JsonApiResource) => {
+            this._post = jsonApiResource.data;
 
-            this.markdownService.parse(this._blog.attributes.content, (err, result) => {
-                console.log('result ', result);
-                this._parsedBlogContent = this.sanitizer.bypassSecurityTrustHtml(result);
+            this.markdownService.parse(this._post.attributes.content, (err, result) => {
+                this._parsedPostContent = this.sanitizer.bypassSecurityTrustHtml(result);
             });
         });
     }
 
-    private readBlogSlug(): Promise<string> {
+    private readPostSlug(): Promise<string> {
         return new Promise((resolve) => {
             this.$url = this.route.url.subscribe((urlSegment: UrlSegment[]) => {
                 resolve(urlSegment[0].path);
@@ -44,11 +43,11 @@ export class BlogShowComponent implements OnInit {
         });
     }
 
-    public get blog(): JsonApiResourceObject {
-        return this._blog;
+    public get post(): JsonApiResourceObject {
+        return this._post;
     }
 
-    get parsedBlogContent(): SafeHtml {
-        return this._parsedBlogContent;
+    public get parsedPostContent(): SafeHtml {
+        return this._parsedPostContent;
     }
 }

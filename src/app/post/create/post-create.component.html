@@ -1,15 +1,15 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
 
-        <form [formGroup]="blogCreateForm" (ngSubmit)="onSubmit()" method="post" class="contact-form col-10 col-lg-8"
+        <form [formGroup]="postCreateForm" (ngSubmit)="onSubmit()" method="post" class="contact-form col-10 col-lg-8"
               novalidate enctype="multipart/form-data" target="_blank">
             <div class="row justify-content-center">
-                <h2 class="col-10 text-center text-primary">Create Blog</h2>
+                <h2 class="col-10 text-center text-primary">Create Post</h2>
 
                 <fieldset class="form-group col-10">
                     <label for="title">Title<span class="required">*</span></label>
                     <input class="form-control" type="text" name="title" id="title" formControlName="title" autofocus
-                           blogSlugify="slug">
+                           postSlugify="slug">
                 </fieldset>
 
                 <fieldset class="form-group col-10">
@@ -41,7 +41,7 @@
                 </fieldset>
 
                 <button class="btn btn-primary col-10 contact-form-submit-button" type="submit"
-                        [disabled]="!blogCreateForm.valid">
+                        [disabled]="!postCreateForm.valid">
                     Submit
                 </button>
             </div>

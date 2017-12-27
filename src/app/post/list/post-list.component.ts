@@ -9,15 +9,15 @@ import { UserService } from "../../services/user.service";
 import { NotificationsService } from "angular2-notifications/dist";
 
 @Component({
-    selector: 'blog-list',
-    templateUrl: './blog-list.component.html',
-    styleUrls: ['./blog-list.component.scss']
+    selector: 'blog-post-list',
+    templateUrl: './post-list.component.html',
+    styleUrls: ['./post-list.component.scss']
 })
-export class BlogListComponent implements OnInit, OnDestroy {
+export class PostListComponent implements OnInit, OnDestroy {
     private $params: Subscription;
     private page: string = '1';
     private size: string = '10';
-    private _blogs: JsonApiResourceObject[];
+    private _posts: JsonApiResourceObject[];
 
     public constructor(private jsonApi: JsonApiService,
                        private route: ActivatedRoute,
@@ -28,7 +28,7 @@ export class BlogListComponent implements OnInit, OnDestroy {
 
     public ngOnInit() {
         this.readQueryParameters().then(() => {
-            this.retrieveBlogs();
+            this.retrievePosts();
         });
     }
 
@@ -52,24 +52,24 @@ export class BlogListComponent implements OnInit, OnDestroy {
         });
     }
 
-    private retrieveBlogs(): void {
+    private retrievePosts(): void {
         const urlSearchParams = new URLSearchParams();
         urlSearchParams.set('size', this.size);
         urlSearchParams.set('page', this.page);
 
         const requestOptions = new RequestOptions({params: urlSearchParams});
-        this.jsonApi.get('blogs', requestOptions).subscribe(
+        this.jsonApi.get('posts', requestOptions).subscribe(
             (response: JsonApiResources) => {
-                this._blogs = response.data;
+                this._posts = response.data;
             },
             (error: any) => {
-                this.notifications.error('Error', 'Unable to show blog posts');
+                this.notifications.error('Error', 'Unable to show posts');
             }
         );
     }
 
-    public get blogs(): JsonApiResourceObject[] {
-        return this._blogs;
+    public get posts(): JsonApiResourceObject[] {
+        return this._posts;
     }
 
     public limit(content: string): string {
@@ -77,7 +77,7 @@ export class BlogListComponent implements OnInit, OnDestroy {
     }
 
     public navigateToCreatePage(): void {
-        this.router.navigate(['blogs/create']);
+        this.router.navigate(['posts/create']);
     }
 
     public isAdmin(): boolean {
