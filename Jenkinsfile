@@ -21,6 +21,17 @@ pipeline {
             sh 'git submodule update'
           }
         }
+        stage('Build') {
+          agent {
+            docker {
+              image 'itmayziii/node-chrome:8.9'
+            }
+            
+          }
+          steps {
+            sh 'npm run build'
+          }
+        }
       }
     }
     stage('Test') {
