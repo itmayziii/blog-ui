@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-      image 'node:8.9'
+      image 'itmayziii/node-chrome:8.9'
     }
     
   }
@@ -21,8 +21,5 @@ pipeline {
         echo 'Done'
       }
     }
-  }
-  environment {
-    CHROME_BIN = 'node_modules/.bin/chromedriver'
   }
 }
