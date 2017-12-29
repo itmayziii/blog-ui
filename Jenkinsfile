@@ -31,6 +31,12 @@ pipeline {
       }
     }
     stage('Test') {
+      agent {
+        docker {
+          image 'itmayziii/node-chrome:8.9'
+        }
+        
+      }
       steps {
         sh 'npm run test'
       }
