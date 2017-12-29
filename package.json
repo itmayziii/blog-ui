@@ -1,6 +1,11 @@
 {
   "name": "blog-ui",
   "version": "0.0.0",
+  "author": {
+    "name": "Tommy May III",
+    "email": "tommymay37@gmail.com",
+    "url": "fullheapdeveloper.com"
+  },
   "license": "MIT",
   "scripts": {
     "ng": "ng",
