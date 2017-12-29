@@ -1,24 +1,48 @@
 pipeline {
-  agent {
-    docker {
-      image 'itmayziii/node-chrome:8.9'
-    }
-    
-  }
+  agent none
   stages {
+    stage('Install Submodules') {
+      agent any
+      steps {
+        sh 'git submodule init'
+        sh 'git submodule update'
+      }
+    }
     stage('Install Dependencies') {
-      steps {
-        sh 'npm install'
+      parallel {
+        stage('Install Dependencies') {
+          agent {
+            docker {
+              image 'itmayziii/node-chrome:8.9'
+            }
+            
+          }
+          steps {
+            sh 'npm install'
+          }
+        }
+        stage('') {
+          agent {
+            docker {
+              image 'itmayziii/node-chrome:8.9'
+            }
+            
+          }
+          steps {
+            sh 'npm install highlight.js'
+          }
+        }
       }
     }
-    stage('Test') {
-      steps {
-        sh 'npm run test'
+    stage('Build') {
+      agent {
+        docker {
+          image 'itmayziii/node-chrome:8.9'
+        }
+        
       }
-    }
-    stage('Deploy') {
       steps {
-        echo 'Done'
+        sh 'npm run build'
       }
     }
   }
