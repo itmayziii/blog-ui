@@ -1,0 +1,32 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins/breakpoints";
+
+.blog-list {
+    padding: 0;
+
+    &-item {
+        margin: 40px 0;
+
+        &-description {
+            color: white;
+        }
+
+        &-reference {
+            margin: 0 25px;
+
+            &:hover {
+                text-decoration: none;
+                color: theme-color("success");
+            }
+        }
+
+        &-image {
+            border-radius: 50%;
+            margin: auto;
+            width: 250px;
+            height: 250px;
+        }
+
+    }
+}
