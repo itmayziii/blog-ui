@@ -22,4 +22,7 @@ pipeline {
       }
     }
   }
+  environment {
+    CHROME_BIN = 'node_modules/.bin/chromedriver'
+  }
 }
