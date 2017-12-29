@@ -21,7 +21,7 @@ pipeline {
             sh 'npm install'
           }
         }
-        stage('') {
+        stage('error') {
           agent {
             docker {
               image 'itmayziii/node-chrome:8.9'
@@ -43,6 +43,11 @@ pipeline {
       }
       steps {
         sh 'npm run build'
+      }
+    }
+    stage('Deploy') {
+      steps {
+        echo 'DONE!!!'
       }
     }
   }
