@@ -21,7 +21,7 @@ pipeline {
             sh 'npm install'
           }
         }
-        stage('Install Submodule dependencies') {
+        stage('') {
           agent {
             docker {
               image 'itmayziii/node-chrome:8.9'
@@ -29,10 +29,7 @@ pipeline {
             
           }
           steps {
-            dir(path: 'highlight.js') {
-              sh 'npm install'
-            }
-            
+            sh 'npm install highlight.js'
           }
         }
       }
