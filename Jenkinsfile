@@ -1,53 +1,32 @@
 pipeline {
   agent none
   stages {
+    stage('Install Submodules') {
+      steps {
+        sh 'git submodule init'
+        sh 'git submodule update'
+      }
+    }
     stage('Install Dependencies') {
       parallel {
         stage('Install Dependencies') {
-          agent {
-            docker {
-              image 'itmayziii/node-chrome:8.9'
-            }
-            
-          }
           steps {
             sh 'npm install'
           }
         }
-        stage('Initialize Submodules') {
-          agent any
+        stage('Install Submodule dependencies') {
           steps {
-            sh 'git submodule init'
-            sh 'git submodule update'
-          }
-        }
-        stage('Build') {
-          agent {
-            docker {
-              image 'itmayziii/node-chrome:8.9'
+            dir(path: 'highlight.js') {
+              sh 'npm install'
             }
             
           }
-          steps {
-            sh 'npm run build'
-          }
         }
       }
     }
-    stage('Test') {
-      agent {
-        docker {
-          image 'itmayziii/node-chrome:8.9'
-        }
-        
-      }
+    stage('Build') {
       steps {
-        sh 'npm run test'
-      }
-    }
-    stage('Deploy') {
-      steps {
-        echo 'Done!!!'
+        sh 'npm run build'
       }
     }
   }
