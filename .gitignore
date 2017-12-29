@@ -45,7 +45,3 @@ Thumbs.db
 # Vendor #
 #######################
 node_modules/
-
-# Submodules #
-#######################
-highlight.js/
