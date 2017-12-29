@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-      image 'node:8.9'
+      image 'itmayziii/node-chrome:8.9'
     }
     
   }
@@ -14,6 +14,11 @@ pipeline {
     stage('Test') {
       steps {
         sh 'npm run test'
+      }
+    }
+    stage('Deploy') {
+      steps {
+        echo 'Done'
       }
     }
   }
