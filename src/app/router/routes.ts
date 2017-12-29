@@ -6,18 +6,18 @@ import { LoginComponent } from "../users/login/login.component";
 import { RegisterComponent } from "../users/register/register.component";
 import { ContactShowComponent } from "../contact/show/contact-show.component";
 import { LogoutComponent } from "../users/logout/logout.component";
-import { BlogListComponent } from "../blog/list/blog-list.component";
-import { BlogShowComponent } from "../blog/show/blog-show.component";
-import { BlogCreateComponent } from "../blog/create/blog-create.component";
+import { PostListComponent } from "../post/list/post-list.component";
+import { PostShowComponent } from "../post/show/post-show.component";
+import { PostCreateComponent } from "../post/create/post-create.component";
 
 export const routes: Routes = [
     {
         path: '',
-        redirectTo: '/blogs',
+        redirectTo: '/posts',
         pathMatch: 'full'
     },
     {
-        path: 'blogs',
+        path: 'posts',
         data: {
             'authorizedRole': 'Guest'
         },
@@ -25,18 +25,18 @@ export const routes: Routes = [
         children: [
             {
                 path: 'create',
-                component: BlogCreateComponent,
+                component: PostCreateComponent,
                 data: {
                     'authorizedRole': 'Administrator'
                 }
             },
             {
                 path: ':id',
-                component: BlogShowComponent
+                component: PostShowComponent
             },
             {
                 path: '',
-                component: BlogListComponent
+                component: PostListComponent
             }
         ]
     },

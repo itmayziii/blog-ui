@@ -1,0 +1,19 @@
+<div class="container-fluid">
+
+    <div *ngIf="isAdmin()" class="row justify-content-center">
+        <button class="btn btn-primary col-8 col-sm-4 create-new-post-button" (click)="navigateToCreatePage()">Create New Post</button>
+    </div>
+
+    <ul class="post-list row justify-content-start">
+        <li *ngFor="let post of posts" class="col-12 col-md-6 col-lg-4 post-list-item">
+            <a class="row post-list-item-reference" routerLink="{{post.id}}">
+                <img src="{{post.attributes['image_path']}}" class="post-list-item-image">
+                <div class="post-list-item-text">
+                    <h4 class="col-12 text-center">{{post.attributes.title}}</h4>
+                    <p class="post-list-item-description">{{limit(post.attributes.content)}}...</p>
+                </div>
+            </a>
+        </li>
+    </ul>
+
+</div>

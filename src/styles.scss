@@ -19,9 +19,7 @@
     height: 100%;
 
     .loader {
-        border: 16px solid theme-color(" primary
-
-");
+        border: 16px solid theme-color("primary");
         border-top: 16px solid #f3f3f3;
         border-radius: 50%;
         align-self: center;
@@ -42,10 +40,7 @@
 
 // Font Awesome
 .fa {
-    color: theme-color("
-primary
-
-");
+    color: theme-color("primary");
 }
 
 // Temporary
@@ -56,9 +51,6 @@ primary
 // Notifications
 
 .sn-progress-loader span {
-    background: theme-color("
-primary
-
-") !important;
+    background: theme-color("primary") !important;
 }
 

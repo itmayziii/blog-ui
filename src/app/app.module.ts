@@ -22,11 +22,11 @@ import { HttpService } from "./services/http/http.service";
 import { RouteService } from "./services/route.service";
 import { LogoutComponent } from './users/logout/logout.component';
 import { AuthService } from "./services/auth.service";
-import { BlogListComponent } from './blog/list/blog-list.component';
+import { PostListComponent } from './post/list/post-list.component';
 import { UserService } from "./services/user.service";
-import { BlogShowComponent } from './blog/show/blog-show.component';
-import { BlogCreateComponent } from './blog/create/blog-create.component';
-import { SlugifyDirective } from './blog/directives/slugify.directive';
+import { PostShowComponent } from './post/show/post-show.component';
+import { PostCreateComponent } from './post/create/post-create.component';
+import { SlugifyDirective } from './post/directives/slugify.directive';
 import { FileUploadService } from "./services/http/file-upload.service";
 import { MarkdownService } from "./services/markdown.service";
 import { HighlightService } from "./services/highlight.service";
@@ -43,9 +43,9 @@ import { HighlightService } from "./services/highlight.service";
         LoginComponent,
         RegisterComponent,
         LogoutComponent,
-        BlogListComponent,
-        BlogShowComponent,
-        BlogCreateComponent,
+        PostListComponent,
+        PostShowComponent,
+        PostCreateComponent,
         SlugifyDirective
     ],
     imports: [

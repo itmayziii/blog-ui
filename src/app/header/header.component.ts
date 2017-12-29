@@ -46,7 +46,7 @@ export class HeaderComponent {
     @ViewChild('collapsibleNav') public collapsibleNav: ElementRef;
     public isNavigationCollapsed: boolean = true;
     public leftLinks: Array<NavLink> = [
-        {title: 'Blog', path: '/blogs', condition: () => {return true}},
+        {title: 'Posts', path: '/posts', condition: () => {return true}},
         {title: 'Contact', path: '/contacts/create', condition: () => {return true}}
     ];
     public rightLinks: Array<NavLink> = [
