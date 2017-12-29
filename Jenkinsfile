@@ -30,9 +30,9 @@ pipeline {
         sh 'npm run build'
       }
     }
-    stage('Deploy') {
+    stage('Test') {
       steps {
-        echo 'DONE!!!'
+        sh 'npm run test'
       }
     }
   }
