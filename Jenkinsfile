@@ -2,6 +2,7 @@ pipeline {
   agent none
   stages {
     stage('Install Submodules') {
+      agent any
       steps {
         sh 'git submodule init'
         sh 'git submodule update'
