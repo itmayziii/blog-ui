@@ -1,11 +1,17 @@
 {
   "name": "blog-ui",
   "version": "0.0.0",
+  "author": {
+    "name": "Tommy May III",
+    "email": "tommymay37@gmail.com",
+    "url": "fullheapdeveloper.com"
+  },
   "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open=false -e=dev -pc=proxy.conf.json",
-    "build:highlight.js": "cd highlight.js && npm install && node tools/build.js -t browser xml javascript json typescript",
+    "install:submodules": "cd highlight.js && npm install",
+    "build:highlight.js": "cd highlight.js &&  node tools/build.js -t browser xml javascript json typescript",
     "build": "npm run build:highlight.js && ./node_modules/.bin/ng build -oh=all -e=prod -prod -aot=false",
     "test": "ng test --watch false",
     "lint": "ng lint",
@@ -27,7 +33,6 @@
     "bootstrap": "4.0.0-beta.2",
     "core-js": "^2.4.1",
     "font-awesome": "^4.7.0",
-    "highlight.js": "file:highlight.js",
     "jquery": "^3.2.1",
     "marked": "^0.3.7",
     "ng2-validation": "^4.2.0",
