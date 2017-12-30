@@ -22,6 +22,12 @@ pipeline {
           }
         }
         stage('Install Submodule Dependencies') {
+          agent {
+            docker {
+              image 'itmayziii/node-chrome:8.9'
+            }
+            
+          }
           steps {
             sh 'npm run install:submodules'
           }
