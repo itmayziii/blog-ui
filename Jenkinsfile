@@ -45,7 +45,7 @@ pipeline {
     stage('Deploy') {
       agent any
       steps {
-        sh 'scp -r -i /var/jenkins_home/.ssh/fullheapdeveloper ./dist root@165.227.217.233:/Sites/blog/blog-ui/'
+        sh 'scp -r -i /var/jenkins_home/.ssh/fullheapdeveloper ./dist root@165.227.217.233:/Sites/blog/blog-ui'
       }
     }
   }
