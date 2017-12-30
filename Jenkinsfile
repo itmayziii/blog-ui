@@ -9,29 +9,15 @@ pipeline {
       }
     }
     stage('Install Dependencies') {
-      parallel {
-        stage('Install Dependencies') {
-          agent {
-            docker {
-              image 'itmayziii/node-chrome:8.9'
-            }
-            
-          }
-          steps {
-            sh 'npm install'
-          }
+      agent {
+        docker {
+          image 'itmayziii/node-chrome:8.9'
         }
-        stage('Install Submodule Dependencies') {
-          agent {
-            docker {
-              image 'itmayziii/node-chrome:8.9'
-            }
-            
-          }
-          steps {
-            sh 'npm run install:submodules'
-          }
-        }
+        
+      }
+      steps {
+        sh 'npm install'
+        sh 'npm run install:submodules'
       }
     }
     stage('Build') {
