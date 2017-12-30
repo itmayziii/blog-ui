@@ -9,29 +9,15 @@ pipeline {
       }
     }
     stage('Install Dependencies') {
-      parallel {
-        stage('Install Dependencies') {
-          agent {
-            docker {
-              image 'itmayziii/node-chrome:8.9'
-            }
-            
-          }
-          steps {
-            sh 'npm install'
-          }
+      agent {
+        docker {
+          image 'itmayziii/node-chrome:8.9'
         }
-        stage('Install Submodule Dependencies') {
-          agent {
-            docker {
-              image 'itmayziii/node-chrome:8.9'
-            }
-            
-          }
-          steps {
-            sh 'npm run install:submodules'
-          }
-        }
+        
+      }
+      steps {
+        sh 'npm install'
+        sh 'npm run install:submodules'
       }
     }
     stage('Build') {
@@ -57,8 +43,12 @@ pipeline {
       }
     }
     stage('Deploy') {
+      agent any
       steps {
-        echo 'DONE!'
+        dir(path: './dist') {
+          sh 'scp -r -i /var/jenkins_home/.ssh/fullheapdeveloper . root@165.227.217.233:/Sites/blog/blog-ui'
+        }
+        
       }
     }
   }
