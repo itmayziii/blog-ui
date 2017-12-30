@@ -29,7 +29,7 @@ pipeline {
             
           }
           steps {
-            sh 'npm install highlight.js'
+            sh 'npm run install:submodules'
           }
         }
       }
