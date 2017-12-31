@@ -28,7 +28,7 @@ pipeline {
         
       }
       steps {
-        timeout(unit: 'SECONDS', time: 30) {
+        timeout(unit: 'MINUTES', time: 5) {
           sh 'npm run build'
         }
         
@@ -42,7 +42,7 @@ pipeline {
         
       }
       steps {
-        timeout(time: 30) {
+        timeout(time: 5, unit: 'MINUTES') {
           sh 'npm run test'
         }
         
