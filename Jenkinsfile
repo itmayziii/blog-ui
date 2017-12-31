@@ -45,7 +45,7 @@ pipeline {
     stage('Deploy') {
       agent any
       when {
-          branch 'apples'
+          branch 'master'
       }
       steps {
         dir(path: './dist') {
