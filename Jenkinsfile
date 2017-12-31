@@ -44,11 +44,13 @@ pipeline {
     }
     stage('Deploy') {
       agent any
+      when {
+          branch 'master'
+      }
       steps {
         dir(path: './dist') {
           sh 'scp -r -i /var/jenkins_home/.ssh/fullheapdeveloper . root@165.227.217.233:/Sites/blog/blog-ui'
         }
-        
       }
     }
   }
