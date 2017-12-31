@@ -19,8 +19,8 @@
     height: 100%;
 
     .loader {
-        border: 16px solid theme-color("primary");
-        border-top: 16px solid #f3f3f3;
+        border: 16px solid $white;
+        border-top: 16px solid theme-color("secondary");
         border-radius: 50%;
         align-self: center;
         width: 120px;
@@ -40,7 +40,7 @@
 
 // Font Awesome
 .fa {
-    color: theme-color("primary");
+    color: theme-color("secondary");
 }
 
 // Temporary
