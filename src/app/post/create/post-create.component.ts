@@ -5,7 +5,6 @@ import { JsonApiService } from "../../services/http/json-api.service";
 import { JsonApiResources } from "../../models/json-api/json-api-resoures";
 import { NotificationsService } from "angular2-notifications/dist";
 import { UserService } from "../../services/user.service";
-import { HttpService } from "../../services/http/http.service";
 import { FileUploadService } from "../../services/http/file-upload.service";
 
 @Component({
@@ -22,7 +21,6 @@ export class PostCreateComponent implements OnInit {
                        private jsonApi: JsonApiService,
                        private notifications: NotificationsService,
                        private userService: UserService,
-                       private http: HttpService,
                        private fileUploadService: FileUploadService) {
     }
 

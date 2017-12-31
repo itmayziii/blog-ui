@@ -8,7 +8,26 @@ import { RouteService } from "../../services/route.service";
 
 @Component({
     selector: 'blog-login',
-    templateUrl: './login.component.html',
+    template: `
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="col-6 login-form" novalidate>
+                    <fieldset class="form-group">
+                        <label for="email">Email Address<span class="required">*</span></label>
+                        <input type="email" id="email" formControlName="email" class="form-control">
+                    </fieldset>
+
+                    <fieldset class="form-group">
+                        <label for="password">Password<span class="required">*</span></label>
+                        <input type="password" id="password" formControlName="password" class="form-control">
+                    </fieldset>
+
+                    <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">Login</button>
+                    <button type="button" class="btn btn-info" routerLink="/users/register">Register</button>
+                </form>
+            </div>
+        </div>
+    `,
     styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
@@ -37,7 +56,7 @@ export class LoginComponent implements OnInit {
             (results: any) => {
                 localStorage.setItem('API-Token', results["API-Token"]);
 
-                const navigateToUrl = (this.routeService.redirectUrl) ? this.routeService.redirectUrl : '/blogs';
+                const navigateToUrl = (this.routeService.redirectUrl) ? this.routeService.redirectUrl : '/posts';
                 this.router.navigate([navigateToUrl]).then(() => {});
             },
             (errorMessage: any) => {

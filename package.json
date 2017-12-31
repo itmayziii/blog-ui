@@ -1,6 +1,6 @@
 {
   "name": "blog-ui",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "author": {
     "name": "Tommy May III",
     "email": "tommymay37@gmail.com",
@@ -8,7 +8,6 @@
   },
   "license": "MIT",
   "scripts": {
-    "ng": "ng",
     "start": "ng serve --open=false -e=dev -pc=proxy.conf.json",
     "install:submodules": "cd highlight.js && npm install",
     "build:highlight.js": "cd highlight.js &&  node tools/build.js -t browser xml javascript json typescript",
@@ -48,7 +47,6 @@
     "@types/jasmine": "~2.5.53",
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "~6.0.60",
-    "chromedriver": "^2.34.0",
     "codelyzer": "~3.1.1",
     "jasmine-core": "~2.6.2",
     "jasmine-spec-reporter": "~4.1.0",

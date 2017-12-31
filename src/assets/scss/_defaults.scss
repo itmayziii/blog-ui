@@ -8,3 +8,7 @@ html, body {
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
 }
+
+pre code {
+    overflow-x: auto;
+}
