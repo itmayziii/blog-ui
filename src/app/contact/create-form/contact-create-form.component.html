@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
 
-        <div class="contact-description-container col-10 col-lg-6">
+        <div class="contact-description-container col-11 col-lg-6">
             <div class="row justify-content-center">
 
                 <h2 class="col-12 text-center text-primary">Get In Touch</h2>
@@ -52,31 +52,31 @@
             </div>
         </div>
 
-        <form [formGroup]="contactCreateForm" (ngSubmit)="onSubmit()" method="get" class="contact-form col-10 col-lg-6" novalidate>
+        <form [formGroup]="contactCreateForm" (ngSubmit)="onSubmit()" method="get" class="contact-form col-11 col-lg-6" novalidate>
             <div class="row justify-content-center">
-                <h2 class="col-10 text-center text-secondary">Fill This Out</h2>
+                <h2 class="col-12 text-center text-secondary">Fill This Out</h2>
 
-                <fieldset class="form-group col-10">
+                <fieldset class="form-group col-12 col-lg-10">
                     <label for="first-name">First Name</label>
                     <input class="form-control" type="text" name="first-name" id="first-name" formControlName="first-name" autofocus>
                 </fieldset>
 
-                <fieldset class="form-group col-10">
+                <fieldset class="form-group col-12 col-lg-10">
                     <label for="last-name">Last Name</label>
                     <input class="form-control" type="text" name="last-name" id="last-name" formControlName="last-name">
                 </fieldset>
 
-                <fieldset class="form-group col-10">
+                <fieldset class="form-group col-12 col-lg-10">
                     <label for="email">Email</label>
                     <input class="form-control" type="text" name="email" id="email" formControlName="email">
                 </fieldset>
 
-                <fieldset class="form-group col-10">
+                <fieldset class="form-group col-12 col-lg-10">
                     <label for="comments">Comments<span class="required">*</span></label>
                     <textarea class="form-control" name="comments" id="comments" rows="4" formControlName="comments"></textarea>
                 </fieldset>
 
-                <button class="btn btn-secondary col-10 contact-form-submit-button" type="submit" [disabled]="!contactCreateForm.valid">
+                <button class="btn btn-secondary col-12 col-lg-10 contact-form-submit-button" type="submit" [disabled]="!contactCreateForm.valid">
                     Submit
                 </button>
             </div>
