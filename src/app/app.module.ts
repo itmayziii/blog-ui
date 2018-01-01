@@ -13,7 +13,7 @@ import { InputComponent } from './fields/input/input.component';
 import { AuthGuard } from './auth-guard/auth-guard.class';
 import { RouterModule } from "@angular/router";
 import { SimpleNotificationsModule } from 'angular2-notifications';
-import { routes } from './router/routes';
+import { routes } from './routes';
 import { LoginComponent } from './users/login/login.component';
 import { RegisterComponent } from './users/register/register.component';
 import { CustomFormsModule } from 'ng2-validation';

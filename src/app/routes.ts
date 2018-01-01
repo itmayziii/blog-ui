@@ -1,14 +1,14 @@
 import { Routes } from "@angular/router";
-import { AuthGuard } from "../auth-guard/auth-guard.class";
-import { ContactCreateFormComponent } from "../contact/create-form/contact-create-form.component";
-import { NotFoundComponent } from "../not-found/not-found.component";
-import { LoginComponent } from "../users/login/login.component";
-import { RegisterComponent } from "../users/register/register.component";
-import { ContactShowComponent } from "../contact/show/contact-show.component";
-import { LogoutComponent } from "../users/logout/logout.component";
-import { PostListComponent } from "../post/list/post-list.component";
-import { PostShowComponent } from "../post/show/post-show.component";
-import { PostCreateComponent } from "../post/create/post-create.component";
+import { AuthGuard } from "./auth-guard/auth-guard.class";
+import { ContactCreateFormComponent } from "./contact/create-form/contact-create-form.component";
+import { NotFoundComponent } from "./not-found/not-found.component";
+import { LoginComponent } from "./users/login/login.component";
+import { RegisterComponent } from "./users/register/register.component";
+import { ContactShowComponent } from "./contact/show/contact-show.component";
+import { LogoutComponent } from "./users/logout/logout.component";
+import { PostListComponent } from "./post/list/post-list.component";
+import { PostShowComponent } from "./post/show/post-show.component";
+import { PostCreateComponent } from "./post/create/post-create.component";
 
 export const routes: Routes = [
     {
@@ -87,6 +87,10 @@ export const routes: Routes = [
                 },
             }
         ]
+    },
+    {
+        path: 'categories',
+        loadChildren: 'app/modules/category/category.module#CategoryModule'
     },
     {
         path: 'access-denied', // TODO create access denied component
