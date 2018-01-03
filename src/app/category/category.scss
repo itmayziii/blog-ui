@@ -1,0 +1,22 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+.category-list {
+    list-style: none;
+
+    &-item {
+        background-color: white;
+
+        &-link {
+            color: $black;
+            padding: 5rem 0;
+            text-decoration: none;
+        }
+
+        &:hover {
+
+        }
+
+    }
+
+}

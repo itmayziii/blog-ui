@@ -6,7 +6,7 @@ import { Subscription } from "rxjs/Subscription";
 import { JsonApiResources } from "../../models/json-api/json-api-resoures";
 import { JsonApiResourceObject } from "../../models/json-api/json-api-resource-object";
 import { UserService } from "../../services/user.service";
-import { NotificationsService } from "angular2-notifications/dist";
+import { NotificationsService } from "angular2-notifications";
 
 @Component({
     selector: 'blog-post-list',

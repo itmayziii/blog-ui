@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Headers } from "@angular/http";
 import { HttpService } from "../../services/http/http.service";
-import { NotificationsService } from "angular2-notifications/dist";
+import { NotificationsService } from "angular2-notifications";
 import { Router } from "@angular/router";
 import { RouteService } from "../../services/route.service";
 

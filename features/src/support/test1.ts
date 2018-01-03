@@ -1,1 +1,0 @@
-let numberouno: number = 3;

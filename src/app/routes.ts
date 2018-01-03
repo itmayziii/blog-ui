@@ -90,7 +90,7 @@ export const routes: Routes = [
     },
     {
         path: 'categories',
-        loadChildren: 'app/modules/category/category.module#CategoryModule'
+        loadChildren: 'app/category/category.module#CategoryModule'
     },
     {
         path: 'access-denied', // TODO create access denied component

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { JsonApiResourceObject } from "../../models/json-api/json-api-resource-object";
 import { JsonApiService } from "../../services/http/json-api.service";
 import { JsonApiResources } from "../../models/json-api/json-api-resoures";
-import { NotificationsService } from "angular2-notifications/dist";
+import { NotificationsService } from "angular2-notifications";
 import { UserService } from "../../services/user.service";
 import { FileUploadService } from "../../services/http/file-upload.service";
 
