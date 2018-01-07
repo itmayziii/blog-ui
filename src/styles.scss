@@ -43,6 +43,17 @@
 // Notifications
 
 .sn-progress-loader span {
-    background: theme-color("primary") !important;
+    background: theme-color("info") !important;
 }
 
+.simple-notification {
+    &.bg-primary {
+        &.error {
+            background-color: theme-color("danger") !important;
+        }
+
+        &.success {
+            background-color: theme-color("success") !important;
+        }
+    }
+}

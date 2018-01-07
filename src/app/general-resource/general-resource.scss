@@ -1,0 +1,15 @@
+@import "../../assets/scss/variables";
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+.general-resources {
+    &-action {
+        padding: 10px;
+        transition: all .2s ease-in-out;
+
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.2);
+        }
+    }
+}

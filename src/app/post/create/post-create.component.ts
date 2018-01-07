@@ -1,11 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { JsonApiResourceObject } from "../../models/json-api/json-api-resource-object";
-import { JsonApiService } from "../../services/http/json-api.service";
 import { JsonApiResources } from "../../models/json-api/json-api-resoures";
 import { NotificationsService } from "angular2-notifications";
 import { UserService } from "../../services/user.service";
 import { FileUploadService } from "../../services/http/file-upload.service";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
     selector: 'blog-post-create',
@@ -18,7 +18,7 @@ export class PostCreateComponent implements OnInit {
     @ViewChild('image') public image: ElementRef;
 
     public constructor(private formBuilder: FormBuilder,
-                       private jsonApi: JsonApiService,
+                       private httpClient: HttpClient,
                        private notifications: NotificationsService,
                        private userService: UserService,
                        private fileUploadService: FileUploadService) {
@@ -62,7 +62,7 @@ export class PostCreateComponent implements OnInit {
     }
 
     private retrieveCategories(): void {
-        this.jsonApi.get('categories').subscribe(
+        this.httpClient.get('categories').subscribe(
             (response: JsonApiResources) => {
                 this._categories = response.data;
             },
@@ -77,7 +77,7 @@ export class PostCreateComponent implements OnInit {
     }
 
     private createPost(post: object) {
-        this.jsonApi.post('posts', post).subscribe(
+        this.httpClient.post('posts', post).subscribe(
             (response) => {
                 this.postCreateForm.reset();
                 this.postCreateForm.enable();

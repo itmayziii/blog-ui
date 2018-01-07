@@ -11,7 +11,7 @@ import { UserService } from "../services/user.service";
                 <button class="navbar-toggler navbar-toggler-right" type="button" (click)="toggleNavigationMenu()">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                
+
                 <div class="collapse navbar-collapse" [class.show]="!isNavigationCollapsed">
                     <ul class="navbar-nav">
                         <li *ngFor="let rightLink of leftLinks" class="nav-item">
@@ -47,7 +47,8 @@ export class HeaderComponent {
     public isNavigationCollapsed: boolean = true;
     public leftLinks: Array<NavLink> = [
         {title: 'Posts', path: '/posts', condition: () => {return true}},
-        {title: 'Contact', path: '/contacts/create', condition: () => {return true}}
+        {title: 'Contact', path: '/contacts/create', condition: () => {return true}},
+        {title: 'Categories', path: '/categories', condition: () => {return this.userService.isAdmin()}}
     ];
     public rightLinks: Array<NavLink> = [
         {title: 'Login', path: '/users/login', condition: () => {return !this.userService.isLoggedIn()}},

@@ -1,20 +1,19 @@
-import { ContactCreateFormComponent } from "./contact-create-form.component";
-import { NotificationsService, SimpleNotificationsModule } from "angular2-notifications/dist";
-import { JsonApiService } from "../../services/http/json-api.service";
+import { ContactCreateComponent } from "./contact-create.component";
+import { NotificationsService, SimpleNotificationsModule } from "angular2-notifications";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ComponentFixture, inject, TestBed } from "@angular/core/testing";
 import { Observable } from "rxjs/Observable";
-import { HttpModule } from "@angular/http";
 import { RouterTestingModule } from "@angular/router/testing";
+import { HttpClientModule } from "@angular/common/http";
 
 describe('contact-create-form.component.ts', () => {
-    let fixture: ComponentFixture<ContactCreateFormComponent>, component: ContactCreateFormComponent;
+    let fixture: ComponentFixture<ContactCreateComponent>, component: ContactCreateComponent;
 
     beforeEach((done) => {
         TestBed.configureTestingModule({
-            imports: [FormsModule, SimpleNotificationsModule.forRoot(), ReactiveFormsModule, HttpModule, RouterTestingModule],
+            imports: [FormsModule, SimpleNotificationsModule.forRoot(), ReactiveFormsModule, HttpClientModule, RouterTestingModule],
             declarations: [
-                ContactCreateFormComponent
+                ContactCreateComponent
             ],
             providers: [
                 JsonApiService
@@ -22,7 +21,7 @@ describe('contact-create-form.component.ts', () => {
         })
             .compileComponents()
             .then(() => {
-                fixture = TestBed.createComponent(ContactCreateFormComponent);
+                fixture = TestBed.createComponent(ContactCreateComponent);
                 component = fixture.componentInstance;
                 done();
             });

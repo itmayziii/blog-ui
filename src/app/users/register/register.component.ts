@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { JsonApiService } from "../../services/http/json-api.service";
 import { equalTo } from 'ng2-validation/dist/equal-to';
 import { NotificationsService } from "angular2-notifications";
 import { JsonApiError } from "../../models/json-api/json-api-error";
 import { Router } from "@angular/router";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
     selector: 'blog-register',
@@ -15,7 +15,7 @@ export class RegisterComponent implements OnInit {
     public registerForm: FormGroup;
 
     public constructor(private formBuilder: FormBuilder,
-                       private jsonApi: JsonApiService,
+                       private httpClient: HttpClient,
                        private notifications: NotificationsService,
                        private router: Router) { }
 
@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
     }
 
     public onRegister(): void {
-        this.jsonApi.post('users', this.registerForm.value)
+        this.httpClient.post('users', this.registerForm.value)
             .subscribe(
                 (response: Response) => {
                     // TODO open the users page

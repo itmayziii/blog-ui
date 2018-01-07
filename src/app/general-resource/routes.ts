@@ -1,18 +1,16 @@
 import { Routes } from "@angular/router";
-import { AuthGuard } from "../auth-guard/auth-guard.class";
-import { CategoryComponent } from "./category.component";
+import { GeneralResourceComponent } from "./general-resource.component";
 
 export const routes: Routes = [
     {
-        path: 'categories',
+        path: '',
         data: {
             'authorizedRole': 'Administrator'
         },
-        canActivateChild: [AuthGuard],
         children: [
             {
                 path: '',
-                component: CategoryComponent
+                component: GeneralResourceComponent
             }
         ]
     }

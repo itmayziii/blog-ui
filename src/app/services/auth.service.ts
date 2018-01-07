@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Headers } from "@angular/http";
-import { JsonApiService } from "./http/json-api.service";
 import { JsonApiError } from "../models/json-api/json-api-error";
 import { JsonApiResource } from "../models/json-api/json-api-resource";
 import { UserService } from "./user.service";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 @Injectable()
 export class AuthService {
 
-    public constructor(private jsonApi: JsonApiService, private userService: UserService) {
+    public constructor(private httpClient: HttpClient, private userService: UserService) {
     }
 
     public checkLogin(): Promise<boolean> {
@@ -21,10 +20,10 @@ export class AuthService {
                 return;
             }
 
-            const headers = new Headers({
+            const headers: HttpHeaders = new HttpHeaders({
                 "API-Token": apiToken
             });
-            this.jsonApi.get('token-validation', {headers}, false).subscribe(
+            this.httpClient.get('token-validation', {headers}).subscribe(
                 (results: JsonApiResource) => {
                     const apiTokenExists = results.data.attributes.hasOwnProperty('api_token');
                     if (!apiTokenExists) {

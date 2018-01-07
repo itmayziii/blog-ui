@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as marked from 'marked';
-import { MarkedOptions, Renderer } from "marked";
+import { MarkedOptions, Renderer } from 'marked';
 import { HighlightService } from "./highlight.service";
 
 @Injectable()
@@ -32,9 +32,4 @@ export class MarkdownService {
 
         return renderer;
     }
-
-    // private highlight(code: string, language: string, callback?: { (error: any, code: string): void }): void {
-    //     const highlightedCode = this.highlightService.highlight(code, language, callback);
-    //     callback('', highlightedCode.value);
-    // }
 }

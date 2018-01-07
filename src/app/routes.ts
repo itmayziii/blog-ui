@@ -1,6 +1,6 @@
 import { Routes } from "@angular/router";
 import { AuthGuard } from "./auth-guard/auth-guard.class";
-import { ContactCreateFormComponent } from "./contact/create-form/contact-create-form.component";
+import { ContactCreateComponent } from "./contact/create/contact-create.component";
 import { NotFoundComponent } from "./not-found/not-found.component";
 import { LoginComponent } from "./users/login/login.component";
 import { RegisterComponent } from "./users/register/register.component";
@@ -70,7 +70,7 @@ export const routes: Routes = [
         children: [
             {
                 path: 'create',
-                component: ContactCreateFormComponent
+                component: ContactCreateComponent
             },
             {
                 path: ':id',
@@ -90,7 +90,10 @@ export const routes: Routes = [
     },
     {
         path: 'categories',
-        loadChildren: 'app/category/category.module#CategoryModule'
+        data: {
+            'resourceType': 'categories'
+        },
+        loadChildren: 'app/general-resource/general-resource.module#GeneralResourceModule'
     },
     {
         path: 'access-denied', // TODO create access denied component

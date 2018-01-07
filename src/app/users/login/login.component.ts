@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Headers } from "@angular/http";
-import { HttpService } from "../../services/http/http.service";
 import { NotificationsService } from "angular2-notifications";
 import { Router } from "@angular/router";
 import { RouteService } from "../../services/route.service";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 @Component({
     selector: 'blog-login',
@@ -34,7 +33,7 @@ export class LoginComponent implements OnInit {
     public loginForm: FormGroup;
 
     public constructor(private formBuilder: FormBuilder,
-                       private httpService: HttpService,
+                       private httpClient: HttpClient,
                        private notifications: NotificationsService,
                        private router: Router,
                        private routeService: RouteService) {}
@@ -49,10 +48,10 @@ export class LoginComponent implements OnInit {
     public onLogin(): void {
         this.loginForm.disable();
 
-        const headers = new Headers({
+        const headers = new HttpHeaders({
             Authorization: `Basic ${this.loginForm.get('email').value}:${this.loginForm.get('password').value}`
         });
-        this.httpService.get('authenticate', {headers: headers}).subscribe(
+        this.httpClient.get('authenticate', {headers: headers}).subscribe(
             (results: any) => {
                 localStorage.setItem('API-Token', results["API-Token"]);
 

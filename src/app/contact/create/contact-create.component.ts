@@ -1,17 +1,17 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { JsonApiService } from "../../services/http/json-api.service";
 import { NotificationsService } from "angular2-notifications";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
     selector: 'blog-contact-create-form',
-    templateUrl: './contact-create-form.component.html',
-    styleUrls: ['./contact-create-form.component.scss']
+    templateUrl: './contact-create.component.html',
+    styleUrls: ['./contact-create.component.scss']
 })
-export class ContactCreateFormComponent {
+export class ContactCreateComponent {
     public contactCreateForm: FormGroup;
 
-    constructor(private formBuilder: FormBuilder, private jsonApi: JsonApiService, private notifications: NotificationsService) {
+    constructor(private formBuilder: FormBuilder, private httpClient: HttpClient, private notifications: NotificationsService) {
         this.createForm();
     }
 
@@ -27,7 +27,7 @@ export class ContactCreateFormComponent {
     public onSubmit(): Promise<any> {
         return new Promise((resolve, reject) => {
             this.contactCreateForm.disable();
-            this.jsonApi.post('contacts', this.contactCreateForm.value).subscribe(
+            this.httpClient.post('contacts', this.contactCreateForm.value).subscribe(
                 (response: any) => {
                     this.notifications.success('Success', 'Thank you for your submission!');
                     this.contactCreateForm.reset();

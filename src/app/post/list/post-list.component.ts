@@ -1,12 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { JsonApiService } from "../../services/http/json-api.service";
-import { RequestOptions, URLSearchParams } from "@angular/http";
 import { ActivatedRoute, ParamMap, Router } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { JsonApiResources } from "../../models/json-api/json-api-resoures";
 import { JsonApiResourceObject } from "../../models/json-api/json-api-resource-object";
 import { UserService } from "../../services/user.service";
 import { NotificationsService } from "angular2-notifications";
+import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http";
 
 @Component({
     selector: 'blog-post-list',
@@ -19,7 +18,7 @@ export class PostListComponent implements OnInit, OnDestroy {
     private size: string = '10';
     private _posts: JsonApiResourceObject[];
 
-    public constructor(private jsonApi: JsonApiService,
+    public constructor(private httpClient: HttpClient,
                        private route: ActivatedRoute,
                        private userService: UserService,
                        private router: Router,
@@ -53,16 +52,17 @@ export class PostListComponent implements OnInit, OnDestroy {
     }
 
     private retrievePosts(): void {
-        const urlSearchParams = new URLSearchParams();
-        urlSearchParams.set('size', this.size);
-        urlSearchParams.set('page', this.page);
+        const queryParams: HttpParams = new HttpParams();
+        queryParams.set('size', this.size);
+        queryParams.set('page', this.page);
 
-        const requestOptions = new RequestOptions({params: urlSearchParams});
-        this.jsonApi.get('posts', requestOptions).subscribe(
+        const requestOptions = {params: queryParams};
+        this.httpClient.get('posts', requestOptions).subscribe(
             (response: JsonApiResources) => {
+                console.log('response ', response);
                 this._posts = response.data;
             },
-            (error: any) => {
+            (error: HttpErrorResponse) => {
                 this.notifications.error('Error', 'Unable to show posts');
             }
         );

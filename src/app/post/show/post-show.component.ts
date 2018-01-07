@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { JsonApiService } from "../../services/http/json-api.service";
 import { ActivatedRoute, UrlSegment } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { JsonApiResourceObject } from "../../models/json-api/json-api-resource-object";
@@ -7,6 +6,7 @@ import { JsonApiResource } from "../../models/json-api/json-api-resource";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { MarkdownService } from "../../services/markdown.service";
 import { Observable } from "rxjs/Observable";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
     selector: 'blog-post-show',
@@ -26,7 +26,7 @@ export class PostShowComponent implements OnInit {
     private _parsedPostContent: SafeHtml;
     @Input() public content: Observable<string>;
 
-    public constructor(private jsonApiService: JsonApiService, private route: ActivatedRoute, private sanitizer: DomSanitizer, private markdownService: MarkdownService) { }
+    public constructor(private httpClient: HttpClient, private route: ActivatedRoute, private sanitizer: DomSanitizer, private markdownService: MarkdownService) { }
 
     public ngOnInit() {
         if (this.content) {
@@ -43,7 +43,7 @@ export class PostShowComponent implements OnInit {
     }
 
     private getBlog(postSlug: string) {
-        this.jsonApiService.get(`posts/${postSlug}`).subscribe((jsonApiResource: JsonApiResource) => {
+        this.httpClient.get(`posts/${postSlug}`).subscribe((jsonApiResource: JsonApiResource) => {
             this._post = jsonApiResource.data;
             this.parseMarkdown(this._post.attributes.content);
         });
