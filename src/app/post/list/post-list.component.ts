@@ -59,7 +59,6 @@ export class PostListComponent implements OnInit, OnDestroy {
         const requestOptions = {params: queryParams};
         this.httpClient.get('posts', requestOptions).subscribe(
             (response: JsonApiResources) => {
-                console.log('response ', response);
                 this._posts = response.data;
             },
             (error: HttpErrorResponse) => {

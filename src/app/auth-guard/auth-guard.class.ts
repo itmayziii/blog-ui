@@ -21,7 +21,6 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     }
 
     private verifyAccess(route: ActivatedRouteSnapshot, routerState: RouterStateSnapshot): Promise<boolean> {
-        console.log('route ', route);
         return new Promise((resolve, reject) => {
             this.authService.checkLogin()
                 .then((isLoggedIn: boolean) => {

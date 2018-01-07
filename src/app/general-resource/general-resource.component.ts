@@ -63,7 +63,6 @@ export class GeneralResourceComponent implements OnInit {
     public deleteResource(id: any) {
         this.httpClient.delete(`${this.resourceType}/${id}`).subscribe(
             (resources) => {
-                console.log('resources ', resources);
             },
             (error: JsonApiError) => {
                 this.notificationsService.error('Error', error.errors.detail);
