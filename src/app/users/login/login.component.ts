@@ -3,26 +3,28 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { NotificationsService } from "angular2-notifications";
 import { Router } from "@angular/router";
 import { RouteService } from "../../services/route.service";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from "@angular/common/http";
 
 @Component({
     selector: 'blog-login',
     template: `
         <div class="container-fluid">
-            <div class="row justify-content-center">
-                <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="col-6 login-form" novalidate>
-                    <fieldset class="form-group">
-                        <label for="email">Email Address<span class="required">*</span></label>
-                        <input type="email" id="email" formControlName="email" class="form-control">
-                    </fieldset>
+            <div class="row justify-content-center align-items-center">
+                <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="col-12 col-md-6 login-form" novalidate>
+                    <div class="row justify-content-center">
+                        <fieldset class="form-group col-12">
+                            <label for="email">Email Address<span class="required">*</span></label>
+                            <input type="email" id="email" formControlName="email" class="form-control">
+                        </fieldset>
 
-                    <fieldset class="form-group">
-                        <label for="password">Password<span class="required">*</span></label>
-                        <input type="password" id="password" formControlName="password" class="form-control">
-                    </fieldset>
+                        <fieldset class="form-group col-12">
+                            <label for="password">Password<span class="required">*</span></label>
+                            <input type="password" id="password" formControlName="password" class="form-control">
+                        </fieldset>
 
-                    <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">Login</button>
-                    <button type="button" class="btn btn-info" routerLink="/users/register">Register</button>
+                        <button type="submit" class="btn btn-secondary col-8 col-md-3" [disabled]="!loginForm.valid">Login</button>
+                        <button type="button" class="btn btn-outline-info col-8 col-md-3" routerLink="/users/register">Register</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -52,14 +54,14 @@ export class LoginComponent implements OnInit {
             Authorization: `Basic ${this.loginForm.get('email').value}:${this.loginForm.get('password').value}`
         });
         this.httpClient.get('authenticate', {headers: headers}).subscribe(
-            (results: any) => {
-                localStorage.setItem('API-Token', results["API-Token"]);
+            (response: HttpResponse<any>) => {
+                localStorage.setItem('API-Token', response["API-Token"]);
 
                 const navigateToUrl = (this.routeService.redirectUrl) ? this.routeService.redirectUrl : '/posts';
                 this.router.navigate([navigateToUrl]).then(() => {});
             },
-            (errorMessage: any) => {
-                this.notifications.error('Login Failed', errorMessage.error);
+            (response: HttpErrorResponse) => {
+                this.notifications.error('Login Failed', response.error.error);
                 this.loginForm.enable();
             }
         )

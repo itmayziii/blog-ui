@@ -5,8 +5,8 @@ import { UserService } from "../services/user.service";
 @Component({
     selector: 'app-header',
     template: `
-        <header class="header">
-            <nav class="navbar navbar-expand-md sticky-top navbar-light">
+        <header class="header sticky-top">
+            <nav class="navbar navbar-expand-md navbar-light">
                 <a class="navbar-brand text-success" routerLink="/">TM3</a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" (click)="toggleNavigationMenu()">
                     <span class="navbar-toggler-icon"></span>

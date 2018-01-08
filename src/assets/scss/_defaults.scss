@@ -16,3 +16,7 @@ pre code {
 button, a {
     cursor: pointer;
 }
+
+button[disabled] {
+    cursor: not-allowed;
+}

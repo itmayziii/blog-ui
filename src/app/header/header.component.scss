@@ -3,6 +3,14 @@
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins/breakpoints";
 
+.header {
+    background-color: theme-color-level("primary", 3);
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    z-index: 1020;
+}
+
 .navbar {
 
     &-brand {
