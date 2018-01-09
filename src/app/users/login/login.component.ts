@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
         const headers = new HttpHeaders({
             Authorization: `Basic ${this.loginForm.get('email').value}:${this.loginForm.get('password').value}`
         });
-        this.httpClient.get('authenticate', {headers: headers}).subscribe(
+        this.httpClient.get('/v1/authenticate', {headers: headers}).subscribe(
             (response: HttpResponse<any>) => {
                 localStorage.setItem('API-Token', response["API-Token"]);
 

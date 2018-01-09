@@ -23,7 +23,7 @@ export class AuthService {
             const headers: HttpHeaders = new HttpHeaders({
                 "API-Token": apiToken
             });
-            this.httpClient.get('token-validation', {headers}).subscribe(
+            this.httpClient.get('/v1/token-validation', {headers}).subscribe(
                 (results: JsonApiResource) => {
                     const apiTokenExists = results.data.attributes.hasOwnProperty('api_token');
                     if (!apiTokenExists) {

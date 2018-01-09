@@ -3,49 +3,17 @@ import { JsonApiResources } from "../models/json-api/json-api-resoures";
 import { JsonApiResourceObject } from "../models/json-api/json-api-resource-object";
 import { ActivatedRoute } from "@angular/router";
 import { NotificationsService } from "angular2-notifications";
-import { JsonApiError } from "../models/json-api/json-api-error";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 
 @Component({
     selector: 'blog-general-resource',
-    template: `
-        <div class="container-fluid">
-            <div class="row justify-content-center">
-
-                <div class="col-11">
-                    <table class="table general-resources">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr *ngFor="let resource of resources">
-                            <th class="align-middle" scope="row">{{resource?.id}}</th>
-                            <td class="align-middle"><a class="w-100 h-100" routerLink="/categories/{{resource?.id}}">{{resource?.attributes?.name}}</a></td>
-                            <td class="align-middle h-100"><i class="general-resources-action fa fa-trash-o text-danger" (click)="deleteResource(resource.id)"></i></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!--<ul class="col-11 col-md-8 category-list">-->
-                <!--<li class="category-list-item" *ngFor="let resource of resources">-->
-                <!--<a class="category-list-item-link" routerLink="/categories/{{resource?.id}}" href="#">{{resource?.attributes?.name}}</a>-->
-                <!--<button (click)="deleteResource(resource?.id)" class="category-list-item-button btn btn-danger" type="button">Delete</button>-->
-                <!--</li>-->
-                <!--</ul>-->
-
-            </div>
-        </div>
-    `,
+    templateUrl: 'general-resource.component.html',
     styleUrls: ['./general-resource.scss']
 })
 export class GeneralResourceComponent implements OnInit {
     private _resources: JsonApiResourceObject[];
     private _resourceType: string;
+    private _toDelete: number;
 
     public constructor(private httpClient: HttpClient, private route: ActivatedRoute, private notificationsService: NotificationsService) { }
 
@@ -60,12 +28,12 @@ export class GeneralResourceComponent implements OnInit {
         });
     }
 
-    public deleteResource(id: any) {
-        this.httpClient.delete(`${this.resourceType}/${id}`).subscribe(
+    public deleteResource() {
+        this.httpClient.delete(`${this.resourceType}/${this._toDelete}`).subscribe(
             (resources) => {
             },
-            (error: JsonApiError) => {
-                this.notificationsService.error('Error', error.errors.detail);
+            (response: HttpErrorResponse) => {
+                this.notificationsService.error('Error', response.error.errors.detail);
             }
         );
     }
@@ -82,5 +50,9 @@ export class GeneralResourceComponent implements OnInit {
 
     public get resources(): JsonApiResourceObject[] {
         return this._resources;
+    }
+
+    public set toDelete(value: number) {
+        this._toDelete = value;
     }
 }
