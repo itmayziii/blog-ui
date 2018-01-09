@@ -91,8 +91,10 @@ export const routes: Routes = [
     {
         path: 'categories',
         data: {
-            'resourceType': 'categories'
+            'resourceType': 'categories',
+            'authorizedRole': 'Administrator'
         },
+        canLoad: [AuthGuard],
         loadChildren: 'app/general-resource/general-resource.module#GeneralResourceModule'
     },
     {

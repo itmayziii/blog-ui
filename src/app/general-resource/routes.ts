@@ -4,9 +4,6 @@ import { GeneralResourceComponent } from "./general-resource.component";
 export const routes: Routes = [
     {
         path: '',
-        data: {
-            'authorizedRole': 'Administrator'
-        },
         children: [
             {
                 path: '',
