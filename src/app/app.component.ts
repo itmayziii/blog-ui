@@ -21,6 +21,10 @@ export class AppComponent implements OnInit {
     }
 
     public ngOnInit(): void {
+        this.scrollToTopOfPageOnNavigation();
+    }
+
+    private scrollToTopOfPageOnNavigation(): void {
         this.router.events.pipe(
             filter((event) => {
                 return event instanceof NavigationEnd;
