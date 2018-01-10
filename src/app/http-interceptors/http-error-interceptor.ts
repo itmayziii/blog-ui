@@ -9,6 +9,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         return next.handle(request).do(
             (event) => {},
             (errorEvent) => {
+                console.log('errorEvent ', errorEvent);
                 if (errorEvent instanceof HttpErrorResponse) {
                     console.error(`HttpErrorInterceptor: Failed to make a ${request.method} request to ${request.urlWithParams}, with response`, errorEvent);
                 }

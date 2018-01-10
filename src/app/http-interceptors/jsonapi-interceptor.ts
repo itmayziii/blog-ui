@@ -20,11 +20,15 @@ export class JsonapiInterceptor implements HttpInterceptor {
             return next.handle(request);
         }
 
-        const jsonApiHeaders = new HttpHeaders({
+        let jsonApiHeaders = new HttpHeaders({
             "Content-Type": "application/vnd.api+json",
-            "Accept": "application/vnd.api+json",
-            "API-Token": this.userService.getUserToken()
+            "Accept": "application/vnd.api+json"
         });
+
+        const userApiToken = this.userService.getUserToken();
+        if (userApiToken) {
+            jsonApiHeaders = jsonApiHeaders.set('API-Token', userApiToken);
+        }
 
         const requestClone: HttpRequest<any> = request.clone({
             url: `${environment.apiUri}/${environment.apiVersion}/${request.url}`,

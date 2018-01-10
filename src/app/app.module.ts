@@ -30,6 +30,7 @@ import { HighlightService } from "./services/highlight.service";
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { JsonapiInterceptor } from "./http-interceptors/jsonapi-interceptor";
 import { HttpErrorInterceptor } from "./http-interceptors/http-error-interceptor";
+import { WindowRef } from "./globals/window-ref";
 
 @NgModule({
     declarations: [
@@ -64,6 +65,7 @@ import { HttpErrorInterceptor } from "./http-interceptors/http-error-interceptor
         AuthGuard,
         AuthService,
         MarkdownService,
+        WindowRef,
         HighlightService,
         {
             provide: HTTP_INTERCEPTORS,
