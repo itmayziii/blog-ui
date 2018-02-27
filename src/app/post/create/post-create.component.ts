@@ -6,6 +6,7 @@ import { NotificationsService } from "angular2-notifications";
 import { UserService } from "../../services/user.service";
 import { FileUploadService } from "../../services/http/file-upload.service";
 import { HttpClient } from "@angular/common/http";
+import { Category } from "../../models/category";
 
 @Component({
     selector: 'blog-post-create',
@@ -63,7 +64,7 @@ export class PostCreateComponent implements OnInit {
 
     private retrieveCategories(): void {
         this.httpClient.get('categories').subscribe(
-            (response: JsonApiResources) => {
+            (response: JsonApiResources<Category>) => {
                 this._categories = response.data;
             },
             (error: any) => {

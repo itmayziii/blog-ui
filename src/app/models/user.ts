@@ -1,9 +1,11 @@
-export interface User {
-    "api_token": string,
-    "created_at": Date,
-    "email": "cswaniawski@example.org",
-    "first_name": "Marcella",
-    "last_name": string,
-    "role": string,
-    "updated_at": Date
+import { JsonApiResourceObject } from "./json-api/json-api-resource-object";
+
+export interface User extends JsonApiResourceObject {
+    createdAt: Date,
+    updatedAt: Date,
+    firstName: string,
+    lastName: string,
+    email: string,
+    apiToken: string,
+    role: string
 }

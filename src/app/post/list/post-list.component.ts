@@ -6,6 +6,7 @@ import { JsonApiResourceObject } from "../../models/json-api/json-api-resource-o
 import { UserService } from "../../services/user.service";
 import { NotificationsService } from "angular2-notifications";
 import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http";
+import { Post } from "../../models/post";
 
 @Component({
     selector: 'blog-post-list',
@@ -15,7 +16,7 @@ import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http"
 export class PostListComponent implements OnInit, OnDestroy {
     private $params: Subscription;
     private page: string = '1';
-    private size: string = '10';
+    private size: string = '12';
     private _posts: JsonApiResourceObject[];
 
     public constructor(private httpClient: HttpClient,
@@ -52,13 +53,13 @@ export class PostListComponent implements OnInit, OnDestroy {
     }
 
     private retrievePosts(): void {
-        const queryParams: HttpParams = new HttpParams();
-        queryParams.set('size', this.size);
-        queryParams.set('page', this.page);
+        let queryParams: HttpParams = new HttpParams();
+        queryParams = queryParams.set('size', this.size);
+        queryParams = queryParams.set('page', this.page);
 
         const requestOptions = {params: queryParams};
         this.httpClient.get('posts', requestOptions).subscribe(
-            (response: JsonApiResources) => {
+            (response: JsonApiResources<Post>) => {
                 this._posts = response.data;
             },
             (error: HttpErrorResponse) => {
@@ -69,10 +70,6 @@ export class PostListComponent implements OnInit, OnDestroy {
 
     public get posts(): JsonApiResourceObject[] {
         return this._posts;
-    }
-
-    public limit(content: string): string {
-        return content.substr(0, 200);
     }
 
     public navigateToCreatePage(): void {

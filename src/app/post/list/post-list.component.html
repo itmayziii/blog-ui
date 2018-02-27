@@ -6,11 +6,11 @@
 
     <ul class="post-list row justify-content-start">
         <li *ngFor="let post of posts" class="col-12 col-md-6 col-lg-4 post-list-item">
-            <a class="row post-list-item-reference" routerLink="{{post.id}}">
-                <img src="{{post.attributes['image_path']}}" class="post-list-item-image">
+            <a class="row post-list-item-reference" routerLink="{{ post.id }}">
+                <img src="{{ post.attributes.imagePath }}" class="post-list-item-image">
                 <div class="post-list-item-text">
                     <h4 class="col-12 text-center">{{post.attributes.title}}</h4>
-                    <p class="post-list-item-description">{{limit(post.attributes.content)}}...</p>
+                    <p class="post-list-item-description">{{ post.attributes.content | slice:0:200 }}...</p>
                 </div>
             </a>
         </li>

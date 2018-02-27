@@ -3,6 +3,7 @@ import { JsonApiError } from "../models/json-api/json-api-error";
 import { JsonApiResource } from "../models/json-api/json-api-resource";
 import { UserService } from "./user.service";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { User } from "../models/user";
 
 @Injectable()
 export class AuthService {
@@ -23,22 +24,20 @@ export class AuthService {
             const headers: HttpHeaders = new HttpHeaders({
                 "API-Token": apiToken
             });
-            this.httpClient.get('/v1/token-validation', {headers}).subscribe(
-                (results: JsonApiResource) => {
-                    const apiTokenExists = results.data.attributes.hasOwnProperty('api_token');
-                    if (!apiTokenExists) {
+            this.httpClient.get('token-validation', {headers})
+                .subscribe(
+                    (results: JsonApiResource<User>) => {
+                        this.userService.user = results.data.attributes;
+                        this.userService.userId = results.data.id;
+                        resolve(true);
+                    },
+                    (error: JsonApiError) => {
                         localStorage.removeItem('API-Token');
+                        this.userService.user = null;
+                        this.userService.userId = null;
+                        reject(false);
                     }
-
-                    this.userService.user = results.data.attributes;
-                    this.userService.userId = results.data.id;
-                    resolve(apiTokenExists);
-                },
-                (error: JsonApiError) => {
-                    localStorage.removeItem('API-Token');
-                    reject(false);
-                }
-            );
+                );
         });
     }
 

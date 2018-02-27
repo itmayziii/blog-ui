@@ -1,29 +1,20 @@
 import { Injectable } from '@angular/core';
-import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { environment } from "../../environments/environment";
 import { UserService } from "../services/user.service";
 
 @Injectable()
 export class JsonapiInterceptor implements HttpInterceptor {
-    private excludedRoutes: string[] = [
-        '/v1/authenticate',
-        '/v1/token-validation'
-    ];
-
     public constructor(private userService: UserService) {
 
     }
 
     public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (this.excludedRoutes.includes(request.url)) {
-            return next.handle(request);
-        }
+        let jsonApiHeaders = request.headers;
 
-        let jsonApiHeaders = new HttpHeaders({
-            "Content-Type": "application/vnd.api+json",
-            "Accept": "application/vnd.api+json"
-        });
+        jsonApiHeaders = jsonApiHeaders.set('Content-Type', 'application/json');
+        jsonApiHeaders = jsonApiHeaders.set('Accept', 'application/vnd.api+json');
 
         const userApiToken = this.userService.getUserToken();
         if (userApiToken) {

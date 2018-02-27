@@ -7,6 +7,7 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { MarkdownService } from "../../services/markdown.service";
 import { Observable } from "rxjs/Observable";
 import { HttpClient } from "@angular/common/http";
+import { Post } from "../../models/post";
 
 @Component({
     selector: 'blog-post-show',
@@ -43,7 +44,7 @@ export class PostShowComponent implements OnInit {
     }
 
     private getBlog(postSlug: string) {
-        this.httpClient.get(`posts/${postSlug}`).subscribe((jsonApiResource: JsonApiResource) => {
+        this.httpClient.get(`posts/${postSlug}`).subscribe((jsonApiResource: JsonApiResource<Post>) => {
             this._post = jsonApiResource.data;
             this.parseMarkdown(this._post.attributes.content);
         });

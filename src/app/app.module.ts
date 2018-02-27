@@ -69,12 +69,12 @@ import { WindowRef } from "./globals/window-ref";
         HighlightService,
         {
             provide: HTTP_INTERCEPTORS,
-            useClass: JsonapiInterceptor,
+            useClass: HttpErrorInterceptor,
             multi: true,
         },
         {
             provide: HTTP_INTERCEPTORS,
-            useClass: HttpErrorInterceptor,
+            useClass: JsonapiInterceptor,
             multi: true,
         }
     ],

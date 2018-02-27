@@ -1,5 +1,7 @@
-export interface Category {
-    "name": string,
-    "created_at": Date,
-    "updated_at": Date
+import { JsonApiResourceObject } from "./json-api/json-api-resource-object";
+
+export interface Category extends JsonApiResourceObject {
+    name: string,
+    createdAt: Date,
+    updatedAt: Date
 }

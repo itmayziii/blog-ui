@@ -3,7 +3,9 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { NotificationsService } from "angular2-notifications";
 import { Router } from "@angular/router";
 import { RouteService } from "../../services/route.service";
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
+import { JsonApiResource } from "../../models/json-api/json-api-resource";
+import { User } from "../../models/user";
 
 @Component({
     selector: 'blog-login',
@@ -50,12 +52,13 @@ export class LoginComponent implements OnInit {
     public onLogin(): void {
         this.loginForm.disable();
 
+        const credentials = btoa(`${this.loginForm.get('email').value}:${this.loginForm.get('password').value}`);
         const headers = new HttpHeaders({
-            Authorization: `Basic ${this.loginForm.get('email').value}:${this.loginForm.get('password').value}`
+            Authorization: `Basic ${credentials}`
         });
-        this.httpClient.get('/v1/authenticate', {headers: headers}).subscribe(
-            (response: HttpResponse<any>) => {
-                localStorage.setItem('API-Token', response["API-Token"]);
+        this.httpClient.post('authenticate', null, {headers: headers}).subscribe(
+            (response: JsonApiResource<User>) => {
+                localStorage.setItem('API-Token', response.data.attributes.apiToken);
 
                 const navigateToUrl = (this.routeService.redirectUrl) ? this.routeService.redirectUrl : '/posts';
                 this.router.navigate([navigateToUrl]).then(() => {});
