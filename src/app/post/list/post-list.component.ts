@@ -2,11 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { JsonApiResources } from "../../models/json-api/json-api-resoures";
-import { JsonApiResourceObject } from "../../models/json-api/json-api-resource-object";
 import { UserService } from "../../services/user.service";
 import { NotificationsService } from "angular2-notifications";
 import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http";
 import { Post } from "../../models/post";
+import { Category } from "../../models/category";
 
 @Component({
     selector: 'blog-post-list',
@@ -17,7 +17,8 @@ export class PostListComponent implements OnInit, OnDestroy {
     private $params: Subscription;
     private page: string = '1';
     private size: string = '12';
-    private _posts: JsonApiResourceObject[];
+    private _posts: Post[];
+    private _categories: Category[];
 
     public constructor(private httpClient: HttpClient,
                        private route: ActivatedRoute,
@@ -29,6 +30,7 @@ export class PostListComponent implements OnInit, OnDestroy {
     public ngOnInit() {
         this.readQueryParameters().then(() => {
             this.retrievePosts();
+            this.retrieveCategories();
         });
     }
 
@@ -68,8 +70,23 @@ export class PostListComponent implements OnInit, OnDestroy {
         );
     }
 
-    public get posts(): JsonApiResourceObject[] {
+    private retrieveCategories(): void {
+        this.httpClient.get('categories').subscribe(
+            (response: JsonApiResources<Category>) => {
+                this._categories = response.data;
+            },
+            (error: HttpErrorResponse) => {
+                this.notifications.error('Error', 'Unable to retrieve categories');
+            }
+        )
+    }
+
+    public get posts(): Post[] {
         return this._posts;
+    }
+
+    public get categories(): Category[] {
+        return this._categories;
     }
 
     public navigateToCreatePage(): void {

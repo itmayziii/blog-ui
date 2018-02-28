@@ -12,6 +12,7 @@ export class JsonapiInterceptor implements HttpInterceptor {
 
     public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         let jsonApiHeaders = request.headers;
+        let jsonApiParams = request.params;
 
         jsonApiHeaders = jsonApiHeaders.set('Content-Type', 'application/json');
         jsonApiHeaders = jsonApiHeaders.set('Accept', 'application/vnd.api+json');
@@ -21,9 +22,12 @@ export class JsonapiInterceptor implements HttpInterceptor {
             jsonApiHeaders = jsonApiHeaders.set('API-Token', userApiToken);
         }
 
+        jsonApiParams = jsonApiParams.set('pretty', 'false');
+
         const requestClone: HttpRequest<any> = request.clone({
             url: `${environment.apiUri}/${environment.apiVersion}/${request.url}`,
-            headers: jsonApiHeaders
+            headers: jsonApiHeaders,
+            params: jsonApiParams
         });
 
         return next.handle(requestClone);

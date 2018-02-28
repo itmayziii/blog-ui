@@ -39,7 +39,7 @@ export class GeneralResourceComponent implements OnInit {
     }
 
     private getResources(): void {
-        this.httpClient.get(this.resourceType).subscribe((resources: JsonApiResources) => {
+        this.httpClient.get(this.resourceType).subscribe((resources: JsonApiResources<any>) => {
             this._resources = resources.data;
         });
     }
