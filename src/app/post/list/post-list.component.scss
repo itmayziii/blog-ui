@@ -38,10 +38,18 @@
 }
 
 .category-list {
-    .list-group-item:hover {
-        .badge {
-            color: theme-color("primary");
-            background-color: theme-color("secondary");
+    .list-group-item {
+        &:hover {
+            .badge {
+                color: theme-color("primary");
+                background-color: theme-color("secondary");
+            }
+        }
+        &-active {
+            .badge {
+                color: theme-color("primary");
+                background-color: theme-color("secondary");
+            }
         }
     }
 }

@@ -31,6 +31,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { JsonapiInterceptor } from "./http-interceptors/jsonapi-interceptor";
 import { HttpErrorInterceptor } from "./http-interceptors/http-error-interceptor";
 import { WindowRef } from "./globals/window-ref";
+import { CategoryShowPostsComponent } from "./category/show-posts/category-show-posts.component";
 
 @NgModule({
     declarations: [
@@ -47,7 +48,8 @@ import { WindowRef } from "./globals/window-ref";
         PostListComponent,
         PostShowComponent,
         PostCreateComponent,
-        SlugifyDirective
+        SlugifyDirective,
+        CategoryShowPostsComponent
     ],
     imports: [
         BrowserModule,

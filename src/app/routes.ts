@@ -9,6 +9,7 @@ import { LogoutComponent } from "./users/logout/logout.component";
 import { PostListComponent } from "./post/list/post-list.component";
 import { PostShowComponent } from "./post/show/post-show.component";
 import { PostCreateComponent } from "./post/create/post-create.component";
+import { CategoryShowPostsComponent } from "./category/show-posts/category-show-posts.component";
 
 export const routes: Routes = [
     {
@@ -31,7 +32,7 @@ export const routes: Routes = [
                 }
             },
             {
-                path: ':id',
+                path: ':slug',
                 component: PostShowComponent
             },
             {
@@ -91,11 +92,25 @@ export const routes: Routes = [
     {
         path: 'categories',
         data: {
-            'resourceType': 'categories',
-            'authorizedRole': 'Administrator'
+            'authorizedRole': 'Guest'
         },
-        canLoad: [AuthGuard],
-        loadChildren: 'app/general-resource/general-resource.module#GeneralResourceModule'
+        canActivateChild: [AuthGuard],
+        children: [
+            {
+                path: ':slug/posts',
+                component: CategoryShowPostsComponent
+            },
+            {
+                path: '',
+                data: {
+                    'resourceType': 'categories',
+                    'authorizedRole': 'Administrator'
+                },
+                canLoad: [AuthGuard],
+                loadChildren: 'app/general-resource/general-resource.module#GeneralResourceModule'
+            }
+        ],
+
     },
     {
         path: 'access-denied', // TODO create access denied component

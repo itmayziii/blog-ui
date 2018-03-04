@@ -5,6 +5,7 @@
 
 .header {
     background-color: theme-color-level("primary", 3);
+    border-bottom: 1px solid theme-color("info");
     position: fixed;
     top: 0;
     width: 100vw;

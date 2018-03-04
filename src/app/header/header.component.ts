@@ -55,8 +55,8 @@ export class HeaderComponent {
         {title: 'Register', path: '/users/register', condition: () => {return !this.userService.isLoggedIn()}},
         {
             title: 'Logout', path: '/users/logout', condition: () => {
-            return this.userService.isLoggedIn();
-        }
+                return this.userService.isLoggedIn();
+            }
         }
     ];
 

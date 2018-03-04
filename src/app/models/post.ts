@@ -6,6 +6,7 @@ export interface Post extends JsonApiResourceObject {
         updatedAt: Date,
         status: string,
         title: string,
+        slug: string,
         content: string,
         imagePath: string
     }

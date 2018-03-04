@@ -18,7 +18,7 @@ export class FileUploadService {
         return Observable.create((observer: Observer<string>) => {
             const xhr = new XMLHttpRequest();
             xhr.open('POST', 'http://localhost:4200/v1/images', true);
-            xhr.setRequestHeader('API-Token', this.userService.user.api_token);
+            xhr.setRequestHeader('API-Token', this.userService.user.apiToken);
             xhr.send(formData);
 
             xhr.onreadystatechange = () => {

@@ -6,9 +6,9 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" *ngIf="!isCategory || category">
 
-        <h1 class="col-12 col-xl-9 text-center text-secondary post-list-title">Latest Posts</h1>
+        <h1 class="col-12 col-xl-9 text-center text-secondary post-list-title">{{ (isCategory) ? category.attributes.name : 'Latest Posts' }}</h1>
 
         <div class="row col-12 justify-content-center d-xl-none">
             <div class="dropdown col-12 row justify-content-center">
@@ -17,18 +17,19 @@
                     Categories
                 </button>
                 <div class="dropdown-menu col-12" aria-labelledby="categories-dropdown">
-                    <a class="dropdown-item" routerLink="/categories/{{ category.attributes.slug }}" *ngFor="let category of categories">{{ category.attributes.name }}</a>
+                    <a class="dropdown-item" routerLink="/categories/{{ category.attributes.slug }}/posts" *ngFor="let category of categoriesList">{{ category.attributes.name
+                        }}</a>
                 </div>
             </div>
         </div>
 
         <ul class="post-list col-12 col-xl-9 row justify-content-start">
-            <li *ngFor="let post of posts" class="col-12 col-md-6 col-lg-4 post-list-item">
-                <a class="row post-list-item-reference" routerLink="{{ post.id }}">
+            <li *ngFor="let post of posts" class="col-12 col-md-6 col-lg-4 col-xxl-3 post-list-item">
+                <a class="row post-list-item-reference" routerLink="{{ post.attributes.slug }}">
                     <img src="{{ post.attributes.imagePath }}" class="post-list-item-image">
                     <div class="post-list-item-text">
                         <h4 class="col-12 text-center">{{post.attributes.title}}</h4>
-                        <p class="post-list-item-description">{{ post.attributes.content | slice:0:200 }}...</p>
+                        <p class="post-list-item-description text-center text-md-left">{{ post.attributes.content | slice:0:200 }}...</p>
                     </div>
                 </a>
             </li>
@@ -37,9 +38,10 @@
         <section class="d-none d-xl-block col-3">
             <ul class="list-group category-list">
                 <a class="list-group-item list-group-item-action list-group-item d-flex justify-content-between align-items-center"
-                   routerLink="/categories/{{ category.attributes.slug }}" *ngFor="let category of categories">
-                    {{ category.attributes.name }}
-                    <span class="badge badge-primary badge-pill">{{ category.attributes.posts }}</span>
+                   [ngClass]="{'list-group-item-active': (isCategory && category.id == categoryListItem.id)}"
+                   routerLink="/categories/{{ categoryListItem.attributes.slug }}/posts" *ngFor="let categoryListItem of categoriesList">
+                    {{ categoryListItem.attributes.name }}
+                    <span class="badge badge-primary badge-pill">{{ categoryListItem.attributes.posts }}</span>
                 </a>
 
             </ul>
