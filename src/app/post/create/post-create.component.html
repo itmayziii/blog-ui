@@ -5,30 +5,30 @@
               novalidate enctype="multipart/form-data" target="_blank">
             <div class="row justify-content-center">
 
-                <div class="col-11 col-md-8">
+                <div class="col-11">
                     <div class="row justify-content-center">
                         <h2 class="col-12 text-center text-secondary">Create Post</h2>
 
-                        <fieldset class="form-group col-12">
-                            <label for="image">Image</label>
-                            <input type="file" class="form-control-file" id="image" aria-describedby="imageHelp" #image>
-                            <small id="imageHelp" class="form-text text-muted">Optimal images are sized with a height 1.5x the
-                                width.
-                            </small>
-                        </fieldset>
-
-                        <fieldset class="form-group col-12">
+                        <fieldset class="form-group col-11 col-md-6">
                             <label for="title">Title<span class="required">*</span></label>
                             <input class="form-control" type="text" name="title" id="title" formControlName="title" autofocus
                                    postSlugify="slug">
                         </fieldset>
 
-                        <fieldset class="form-group col-12">
+                        <fieldset class="form-group col-11 col-md-6">
                             <label for="slug">Slug<span class="required">*</span></label>
                             <input class="form-control" type="text" name="slug" id="slug" formControlName="slug">
                         </fieldset>
 
-                        <fieldset class="form-group col-12">
+                        <fieldset class="form-group col-11 col-md-6">
+                            <label for="status">Status<span class="required">*</span></label>
+                            <select name="status" id="status" class="form-control" formControlName="status">
+                                <option value="draft">Draft</option>
+                                <option value="live">Live</option>
+                            </select>
+                        </fieldset>
+
+                        <fieldset class="form-group col-11 col-md-6">
                             <label for="category">Category<span class="required">*</span></label>
                             <select name="category-id" id="category" class="form-control" formControlName="category-id">
                                 <option *ngFor="let category of categories" [value]="category.id">
@@ -36,17 +36,34 @@
                                 </option>
                             </select>
                         </fieldset>
-                    </div>
-                </div>
 
-                <div class="col-11">
-                    <div class="row justify-content-center">
+                        <fieldset class="form-group col-11 col-md-6">
+                            <label for="image-path-sm">Image Path Small</label>
+                            <input class="form-control" type="text" name="image-path-sm" id="image-path-sm" formControlName="image-path-sm">
+                        </fieldset>
+
+                        <fieldset class="form-group col-11 col-md-6">
+                            <label for="image-path-md">Image Path Medium</label>
+                            <input class="form-control" type="text" name="image-path-md" id="image-path-md" formControlName="image-path-md">
+                        </fieldset>
+
+                        <fieldset class="form-group col-11 col-md-6">
+                            <label for="image-path-lg">Image Path Large</label>
+                            <input class="form-control" type="text" name="image-path-lg" id="image-path-lg" formControlName="image-path-lg">
+                        </fieldset>
 
                         <fieldset class="form-group col-12">
-                            <label for="content">Content<span class="required">*</span></label>
-                            <textarea class="form-control" name="content" id="content" rows="20"
-                                      formControlName="content"></textarea>
+                            <label for="preview">Preview</label>
+                            <textarea class="form-control" name="preview" id="preview" rows="4"
+                                      formControlName="preview" maxlength="200"></textarea>
                         </fieldset>
+
+                        <fieldset class="form-group col-12">
+                            <label for="content">Content</label>
+                            <textarea class="form-control" name="content" id="content" rows="20"
+                                      formControlName="content" maxlength="10000"></textarea>
+                        </fieldset>
+
                     </div>
                 </div>
 

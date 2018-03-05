@@ -1,10 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { JsonApiResourceObject } from "../../models/json-api/json-api-resource-object";
 import { JsonApiResources } from "../../models/json-api/json-api-resoures";
 import { NotificationsService } from "angular2-notifications";
 import { UserService } from "../../services/user.service";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Category } from "../../models/category";
 
 @Component({
@@ -14,7 +13,7 @@ import { Category } from "../../models/category";
 })
 export class PostCreateComponent implements OnInit {
     public postCreateForm: FormGroup;
-    private _categories: JsonApiResourceObject[];
+    private _categories: Category[];
     @ViewChild('image') public image: ElementRef;
 
     public constructor(private formBuilder: FormBuilder,
@@ -32,20 +31,20 @@ export class PostCreateComponent implements OnInit {
         this.postCreateForm = this.formBuilder.group({
             "title": [null, Validators.required],
             "slug": [null, Validators.required],
-            "status": [null, Validators.required],
-            "preview": [null, Validators.required],
-            "content": [null, Validators.required],
+            "status": ['draft', Validators.required],
+            "preview": null,
+            "content": null,
             "category-id": [null, Validators.required],
-            "user-id": null
+            "user-id": [null, Validators.required],
+            "image-path-sm": null,
+            "image-path-md": null,
+            "image-path-lg": null
         });
 
         this.postCreateForm.get('user-id').setValue(this.userService.userId);
     }
 
     public onSubmit(): void {
-        this.postCreateForm.disable();
-        this.notifications.info('Creating Post', 'In Progress');
-
         this.createPost(this.postCreateForm.value);
     }
 
@@ -54,24 +53,28 @@ export class PostCreateComponent implements OnInit {
             (response: JsonApiResources<Category>) => {
                 this._categories = response.data;
             },
-            (error: any) => {
+            (error: HttpErrorResponse) => {
                 this.notifications.error('Error', 'Could not retrieve list of categories');
             }
-        )
+        );
     }
 
-    public get categories(): JsonApiResourceObject[] {
+    public get categories(): Category[] {
         return this._categories;
     }
 
     private createPost(post: object) {
+        this.postCreateForm.disable();
+        const createPostNotification = this.notifications.info('Creating Post', 'In Progress');
+
         this.httpClient.post('posts', post).subscribe(
             (response) => {
-                this.postCreateForm.reset();
                 this.postCreateForm.enable();
+                this.notifications.remove(createPostNotification.id);
                 this.notifications.success('Success', 'Post created');
             },
             (error) => {
+                this.notifications.remove(createPostNotification.id);
                 this.notifications.error('Error', 'Post could not be created')
             }
         )
