@@ -8,6 +8,9 @@ export interface Post extends JsonApiResourceObject {
         title: string,
         slug: string,
         content: string,
-        imagePath: string
+        preview: string,
+        imagePathSm: string,
+        imagePathMd: string,
+        imagePathLg: string
     }
 }

@@ -19,15 +19,15 @@ export class MarkdownService {
     private createMarkedRenderer(): Renderer {
         const renderer: Renderer = new marked.Renderer();
         renderer.heading = function (text, level): string {
-            return `<h${level} class="blog-content-heading-${level} w-100 text-secondary text-center">${text}</h${level}>`;
+            return `<h${level} class="blog-content-heading-${level} col-12 text-secondary text-center">${text}</h${level}>`;
         };
 
         renderer.paragraph = function (text): string {
-            return `<p class="w-100 text-white">${text}</p>`
+            return `<p class="col-12 text-white">${text}</p>`
         };
 
         renderer.code = function (code, language, isEscaped): string {
-            return `<pre class="bg-light p-3 rounded w-100"><code class="w-100">${code}</code></pre>`
+            return `<pre class="bg-light p-3 rounded col-12"><code class="col-12">${code}</code></pre>`
         };
 
         return renderer;

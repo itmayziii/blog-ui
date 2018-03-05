@@ -32,6 +32,7 @@ import { JsonapiInterceptor } from "./http-interceptors/jsonapi-interceptor";
 import { HttpErrorInterceptor } from "./http-interceptors/http-error-interceptor";
 import { WindowRef } from "./globals/window-ref";
 import { CategoryShowPostsComponent } from "./category/show-posts/category-show-posts.component";
+import { GoogleAnalyticsService } from "./services/google-analytics.service";
 
 @NgModule({
     declarations: [
@@ -68,6 +69,7 @@ import { CategoryShowPostsComponent } from "./category/show-posts/category-show-
         AuthService,
         MarkdownService,
         WindowRef,
+        GoogleAnalyticsService,
         HighlightService,
         {
             provide: HTTP_INTERCEPTORS,
