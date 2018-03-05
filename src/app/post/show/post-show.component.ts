@@ -13,12 +13,27 @@ import { Post } from "../../models/post";
     selector: 'blog-post-show',
     template: `
         <div class="container-fluid post">
-            <div class="row" *ngIf="post">
-                <div class="col-12 post-hero d-block d-md-none" [style.background-image]="'url(' + post.attributes.imagePathSm + ')'">1</div>
-                <div class="col-12 post-hero d-none d-md-block d-lg-none" [style.background-image]="'url(' + post.attributes.imagePathMd + ')'">2</div>
-                <div class="col-12 post-hero d-none d-lg-block" [style.background-image]="'url(' + post.attributes.imagePathLg + ')'">3</div>
-                <h1 class="post-title text-center text-secondary col-10 offset-1">{{post?.attributes?.title}}</h1>
-                <div class="post-content col-10 offset-1 row" [innerHTML]="parsedPostContent"></div>
+            <div class="row align-items-center" *ngIf="post">
+                <div class="col-12 post-hero d-block d-md-none" [style.background-image]="'url(' + post.attributes.imagePathSm + ')'"></div>
+                <div class="col-12 post-hero d-none d-md-block d-lg-none" [style.background-image]="'url(' + post.attributes.imagePathMd + ')'">
+                    <div class="row align-items-center h-100">
+                        <h1 class="col-5 offset-1 post-title text-secondary">{{post?.attributes?.title}}</h1>
+                    </div>
+                </div>
+                <div class="col-12 post-hero d-none d-lg-block" [style.background-image]="'url(' + post.attributes.imagePathLg + ')'">
+                    <div class="row align-items-center h-100">
+                        <h1 class="col-5 offset-1 post-title text-secondary">{{post?.attributes?.title}}</h1>
+                    </div>
+                </div>
+                <h1 class="post-title d-block d-md-none text-center text-secondary col-10 offset-1">{{post?.attributes?.title}}</h1>
+                <div class="post-content col-10 offset-1">
+                    <div class="row" [innerHTML]="parsedPostContent"></div>
+                </div>
+            </div>
+            <div *ngIf="content" class="row">
+                <div class="post-content col-10 offset-1">
+                    <div class="row" [innerHTML]="parsedPostContent"></div>
+                </div>
             </div>
         </div>
     `,

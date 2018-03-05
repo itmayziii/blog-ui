@@ -10,6 +10,7 @@ import { PostListComponent } from "./post/list/post-list.component";
 import { PostShowComponent } from "./post/show/post-show.component";
 import { PostCreateComponent } from "./post/create/post-create.component";
 import { CategoryShowPostsComponent } from "./category/show-posts/category-show-posts.component";
+import { FileUploadComponent } from "./file/upload/file-upload.component";
 
 export const routes: Routes = [
     {
@@ -110,7 +111,23 @@ export const routes: Routes = [
                 loadChildren: 'app/general-resource/general-resource.module#GeneralResourceModule'
             }
         ],
-
+    },
+    {
+        path: 'files',
+        data: {
+            'authorizedRole': 'Administrator'
+        },
+        canActivateChild: [AuthGuard],
+        children: [
+            {
+                path: 'upload',
+                component: FileUploadComponent
+            },
+            {
+                path: '',
+                component: NotFoundComponent
+            }
+        ]
     },
     {
         path: 'access-denied', // TODO create access denied component

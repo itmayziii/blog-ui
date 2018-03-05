@@ -48,7 +48,8 @@ export class HeaderComponent {
     public leftLinks: Array<NavLink> = [
         {title: 'Posts', path: '/posts', condition: () => {return true}},
         {title: 'Contact', path: '/contacts/create', condition: () => {return true}},
-        {title: 'Categories', path: '/categories', condition: () => {return this.userService.isAdmin()}}
+        {title: 'Categories', path: '/categories', condition: () => {return this.userService.isAdmin()}},
+        {title: 'Files', path: '/files/upload', condition: () => {return this.userService.isAdmin()}}
     ];
     public rightLinks: Array<NavLink> = [
         {title: 'Login', path: '/users/login', condition: () => {return !this.userService.isLoggedIn()}},

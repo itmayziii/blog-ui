@@ -11,7 +11,7 @@ import { HttpClient } from "@angular/common/http";
 export class ContactCreateComponent {
     public contactCreateForm: FormGroup;
 
-    constructor(private formBuilder: FormBuilder, private httpClient: HttpClient, private notifications: NotificationsService) {
+    public constructor(private formBuilder: FormBuilder, private httpClient: HttpClient, private notifications: NotificationsService) {
         this.createForm();
     }
 

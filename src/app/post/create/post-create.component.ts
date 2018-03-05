@@ -4,7 +4,6 @@ import { JsonApiResourceObject } from "../../models/json-api/json-api-resource-o
 import { JsonApiResources } from "../../models/json-api/json-api-resoures";
 import { NotificationsService } from "angular2-notifications";
 import { UserService } from "../../services/user.service";
-import { FileUploadService } from "../../services/http/file-upload.service";
 import { HttpClient } from "@angular/common/http";
 import { Category } from "../../models/category";
 
@@ -21,8 +20,7 @@ export class PostCreateComponent implements OnInit {
     public constructor(private formBuilder: FormBuilder,
                        private httpClient: HttpClient,
                        private notifications: NotificationsService,
-                       private userService: UserService,
-                       private fileUploadService: FileUploadService) {
+                       private userService: UserService) {
     }
 
     public ngOnInit(): void {
@@ -34,6 +32,8 @@ export class PostCreateComponent implements OnInit {
         this.postCreateForm = this.formBuilder.group({
             "title": [null, Validators.required],
             "slug": [null, Validators.required],
+            "status": [null, Validators.required],
+            "preview": [null, Validators.required],
             "content": [null, Validators.required],
             "category-id": [null, Validators.required],
             "user-id": null
@@ -46,20 +46,7 @@ export class PostCreateComponent implements OnInit {
         this.postCreateForm.disable();
         this.notifications.info('Creating Post', 'In Progress');
 
-        if (this.image.nativeElement.files.length > 0) {
-            this.fileUploadService.uploadFile(this.image).subscribe((filesUploaded) => {
-                if (!filesUploaded) {
-                    this.notifications.error('Creating Post', 'Failed to upload image');
-                    return;
-                }
-
-                let formValues = this.postCreateForm.value;
-                formValues['image-path'] = filesUploaded[0];
-                this.createPost(formValues);
-            });
-        } else {
-            this.createPost(this.postCreateForm.value);
-        }
+        this.createPost(this.postCreateForm.value);
     }
 
     private retrieveCategories(): void {
