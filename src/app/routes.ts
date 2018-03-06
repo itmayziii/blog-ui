@@ -11,6 +11,7 @@ import { PostShowComponent } from "./post/show/post-show.component";
 import { PostCreateComponent } from "./post/create/post-create.component";
 import { CategoryShowPostsComponent } from "./category/show-posts/category-show-posts.component";
 import { FileUploadComponent } from "./file/upload/file-upload.component";
+import { PostUpdateComponent } from "./post/update/post-update.component";
 
 export const routes: Routes = [
     {
@@ -35,6 +36,10 @@ export const routes: Routes = [
             {
                 path: ':slug',
                 component: PostShowComponent
+            },
+            {
+                path: 'update/:slug',
+                component: PostCreateComponent
             },
             {
                 path: '',

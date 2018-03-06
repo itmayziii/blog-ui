@@ -18,6 +18,6 @@ export class SlugifyDirective {
             .toLowerCase()
             .trim()
             .replace(/\s/g, '-');
-        this.host.postCreateForm.get('slug').setValue(slugifiedValue);
+        this.host.postForm.get('slug').setValue(slugifiedValue);
     }
 }

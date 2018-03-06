@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
 
-        <form [formGroup]="postCreateForm" (ngSubmit)="onSubmit()" method="post" class="contact-form col-12 col-lg-6"
+        <form [formGroup]="postForm" (ngSubmit)="onSubmit()" method="post" class="contact-form col-12 col-lg-6"
               novalidate enctype="multipart/form-data" target="_blank">
             <div class="row justify-content-center">
 
@@ -68,14 +68,14 @@
                 </div>
 
                 <button class="btn btn-secondary col-10 contact-form-submit-button" type="submit"
-                        [disabled]="postCreateForm.invalid" attr.aria-disabled="{{postCreateForm.invalid}}">
+                        [disabled]="postForm.invalid" attr.aria-disabled="{{postForm.invalid}}">
                     Submit
                 </button>
             </div>
         </form>
 
         <div class="col-12 col-lg-6">
-            <blog-post-show [content]="postCreateForm.get('content').valueChanges"></blog-post-show>
+            <blog-post-show [content]="postForm.get('content').valueChanges"></blog-post-show>
         </div>
 
     </div>

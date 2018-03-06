@@ -12,7 +12,8 @@ export class MarkdownService {
         const renderer = this.createMarkedRenderer();
         const markedOptions: MarkedOptions = {renderer: renderer, highlight: this.highlightService.highlight};
         return marked(src, markedOptions, (err, result) => {
-            callback(err, result.toString());
+            const markedString = (result) ? result.toString() : '';
+            callback(err, markedString);
         });
     }
 
