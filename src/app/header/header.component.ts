@@ -6,7 +6,7 @@ import { UserService } from "../services/user.service";
     selector: 'app-header',
     template: `
         <header class="header sticky-top">
-            <nav class="navbar navbar-expand-md navbar-light">
+            <nav class="navbar navbar-expand-md navbar-light py-0">
                 <a class="navbar-brand text-success" routerLink="/">TM3</a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" (click)="toggleNavigationMenu()">
                     <span class="navbar-toggler-icon"></span>

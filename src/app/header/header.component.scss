@@ -13,7 +13,6 @@
 }
 
 .navbar {
-
     &-brand {
         font-size: 45px;
         font-family: "Baskerville Old Face";
@@ -22,15 +21,17 @@
     .nav {
 
         &-item {
-            border-top: solid 1px theme-color("secondary");
             text-align: center;
             letter-spacing: 3px;
             font-size: 1.2rem;
+        }
+
+        &-link {
+            border-top: solid 1px theme-color("secondary");
 
             @include media-breakpoint-up(md) {
                 border: none;
             }
-
         }
     }
 
