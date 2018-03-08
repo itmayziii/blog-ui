@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from "@angular/router";
-import { ISubscription, Subscription } from "rxjs/Subscription";
+import { ISubscription } from "rxjs/Subscription";
 import { JsonApiResources } from "../../models/json-api/json-api-resoures";
 import { UserService } from "../../services/user.service";
 import { NotificationsService } from "angular2-notifications";
@@ -19,10 +19,8 @@ import { JsonApiResource } from "../../models/json-api/json-api-resource";
 })
 export class PostListComponent implements OnInit, OnDestroy {
     private _isCategory: boolean = false;
-
-    private $params: Subscription;
-    private page: string = '1';
-    private size: string = '12';
+    private _page: string = '1';
+    private _size: string = '12';
     private _posts: Post[];
     private _categoriesList: Category[];
     private _category: Category;
@@ -54,12 +52,12 @@ export class PostListComponent implements OnInit, OnDestroy {
             .switchMap((params: ParamMap[]): any => {
                 const [paramMap, queryParamMap] = params;
 
-                this.size = queryParamMap.get('size') || this.size;
-                this.page = queryParamMap.get('page') || this.page;
+                this._size = queryParamMap.get('size') || this._size;
+                this._page = queryParamMap.get('page') || this._page;
                 const httpParams = new HttpParams({
                     fromObject: {
-                        size: this.size,
-                        page: this.page
+                        size: this._size,
+                        page: this._page
                     }
                 });
                 const requestOptions = {
