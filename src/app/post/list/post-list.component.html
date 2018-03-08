@@ -6,7 +6,7 @@
         </div>
     </div>
 
-    <div class="row" *ngIf="!isCategory || category">
+    <div class="row" *ngIf="posts">
 
         <h1 class="col-12 col-xl-9 text-center text-secondary post-list-title">{{ (isCategory) ? category.attributes.name : 'Latest Posts' }}</h1>
 
@@ -19,9 +19,8 @@
                             Categories
                         </button>
                         <div class="dropdown-menu col-12" aria-labelledby="categories-dropdown">
-                            <a class="dropdown-item" routerLink="/categories/{{ category.attributes.slug }}/posts" *ngFor="let category of categoriesList">{{
-                                category.attributes.name
-                                }}</a>
+                            <a class="dropdown-item" routerLink="/categories/{{ category.attributes.slug }}/posts" *ngFor="let category of categoriesList">
+                                {{ category.attributes.name }}</a>
                         </div>
                     </div>
                 </div>

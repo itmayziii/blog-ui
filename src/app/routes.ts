@@ -9,7 +9,6 @@ import { LogoutComponent } from "./users/logout/logout.component";
 import { PostListComponent } from "./post/list/post-list.component";
 import { PostShowComponent } from "./post/show/post-show.component";
 import { PostCreateComponent } from "./post/create/post-create.component";
-import { CategoryShowPostsComponent } from "./category/show-posts/category-show-posts.component";
 import { FileUploadComponent } from "./file/upload/file-upload.component";
 
 export const routes: Routes = [
@@ -102,8 +101,8 @@ export const routes: Routes = [
         canActivateChild: [AuthGuard],
         children: [
             {
-                path: ':slug/posts',
-                component: CategoryShowPostsComponent
+                path: ':categorySlug/posts',
+                component: PostListComponent
             },
             {
                 path: '',

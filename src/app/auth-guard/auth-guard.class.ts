@@ -31,20 +31,20 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
 
                         if (this.isGuestRoute(routeSnapshot)) {
                             resolve(true);
-                        } else {
-                            this.navigateToLogin(url);
-                            resolve(false);
+                            return;
                         }
 
+                        this.navigateToLogin(url);
+                        resolve(false);
                     }
 
                     if (this.hasAccess(routeSnapshot)) {
                         resolve(true);
                         return;
-                    } else {
-                        this.router.navigate(['/access-denied']).then(() => {});
-                        resolve(false);
                     }
+
+                    this.router.navigate(['/access-denied']).then(() => {});
+                    resolve(false);
                 })
                 .catch(() => {
                     reject(false);

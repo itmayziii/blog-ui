@@ -1,6 +1,6 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from "@angular/router";
-import { Subscription } from "rxjs/Subscription";
+import { ISubscription, Subscription } from "rxjs/Subscription";
 import { JsonApiResources } from "../../models/json-api/json-api-resoures";
 import { UserService } from "../../services/user.service";
 import { NotificationsService } from "angular2-notifications";
@@ -8,7 +8,8 @@ import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http"
 import { Post } from "../../models/post";
 import { Category } from "../../models/category";
 import 'rxjs/add/operator/switchMap';
-import { Observable } from "rxjs/Observable";
+import 'rxjs/add/operator/map';
+import { combineLatest } from "rxjs/observable/combineLatest";
 import { JsonApiResource } from "../../models/json-api/json-api-resource";
 
 @Component({
@@ -17,8 +18,7 @@ import { JsonApiResource } from "../../models/json-api/json-api-resource";
     styleUrls: ['./post-list.component.scss']
 })
 export class PostListComponent implements OnInit, OnDestroy {
-    @Input() public isCategory = false;
-    private categories$: Observable<JsonApiResource<Category>>;
+    private _isCategory: boolean = false;
 
     private $params: Subscription;
     private page: string = '1';
@@ -26,6 +26,7 @@ export class PostListComponent implements OnInit, OnDestroy {
     private _posts: Post[];
     private _categoriesList: Category[];
     private _category: Category;
+    private _postsSubscription: ISubscription;
 
     public constructor(private httpClient: HttpClient,
                        private route: ActivatedRoute,
@@ -35,64 +36,63 @@ export class PostListComponent implements OnInit, OnDestroy {
     }
 
     public ngOnInit() {
-        this.readQueryParameters().then(() => {
-            if (this.isCategory) {
-                this.retrievePostsByCategory();
-            } else {
-                this.retrieveLatestPosts();
-            }
-
-            this.retrieveCategoriesList();
+        this._postsSubscription = this.retrievePosts().subscribe((posts) => {
+            this._posts = posts;
         });
+
+        this.retrieveCategoriesList();
+
+        // this.readQueryParameters().then(() => {
+        //     if (this.isCategory) {
+        //         this.retrievePostsByCategory();
+        //     } else {
+        //         this.retrieveLatestPosts();
+        //     }
+        //
+        // });
     }
 
     public ngOnDestroy() {
-        this.$params.unsubscribe();
+        if (this._postsSubscription) {
+            this._postsSubscription.unsubscribe();
+        }
     }
 
-    private readQueryParameters(): Promise<ParamMap> {
-        return new Promise((resolve) => {
-            this.$params = this.route.queryParamMap.subscribe(
-                (queryParams: ParamMap) => {
-                    this.size = queryParams.get('size') || this.size;
-                    this.page = queryParams.get('page') || this.page;
-                    resolve();
-                },
-                (error) => {
-                    console.error('Could not read query params: ', error);
-                    resolve();
+    private retrievePosts(): any {
+        return combineLatest(this.route.paramMap, this.route.queryParamMap)
+            .switchMap((params: ParamMap[]): any => {
+                const [paramMap, queryParamMap] = params;
+
+                this.size = queryParamMap.get('size') || this.size;
+                this.page = queryParamMap.get('page') || this.page;
+                const httpParams = new HttpParams({
+                    fromObject: {
+                        size: this.size,
+                        page: this.page
+                    }
+                });
+                const requestOptions = {
+                    params: httpParams
+                };
+
+                const categorySlug = paramMap.get('categorySlug');
+                if (categorySlug) {
+                    return this.httpClient.get(`categories/${categorySlug}/posts`, requestOptions).map((response: JsonApiResource<Category>) => {
+                        console.log('respnose ', response);
+                        this._category = response.data;
+                        this._isCategory = true;
+                        return response.included.filter((includedData: any) => {
+                            return includedData.type === 'posts';
+                        });
+                    });
                 }
-            );
-        });
-    }
 
-    private retrieveLatestPosts(): void {
-        let queryParams: HttpParams = new HttpParams();
-        queryParams = queryParams.set('size', this.size);
-        queryParams = queryParams.set('page', this.page);
-
-        const requestOptions = {params: queryParams};
-        this.httpClient.get('posts', requestOptions).subscribe(
-            (response: JsonApiResources<Post>) => {
-                this._posts = response.data;
-            },
-            (error: HttpErrorResponse) => {
-                this.notifications.error('Error', 'Unable to show posts');
-            }
-        );
-    }
-
-    private retrievePostsByCategory(): void {
-        this.categories$ = this.route.paramMap
-            .switchMap((params: ParamMap) => {
-                const categorySlug = params.get('slug');
-                return <Observable<JsonApiResource<Category>>> this.httpClient.get(`categories/${categorySlug}/posts`);
+                this._isCategory = false;
+                return this.httpClient.get(`posts`, requestOptions).map((response: JsonApiResources<Post>) => {
+                    console.log('response ', response);
+                    return response.data;
+                });
             });
-
-        this.categories$.subscribe((response: JsonApiResource<Category>) => {
-            this._category = response.data;
-            this._posts = response.included.filter((includedRelationship) => includedRelationship.type === 'posts');
-        });
     }
 
     private retrieveCategoriesList(): void {
@@ -101,13 +101,17 @@ export class PostListComponent implements OnInit, OnDestroy {
                 this._categoriesList = response.data;
             },
             (error: HttpErrorResponse) => {
-                this.notifications.error('Error', 'Unable to retrieve categories');
+                this.notifications.error('Error', 'Unable to retrieve categories list.');
             }
         )
     }
 
     public get posts(): Post[] {
         return this._posts;
+    }
+
+    public get isCategory(): boolean {
+        return this._isCategory;
     }
 
     public get categoriesList(): Category[] {
