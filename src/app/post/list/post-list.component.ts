@@ -41,15 +41,6 @@ export class PostListComponent implements OnInit, OnDestroy {
         });
 
         this.retrieveCategoriesList();
-
-        // this.readQueryParameters().then(() => {
-        //     if (this.isCategory) {
-        //         this.retrievePostsByCategory();
-        //     } else {
-        //         this.retrieveLatestPosts();
-        //     }
-        //
-        // });
     }
 
     public ngOnDestroy() {
