@@ -78,7 +78,6 @@ export class PostListComponent implements OnInit, OnDestroy {
                 const categorySlug = paramMap.get('categorySlug');
                 if (categorySlug) {
                     return this.httpClient.get(`categories/${categorySlug}/posts`, requestOptions).map((response: JsonApiResource<Category>) => {
-                        console.log('respnose ', response);
                         this._category = response.data;
                         this._isCategory = true;
                         return response.included.filter((includedData: any) => {
@@ -89,7 +88,6 @@ export class PostListComponent implements OnInit, OnDestroy {
 
                 this._isCategory = false;
                 return this.httpClient.get(`posts`, requestOptions).map((response: JsonApiResources<Post>) => {
-                    console.log('response ', response);
                     return response.data;
                 });
             });
