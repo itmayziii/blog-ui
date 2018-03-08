@@ -2,6 +2,7 @@ import { ElementRef, Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { Observer } from "rxjs/Observer";
 import { UserService } from "../user.service";
+import { environment } from "../../../environments/environment";
 
 @Injectable()
 export class FileUploadService {
@@ -17,7 +18,7 @@ export class FileUploadService {
 
         return Observable.create((observer: Observer<string>) => {
             const xhr = new XMLHttpRequest();
-            xhr.open('POST', 'http://localhost:4200/v1/images', true);
+            xhr.open('POST', `${environment.apiUri}/${environment.apiVersion}/images`, true);
             xhr.setRequestHeader('API-Token', this.userService.user.apiToken);
             xhr.send(formData);
 

@@ -16,7 +16,6 @@ export class FileUploadComponent {
     }
 
     public onSubmit(): any {
-        console.log('this.images ', this.images);
         if (this.images.nativeElement.files.length > 0) {
             this.notifications.info('Uploading Files', 'In Progress');
             this.fileUploadService.uploadFiles(this.images).subscribe(
