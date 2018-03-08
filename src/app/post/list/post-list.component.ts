@@ -1,12 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { JsonApiService } from "../../services/http/json-api.service";
-import { RequestOptions, URLSearchParams } from "@angular/http";
 import { ActivatedRoute, ParamMap, Router } from "@angular/router";
-import { Subscription } from "rxjs/Subscription";
+import { ISubscription } from "rxjs/Subscription";
 import { JsonApiResources } from "../../models/json-api/json-api-resoures";
-import { JsonApiResourceObject } from "../../models/json-api/json-api-resource-object";
 import { UserService } from "../../services/user.service";
-import { NotificationsService } from "angular2-notifications/dist";
+import { NotificationsService } from "angular2-notifications";
+import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http";
+import { Post } from "../../models/post";
+import { Category } from "../../models/category";
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/map';
+import { combineLatest } from "rxjs/observable/combineLatest";
+import { JsonApiResource } from "../../models/json-api/json-api-resource";
 
 @Component({
     selector: 'blog-post-list',
@@ -14,12 +18,15 @@ import { NotificationsService } from "angular2-notifications/dist";
     styleUrls: ['./post-list.component.scss']
 })
 export class PostListComponent implements OnInit, OnDestroy {
-    private $params: Subscription;
-    private page: string = '1';
-    private size: string = '10';
-    private _posts: JsonApiResourceObject[];
+    private _isCategory: boolean = false;
+    private _page: string = '1';
+    private _size: string = '12';
+    private _posts: Post[];
+    private _categoriesList: Category[];
+    private _category: Category;
+    private _postsSubscription: ISubscription;
 
-    public constructor(private jsonApi: JsonApiService,
+    public constructor(private httpClient: HttpClient,
                        private route: ActivatedRoute,
                        private userService: UserService,
                        private router: Router,
@@ -27,53 +34,79 @@ export class PostListComponent implements OnInit, OnDestroy {
     }
 
     public ngOnInit() {
-        this.readQueryParameters().then(() => {
-            this.retrievePosts();
+        this._postsSubscription = this.retrievePosts().subscribe((posts) => {
+            this._posts = posts;
         });
+
+        this.retrieveCategoriesList();
     }
 
     public ngOnDestroy() {
-        this.$params.unsubscribe();
+        if (this._postsSubscription) {
+            this._postsSubscription.unsubscribe();
+        }
     }
 
-    private readQueryParameters(): Promise<ParamMap> {
-        return new Promise((resolve) => {
-            this.$params = this.route.queryParamMap.subscribe(
-                (queryParams: ParamMap) => {
-                    this.size = queryParams.get('size') || this.size;
-                    this.page = queryParams.get('page') || this.page;
-                    resolve();
-                },
-                (error) => {
-                    console.error('Could not read query params: ', error);
-                    resolve();
+    private retrievePosts(): any {
+        return combineLatest(this.route.paramMap, this.route.queryParamMap)
+            .switchMap((params: ParamMap[]): any => {
+                const [paramMap, queryParamMap] = params;
+
+                this._size = queryParamMap.get('size') || this._size;
+                this._page = queryParamMap.get('page') || this._page;
+                const httpParams = new HttpParams({
+                    fromObject: {
+                        size: this._size,
+                        page: this._page
+                    }
+                });
+                const requestOptions = {
+                    params: httpParams
+                };
+
+                const categorySlug = paramMap.get('categorySlug');
+                if (categorySlug) {
+                    return this.httpClient.get(`categories/${categorySlug}/posts`, requestOptions).map((response: JsonApiResource<Category>) => {
+                        this._category = response.data;
+                        this._isCategory = true;
+                        return response.included.filter((includedData: any) => {
+                            return includedData.type === 'posts';
+                        });
+                    });
                 }
-            );
-        });
+
+                this._isCategory = false;
+                return this.httpClient.get(`posts`, requestOptions).map((response: JsonApiResources<Post>) => {
+                    return response.data;
+                });
+            });
     }
 
-    private retrievePosts(): void {
-        const urlSearchParams = new URLSearchParams();
-        urlSearchParams.set('size', this.size);
-        urlSearchParams.set('page', this.page);
-
-        const requestOptions = new RequestOptions({params: urlSearchParams});
-        this.jsonApi.get('posts', requestOptions).subscribe(
-            (response: JsonApiResources) => {
-                this._posts = response.data;
+    private retrieveCategoriesList(): void {
+        this.httpClient.get('categories').subscribe(
+            (response: JsonApiResources<Category>) => {
+                this._categoriesList = response.data;
             },
-            (error: any) => {
-                this.notifications.error('Error', 'Unable to show posts');
+            (error: HttpErrorResponse) => {
+                this.notifications.error('Error', 'Unable to retrieve categories list.');
             }
-        );
+        )
     }
 
-    public get posts(): JsonApiResourceObject[] {
+    public get posts(): Post[] {
         return this._posts;
     }
 
-    public limit(content: string): string {
-        return content.substr(0, 200);
+    public get isCategory(): boolean {
+        return this._isCategory;
+    }
+
+    public get categoriesList(): Category[] {
+        return this._categoriesList;
+    }
+
+    public get category(): Category {
+        return this._category;
     }
 
     public navigateToCreatePage(): void {

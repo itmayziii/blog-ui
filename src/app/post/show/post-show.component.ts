@@ -1,20 +1,39 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { JsonApiService } from "../../services/http/json-api.service";
-import { ActivatedRoute, UrlSegment } from "@angular/router";
+import { ActivatedRoute, Router, UrlSegment } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { JsonApiResourceObject } from "../../models/json-api/json-api-resource-object";
 import { JsonApiResource } from "../../models/json-api/json-api-resource";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { MarkdownService } from "../../services/markdown.service";
 import { Observable } from "rxjs/Observable";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { Post } from "../../models/post";
 
 @Component({
     selector: 'blog-post-show',
     template: `
         <div class="container-fluid post">
-            <div class="row">
-                <h1 class="post-title text-center text-secondary w-100">{{post?.attributes?.title}}</h1>
-                <div class="post-content w-85 m-auto" [innerHTML]="parsedPostContent"></div>
+            <div class="row align-items-center" *ngIf="post">
+                <div class="col-12 post-hero d-block d-md-none" [style.background-image]="'url(' + post.attributes.imagePathSm + ')'"></div>
+                <div class="col-12 post-hero d-none d-md-block d-lg-none" [style.background-image]="'url(' + post.attributes.imagePathMd + ')'">
+                    <div class="row align-items-center h-100">
+                        <h1 class="col-5 offset-1 post-title text-secondary">{{post?.attributes?.title}}</h1>
+                    </div>
+                </div>
+                <div class="col-12 post-hero d-none d-lg-block" [style.background-image]="'url(' + post.attributes.imagePathLg + ')'">
+                    <div class="row align-items-center h-100">
+                        <h1 class="col-5 offset-1 post-title text-secondary">{{post?.attributes?.title}}</h1>
+                    </div>
+                </div>
+                <h1 class="post-title d-block d-md-none text-center text-secondary col-10 offset-1">{{post?.attributes?.title}}</h1>
+                <div class="post-content col-10 offset-1">
+                    <div class="row" [innerHTML]="parsedPostContent"></div>
+                </div>
+            </div>
+            <div *ngIf="content" class="row">
+                <div class="post-content col-10 offset-1">
+                    <div class="row" [innerHTML]="parsedPostContent"></div>
+                </div>
             </div>
         </div>
     `,
@@ -26,7 +45,7 @@ export class PostShowComponent implements OnInit {
     private _parsedPostContent: SafeHtml;
     @Input() public content: Observable<string>;
 
-    public constructor(private jsonApiService: JsonApiService, private route: ActivatedRoute, private sanitizer: DomSanitizer, private markdownService: MarkdownService) { }
+    public constructor(private httpClient: HttpClient, private route: ActivatedRoute, private sanitizer: DomSanitizer, private markdownService: MarkdownService, private router: Router) { }
 
     public ngOnInit() {
         if (this.content) {
@@ -36,17 +55,23 @@ export class PostShowComponent implements OnInit {
             return;
         }
 
-        this.readPostSlug().then((blogSlug: string) => {
-            this.getBlog(blogSlug);
+        this.readPostSlug().then((postSlug: string) => {
+            this.getPost(postSlug);
         });
 
     }
 
-    private getBlog(postSlug: string) {
-        this.jsonApiService.get(`posts/${postSlug}`).subscribe((jsonApiResource: JsonApiResource) => {
-            this._post = jsonApiResource.data;
-            this.parseMarkdown(this._post.attributes.content);
-        });
+    private getPost(postSlug: string) {
+        this.httpClient.get(`posts/${postSlug}`)
+            .subscribe(
+                (response: JsonApiResource<Post>) => {
+                    this._post = response.data;
+                    this.parseMarkdown(this._post.attributes.content);
+                },
+                (error: HttpErrorResponse) => {
+                    this.router.navigate(['/not-found'])
+                }
+            );
     }
 
     private parseMarkdown(content) {

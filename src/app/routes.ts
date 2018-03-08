@@ -1,14 +1,15 @@
 import { Routes } from "@angular/router";
-import { AuthGuard } from "../auth-guard/auth-guard.class";
-import { ContactCreateFormComponent } from "../contact/create-form/contact-create-form.component";
-import { NotFoundComponent } from "../not-found/not-found.component";
-import { LoginComponent } from "../users/login/login.component";
-import { RegisterComponent } from "../users/register/register.component";
-import { ContactShowComponent } from "../contact/show/contact-show.component";
-import { LogoutComponent } from "../users/logout/logout.component";
-import { PostListComponent } from "../post/list/post-list.component";
-import { PostShowComponent } from "../post/show/post-show.component";
-import { PostCreateComponent } from "../post/create/post-create.component";
+import { AuthGuard } from "./auth-guard/auth-guard.class";
+import { ContactCreateComponent } from "./contact/create/contact-create.component";
+import { NotFoundComponent } from "./not-found/not-found.component";
+import { LoginComponent } from "./users/login/login.component";
+import { RegisterComponent } from "./users/register/register.component";
+import { ContactShowComponent } from "./contact/show/contact-show.component";
+import { LogoutComponent } from "./users/logout/logout.component";
+import { PostListComponent } from "./post/list/post-list.component";
+import { PostShowComponent } from "./post/show/post-show.component";
+import { PostCreateComponent } from "./post/create/post-create.component";
+import { FileUploadComponent } from "./file/upload/file-upload.component";
 
 export const routes: Routes = [
     {
@@ -31,8 +32,12 @@ export const routes: Routes = [
                 }
             },
             {
-                path: ':id',
+                path: ':slug',
                 component: PostShowComponent
+            },
+            {
+                path: 'update/:slug',
+                component: PostCreateComponent
             },
             {
                 path: '',
@@ -70,7 +75,7 @@ export const routes: Routes = [
         children: [
             {
                 path: 'create',
-                component: ContactCreateFormComponent
+                component: ContactCreateComponent
             },
             {
                 path: ':id',
@@ -85,6 +90,45 @@ export const routes: Routes = [
                 data: {
                     'authorizedRole': 'Administrator'
                 },
+            }
+        ]
+    },
+    {
+        path: 'categories',
+        data: {
+            'authorizedRole': 'Guest'
+        },
+        canActivateChild: [AuthGuard],
+        children: [
+            {
+                path: ':categorySlug/posts',
+                component: PostListComponent
+            },
+            {
+                path: '',
+                data: {
+                    'resourceType': 'categories',
+                    'authorizedRole': 'Administrator'
+                },
+                canLoad: [AuthGuard],
+                loadChildren: 'app/general-resource/general-resource.module#GeneralResourceModule'
+            }
+        ],
+    },
+    {
+        path: 'files',
+        data: {
+            'authorizedRole': 'Administrator'
+        },
+        canActivateChild: [AuthGuard],
+        children: [
+            {
+                path: 'upload',
+                component: FileUploadComponent
+            },
+            {
+                path: '',
+                component: NotFoundComponent
             }
         ]
     },

@@ -5,14 +5,6 @@
 @import "~bootstrap/scss/bootstrap";
 @import "../highlight.js/src/styles/github-gist";
 
-.root {
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    overflow: auto;
-    color: white;
-}
-
 .loader-container {
     display: flex;
     justify-content: center;
@@ -51,6 +43,17 @@
 // Notifications
 
 .sn-progress-loader span {
-    background: theme-color("primary") !important;
+    background: theme-color("info") !important;
 }
 
+.simple-notification {
+    &.bg-primary {
+        &.error {
+            background-color: theme-color("danger") !important;
+        }
+
+        &.success {
+            background-color: theme-color("success") !important;
+        }
+    }
+}

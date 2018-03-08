@@ -3,8 +3,16 @@
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins/breakpoints";
 
-.navbar {
+.header {
+    background-color: theme-color-level("primary", 3);
+    border-bottom: 1px solid theme-color("info");
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    z-index: 1020;
+}
 
+.navbar {
     &-brand {
         font-size: 45px;
         font-family: "Baskerville Old Face";
@@ -13,15 +21,17 @@
     .nav {
 
         &-item {
-            border-top: solid 1px theme-color("secondary");
             text-align: center;
             letter-spacing: 3px;
             font-size: 1.2rem;
+        }
+
+        &-link {
+            border-top: solid 1px theme-color("secondary");
 
             @include media-breakpoint-up(md) {
                 border: none;
             }
-
         }
     }
 

@@ -22,6 +22,10 @@ export class UserService {
         this._userId = value;
     }
 
+    public getUserToken(): string {
+        return (this.isLoggedIn()) ? localStorage.getItem('API-Token') : null;
+    }
+
     public isAdmin(): boolean {
         return this.userRole() === 'Administrator';
     }

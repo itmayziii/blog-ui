@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, HostListener, Input } from '@angular/core';
 
-// TODO class is experimental
+// FIXME class is experimental
 @Component({
     selector: 'blog-input',
     template: `

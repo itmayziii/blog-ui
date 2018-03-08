@@ -1,7 +1,7 @@
 $primary: #1f2833;
 $secondary: #66fcf1;
 $success: #45a29e;
-$info: #0b0c10;
+$info: #a9a9bd;
 $danger: #e61414;
 $light: #c5c6c7;
 
@@ -16,7 +16,8 @@ $theme-colors: (
         "danger": $danger,
         "light": $light
 );
-$link-color: $secondary;
+$link-color: $info;
+$link-hover-color: $secondary;
 $body-bg: $primary;
 $body-color: #fff;
 $code-bg: $light;
@@ -28,6 +29,15 @@ $sizes: (
         75: 75%,
         85: 85%,
         100: 100%
+);
+
+$grid-breakpoints: (
+        xs: 0,
+        sm: 576px,
+        md: 768px,
+        lg: 992px,
+        xl: 1200px,
+        xxl: 2000px
 );
 
 $navbar-light-color: #fff;

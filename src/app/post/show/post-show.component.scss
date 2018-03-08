@@ -1,0 +1,30 @@
+@import "../../../assets/scss/variables";
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins/breakpoints";
+
+.post {
+    max-width: 2500px;
+
+    &-hero {
+        height: 300px;
+        background-repeat: no-repeat;
+        background-position: center;
+
+        @include media-breakpoint-up(md) {
+            height: 400px;
+        }
+
+        @include media-breakpoint-up(lg) {
+            height: 500px;
+        }
+    }
+
+    &-title {
+        margin-top: 20px;
+    }
+
+    &-content {
+        margin-top: 20px;
+    }
+}

@@ -5,13 +5,13 @@ import { UserService } from "../services/user.service";
 @Component({
     selector: 'app-header',
     template: `
-        <header class="header">
-            <nav class="navbar navbar-expand-md sticky-top navbar-light">
+        <header class="header sticky-top">
+            <nav class="navbar navbar-expand-md navbar-light py-0">
                 <a class="navbar-brand text-success" routerLink="/">TM3</a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" (click)="toggleNavigationMenu()">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                
+
                 <div class="collapse navbar-collapse" [class.show]="!isNavigationCollapsed">
                     <ul class="navbar-nav">
                         <li *ngFor="let rightLink of leftLinks" class="nav-item">
@@ -47,15 +47,17 @@ export class HeaderComponent {
     public isNavigationCollapsed: boolean = true;
     public leftLinks: Array<NavLink> = [
         {title: 'Posts', path: '/posts', condition: () => {return true}},
-        {title: 'Contact', path: '/contacts/create', condition: () => {return true}}
+        {title: 'Contact', path: '/contacts/create', condition: () => {return true}},
+        {title: 'Categories', path: '/categories', condition: () => {return this.userService.isAdmin()}},
+        {title: 'Files', path: '/files/upload', condition: () => {return this.userService.isAdmin()}}
     ];
     public rightLinks: Array<NavLink> = [
         {title: 'Login', path: '/users/login', condition: () => {return !this.userService.isLoggedIn()}},
         {title: 'Register', path: '/users/register', condition: () => {return !this.userService.isLoggedIn()}},
         {
             title: 'Logout', path: '/users/logout', condition: () => {
-            return this.userService.isLoggedIn();
-        }
+                return this.userService.isLoggedIn();
+            }
         }
     ];
 

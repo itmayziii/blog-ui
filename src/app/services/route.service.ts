@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { NavigationEnd, Router } from "@angular/router";
-import { Observable } from "rxjs/Observable";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class RouteService {
@@ -15,12 +14,5 @@ export class RouteService {
 
     public set redirectUrl(value: string) {
         this._redirectUrl = value;
-    }
-
-    public routeNavigationStart(): Observable<NavigationEnd> {
-        return this.router.events
-            .filter((event) => {
-                return event instanceof NavigationEnd
-            });
     }
 }

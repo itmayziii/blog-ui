@@ -1,0 +1,28 @@
+@import "../../assets/scss/variables";
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+.general-resources {
+    &-action {
+        background-color: transparent;
+        padding: 0;
+
+        &-icon {
+            padding: 10px;
+            transition: all .2s ease-in-out;
+        }
+
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.2);
+        }
+    }
+}
+
+.modal {
+    &-body {
+        &-action {
+            margin-top: 20px;
+        }
+    }
+}

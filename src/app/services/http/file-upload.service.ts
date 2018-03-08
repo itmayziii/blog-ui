@@ -9,7 +9,7 @@ export class FileUploadService {
     public constructor(private userService: UserService) {
     }
 
-    public uploadFile(fileUploadElement: ElementRef): Observable<string> {
+    public uploadFiles(fileUploadElement: ElementRef): Observable<string> {
         const formData = new FormData();
 
         const inputEl: HTMLInputElement = fileUploadElement.nativeElement;
@@ -18,7 +18,7 @@ export class FileUploadService {
         return Observable.create((observer: Observer<string>) => {
             const xhr = new XMLHttpRequest();
             xhr.open('POST', 'http://localhost:4200/v1/images', true);
-            xhr.setRequestHeader('API-Token', this.userService.user.api_token);
+            xhr.setRequestHeader('API-Token', this.userService.user.apiToken);
             xhr.send(formData);
 
             xhr.onreadystatechange = () => {
@@ -26,7 +26,7 @@ export class FileUploadService {
                     return;
                 }
 
-                if (xhr.status === 200) {
+                if (xhr.status === 201) {
                     observer.next(JSON.parse(xhr.responseText));
                     observer.complete();
                     return;
