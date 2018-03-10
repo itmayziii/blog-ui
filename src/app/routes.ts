@@ -37,7 +37,10 @@ export const routes: Routes = [
             },
             {
                 path: 'update/:slug',
-                component: PostCreateComponent
+                component: PostCreateComponent,
+                data: {
+                    'authorizedRole': 'Administrator'
+                }
             },
             {
                 path: '',
