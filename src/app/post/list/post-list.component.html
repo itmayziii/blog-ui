@@ -8,8 +8,10 @@
         </div>
     </div>
 
-    <div class="row" *ngIf="posts">
-
+    <ng-template #loader>
+        <blog-loader></blog-loader>
+    </ng-template>
+    <div class="row" *ngIf="posts; else loader">
         <h1 class="col-12 col-xl-9 text-center text-secondary post-list-title">{{ (isCategory) ? category.attributes.name : 'Latest Posts' }}</h1>
 
         <div class="col-12 d-xl-none">

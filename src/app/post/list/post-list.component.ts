@@ -116,6 +116,7 @@ export class PostListComponent implements OnInit, OnDestroy {
     private retrievePosts(): any {
         return combineLatest(this.route.paramMap, this.route.queryParamMap)
             .switchMap((params: ParamMap[]): any => {
+                this._posts = null;
                 const [paramMap, queryParamMap] = params;
 
                 this._size = queryParamMap.get('size') || this._size;
