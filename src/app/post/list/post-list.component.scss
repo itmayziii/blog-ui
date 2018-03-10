@@ -21,7 +21,7 @@
             }
 
             .post-list-item-description {
-                color: theme-color("secondary");
+                color: theme-color("light");
             }
         }
 
@@ -35,11 +35,21 @@
                 @include media-breakpoint-up(md) {
                     height: 220px;
                 }
+
+                &-container {
+                    position: relative;
+                }
+
+                &-overlay {
+                    position: absolute;
+                    bottom: 8px;
+                    right: 16px;
+                }
             }
         }
 
         &-description {
-            color: white;
+            color: $white;
             font-size: .925rem;
         }
 
@@ -47,6 +57,10 @@
             font-size: 1.025rem;
         }
     }
+}
+
+.create-new-post-button {
+    margin-bottom: 15px;
 }
 
 .category-list {

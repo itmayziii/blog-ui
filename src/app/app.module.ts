@@ -33,6 +33,7 @@ import { HttpErrorInterceptor } from "./http-interceptors/http-error-interceptor
 import { WindowRef } from "./globals/window-ref";
 import { GoogleAnalyticsService } from "./services/google-analytics.service";
 import { FileUploadComponent } from "./file/upload/file-upload.component";
+import { LoaderComponent } from "./loader/loader.component";
 
 @NgModule({
     declarations: [
@@ -50,7 +51,8 @@ import { FileUploadComponent } from "./file/upload/file-upload.component";
         PostShowComponent,
         PostCreateComponent,
         SlugifyDirective,
-        FileUploadComponent
+        FileUploadComponent,
+        LoaderComponent
     ],
     imports: [
         BrowserModule,

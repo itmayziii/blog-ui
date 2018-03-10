@@ -21,6 +21,8 @@ export class PostListComponent implements OnInit, OnDestroy {
     private _isCategory: boolean = false;
     private _page: string = '1';
     private _size: string = '12';
+    private _firstPageUrl: URL;
+    private _lastPageUrl: URL;
     private _posts: Post[];
     private _categoriesList: Category[];
     private _category: Category;
@@ -47,9 +49,74 @@ export class PostListComponent implements OnInit, OnDestroy {
         }
     }
 
+    public isAdmin(): boolean {
+        return this.userService.isAdmin();
+    }
+
+    public isFirstPage(): boolean {
+        const firstPage = this._firstPageUrl.searchParams.get('page');
+        return (firstPage && firstPage === this._page);
+    }
+
+    public isLastPage(): boolean {
+        const lastPage = this._lastPageUrl.searchParams.get('page');
+        return (lastPage && lastPage === this._page);
+    }
+
+    public loadNextPage(): void {
+        const queryParams = {
+            "page": (parseInt(this._page) + 1).toString(),
+            "size": this._size
+        };
+
+        this.router.navigate(['/posts'], {
+            queryParams: queryParams,
+            queryParamsHandling: 'merge'
+        });
+    }
+
+    public loadPreviousPage(): void {
+        const queryParams = {
+            "page": (parseInt(this._page) - 1).toString(),
+            "size": this._size
+        };
+
+        this.router.navigate(['/posts'], {
+            queryParams: queryParams,
+            queryParamsHandling: 'merge'
+        });
+    }
+
+    public loadLastPage(): void {
+        const lastPage = this._lastPageUrl.searchParams.get('page');
+        const queryParams = {
+            "page": lastPage,
+            "size": this._size
+        };
+
+        this.router.navigate(['/posts'], {
+            queryParams: queryParams,
+            queryParamsHandling: 'merge'
+        });
+    }
+
+    public loadFirstPage(): void {
+        const firstPage = this._firstPageUrl.searchParams.get('page');
+        const queryParams = {
+            "page": firstPage,
+            "size": this._size
+        };
+
+        this.router.navigate(['/posts'], {
+            queryParams: queryParams,
+            queryParamsHandling: 'merge'
+        });
+    }
+
     private retrievePosts(): any {
         return combineLatest(this.route.paramMap, this.route.queryParamMap)
             .switchMap((params: ParamMap[]): any => {
+                this._posts = null;
                 const [paramMap, queryParamMap] = params;
 
                 this._size = queryParamMap.get('size') || this._size;
@@ -77,6 +144,8 @@ export class PostListComponent implements OnInit, OnDestroy {
 
                 this._isCategory = false;
                 return this.httpClient.get(`posts`, requestOptions).map((response: JsonApiResources<Post>) => {
+                    this._firstPageUrl = new URL(response.links.first);
+                    this._lastPageUrl = new URL(response.links.last);
                     return response.data;
                 });
             });
@@ -107,13 +176,5 @@ export class PostListComponent implements OnInit, OnDestroy {
 
     public get category(): Category {
         return this._category;
-    }
-
-    public navigateToCreatePage(): void {
-        this.router.navigate(['posts/create']);
-    }
-
-    public isAdmin(): boolean {
-        return this.userService.isAdmin();
     }
 }
