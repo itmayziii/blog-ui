@@ -136,6 +136,10 @@ export class PostListComponent implements OnInit, OnDestroy {
                     return this.httpClient.get(`categories/${categorySlug}/posts`, requestOptions).map((response: JsonApiResource<Category>) => {
                         this._category = response.data;
                         this._isCategory = true;
+                        if (!response.included) {
+                            return [];
+                        }
+
                         return response.included.filter((includedData: any) => {
                             return includedData.type === 'posts';
                         });
