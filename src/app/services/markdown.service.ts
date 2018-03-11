@@ -23,10 +23,12 @@ export class MarkdownService {
             let extraClasses = '';
 
             if (level == 2) {
-                extraClasses += 'text-uppercase';
+                extraClasses += 'text-uppercase text-secondary';
+            } else {
+                extraClasses += 'text-light'
             }
 
-            return `<h${level} class="col-12 text-secondary text-center ${extraClasses}">${text}</h${level}>`;
+            return `<h${level} class="col-12 text-center ${extraClasses}">${text}</h${level}>`;
         };
 
         renderer.paragraph = function (text): string {
