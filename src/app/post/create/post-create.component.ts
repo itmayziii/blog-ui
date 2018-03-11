@@ -60,18 +60,6 @@ export class PostCreateComponent implements OnInit, OnDestroy {
         this.updateOrCreatePost(this._postForm.value);
     }
 
-    public get categories(): Category[] {
-        return this._categories;
-    }
-
-    public get postForm(): FormGroup {
-        return this._postForm;
-    }
-
-    public get post(): Post {
-        return this._post;
-    }
-
     private retrieveCategories(): void {
         this.httpClient.get('categories').subscribe(
             (response: JsonApiResources<Category>) => {
@@ -132,7 +120,7 @@ export class PostCreateComponent implements OnInit, OnDestroy {
                     if (!postSlug) {
                         Observable.throw('Slug parameter is not set');
                     }
-                    console.log('making request');
+
                     return <Observable<JsonApiResource<Post>>> this.httpClient.get(`posts/${postSlug}`);
                 });
 
@@ -146,5 +134,17 @@ export class PostCreateComponent implements OnInit, OnDestroy {
                 }
             );
         });
+    }
+
+    public get categories(): Category[] {
+        return this._categories;
+    }
+
+    public get postForm(): FormGroup {
+        return this._postForm;
+    }
+
+    public get post(): Post {
+        return this._post;
     }
 }
