@@ -14,7 +14,7 @@ import { UserService } from "../../services/user.service";
     selector: 'blog-post-show',
     template: `
         <div class="container-fluid post">
-            <div class="row align-items-center" *ngIf="post">
+            <div class="row justify-content-center align-items-center" *ngIf="post">
                 <div class="col-12">
                     <div class="row justify-content-center">
                         <div *ngIf="isAdmin()" class="col-11">
@@ -37,15 +37,14 @@ import { UserService } from "../../services/user.service";
                         <h1 class="col-5 offset-1 post-title text-secondary">{{post?.attributes?.title}}</h1>
                     </div>
                 </div>
-                <h1 class="post-title d-block d-md-none text-center text-secondary col-10 offset-1">{{post?.attributes?.title}}</h1>
-                <div class="post-content col-10 offset-1">
+                <h1 class="post-title d-block d-md-none text-center text-secondary col-11">{{post?.attributes?.title}}</h1>
+                <div class="post-content col-11">
                     <div class="row" [innerHTML]="parsedPostContent"></div>
                 </div>
             </div>
-            <div *ngIf="content" class="row">
-                <div class="post-content col-10 offset-1">
-                    <div class="row" [innerHTML]="parsedPostContent"></div>
-                </div>
+
+            <div *ngIf="content" class="post-content col-11">
+                <div class="row" [innerHTML]="parsedPostContent"></div>
             </div>
         </div>
     `,

@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
 
-        <form [formGroup]="postForm" (ngSubmit)="onSubmit()" method="post" class="contact-form col-12 col-lg-6"
+        <form [formGroup]="postForm" (ngSubmit)="onSubmit()" method="post" class="post-form col-12 col-lg-6"
               novalidate enctype="multipart/form-data" target="_blank">
             <div class="row justify-content-center">
 
@@ -60,7 +60,7 @@
 
                         <fieldset class="form-group col-12">
                             <label for="content">Content</label>
-                            <textarea class="form-control" name="content" id="content" rows="20"
+                            <textarea class="form-control post-form-content" name="content" id="content" rows="20"
                                       formControlName="content" maxlength="10000"></textarea>
                         </fieldset>
 

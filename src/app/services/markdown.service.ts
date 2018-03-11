@@ -20,7 +20,13 @@ export class MarkdownService {
     private createMarkedRenderer(): Renderer {
         const renderer: Renderer = new marked.Renderer();
         renderer.heading = function (text, level): string {
-            return `<h${level} class="blog-content-heading-${level} col-12 text-secondary text-center">${text}</h${level}>`;
+            let extraClasses = '';
+
+            if (level == 2) {
+                extraClasses += 'text-uppercase';
+            }
+
+            return `<h${level} class="col-12 text-secondary text-center ${extraClasses}">${text}</h${level}>`;
         };
 
         renderer.paragraph = function (text): string {
