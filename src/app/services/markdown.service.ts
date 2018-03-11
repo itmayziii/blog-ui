@@ -28,7 +28,7 @@ export class MarkdownService {
         };
 
         renderer.code = function (code, language, isEscaped): string {
-            return `<pre class="bg-light p-3 rounded col-12"><code class="col-12">${code}</code></pre>`
+            return `<pre class="bg-light p-3 rounded col-12"><code>${code}</code></pre>`
         };
 
         return renderer;
