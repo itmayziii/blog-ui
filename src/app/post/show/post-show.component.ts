@@ -8,12 +8,24 @@ import { MarkdownService } from "../../services/markdown.service";
 import { Observable } from "rxjs/Observable";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Post } from "../../models/post";
+import { UserService } from "../../services/user.service";
 
 @Component({
     selector: 'blog-post-show',
     template: `
         <div class="container-fluid post">
             <div class="row align-items-center" *ngIf="post">
+                <div class="col-12">
+                    <div class="row justify-content-center">
+                        <div *ngIf="isAdmin()" class="col-11">
+                            <div class="post-actions row justify-content-center justify-content-md-end">
+                                <button class="btn btn-secondary btn-sm post-actions-item" routerLink="/posts/create">Create New Post</button>
+                                <button *ngIf="post" class="btn btn-secondary btn-sm post-actions-item" routerLink="/posts/update/{{ post.attributes.slug }}">Update Post</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col-12 post-hero d-block d-md-none" [style.background-image]="'url(' + post.attributes.imagePathSm + ')'"></div>
                 <div class="col-12 post-hero d-none d-md-block d-lg-none" [style.background-image]="'url(' + post.attributes.imagePathMd + ')'">
                     <div class="row align-items-center h-100">
@@ -45,7 +57,12 @@ export class PostShowComponent implements OnInit {
     private _parsedPostContent: SafeHtml;
     @Input() public content: Observable<string>;
 
-    public constructor(private httpClient: HttpClient, private route: ActivatedRoute, private sanitizer: DomSanitizer, private markdownService: MarkdownService, private router: Router) { }
+    public constructor(private httpClient: HttpClient,
+                       private route: ActivatedRoute,
+                       private sanitizer: DomSanitizer,
+                       private markdownService: MarkdownService,
+                       private router: Router,
+                       private userService: UserService) { }
 
     public ngOnInit() {
         if (this.content) {
@@ -58,7 +75,10 @@ export class PostShowComponent implements OnInit {
         this.readPostSlug().then((postSlug: string) => {
             this.getPost(postSlug);
         });
+    }
 
+    public isAdmin(): boolean {
+        return this.userService.isAdmin();
     }
 
     private getPost(postSlug: string) {

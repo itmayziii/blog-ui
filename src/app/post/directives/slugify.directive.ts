@@ -14,10 +14,15 @@ export class SlugifyDirective {
 
     @HostListener('blur')
     public slugifyValue() {
+        if (this.host.postForm.get('slug').value !== '') {
+            return;
+        }
+
         const slugifiedValue = this.el.nativeElement.value
             .toLowerCase()
             .trim()
             .replace(/\s/g, '-');
+
         this.host.postForm.get('slug').setValue(slugifiedValue);
     }
 }
