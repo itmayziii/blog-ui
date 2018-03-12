@@ -55,7 +55,7 @@ import { LoaderComponent } from "./loader/loader.component";
         LoaderComponent
     ],
     imports: [
-        BrowserModule,
+        BrowserModule.withServerTransition({appId: 'blog'}),
         RouterModule.forRoot(routes),
         ReactiveFormsModule,
         BrowserAnimationsModule,
