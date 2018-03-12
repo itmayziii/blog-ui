@@ -8,7 +8,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "start": "ng serve --open=false -e=dev -pc=proxy.conf.json",
+    "start": "ng serve --open=false -e=dev",
     "install:submodules": "cd highlight.js && npm install",
     "build:highlight.js": "cd highlight.js &&  node tools/build.js -t browser xml javascript json typescript",
     "build": "npm run build:highlight.js && ./node_modules/.bin/ng build -oh=all -e=prod -prod -aot=true",
