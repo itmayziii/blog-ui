@@ -34,7 +34,7 @@
         <ul class="post-list col-12 col-xl-9">
             <div class="row">
                 <li *ngFor="let post of posts" class="col-12 col-md-6 col-lg-4 col-xxl-3 post-list-item">
-                    <div class="row">
+                    <div class="row justify-content-center">
                         <a class="col-12 post-list-item-reference" routerLink="/posts/{{ post.attributes.slug }}">
                             <div class="row justify-content-center">
                                 <div class="post-list-item-card card text-white bg-dark col-11">
@@ -46,7 +46,7 @@
                                         <h5 class="card-title">{{ post.attributes.title }}</h5>
                                     </div>
                                 </div>
-                                <p class="col-12 post-list-item-description text-center">{{ post.attributes.preview }}</p>
+                                <p class="col-11 post-list-item-description">{{ post.attributes.preview }}</p>
                             </div>
                         </a>
                     </div>
