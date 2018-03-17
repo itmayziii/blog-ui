@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from "../../services/user.service";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
     selector: 'blog-logout',
@@ -16,14 +17,20 @@ import { UserService } from "../../services/user.service";
 })
 export class LogoutComponent implements OnInit {
 
-    public constructor(private userService: UserService) {
+    public constructor(private userService: UserService, private http: HttpClient) {
 
     }
 
     public ngOnInit() {
         this.userService.user = null;
-        this.userService.userId = null;
-        localStorage.removeItem('API-Token');
+        this.http.delete('logout').subscribe(
+            () => {
+
+            },
+            () => {
+
+            }
+        )
     }
 
 }

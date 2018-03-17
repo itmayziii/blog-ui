@@ -3,6 +3,7 @@ import { NavigationEnd, Router, RouterEvent } from "@angular/router";
 import { filter } from "rxjs/operators";
 import { WindowRef } from "./globals/window-ref";
 import { GoogleAnalyticsService } from "./services/google-analytics.service";
+import { AuthService } from "./services/auth.service";
 
 @Component({
     selector: 'blog-root',
@@ -17,11 +18,15 @@ export class AppComponent implements OnInit {
         theClass: 'bg-primary'
     };
 
-    public constructor(private router: Router, private windowRef: WindowRef, private googleAnalyticsService: GoogleAnalyticsService) {
+    public constructor(private router: Router,
+                       private windowRef: WindowRef,
+                       private googleAnalyticsService: GoogleAnalyticsService,
+                       private authService: AuthService) {
 
     }
 
     public ngOnInit(): void {
+        this.authService.checkLogin();
         this.respondToNavigationEnd();
     }
 

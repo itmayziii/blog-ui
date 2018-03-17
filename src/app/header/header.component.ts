@@ -52,13 +52,9 @@ export class HeaderComponent {
         {title: 'Files', path: '/files/upload', condition: () => {return this.userService.isAdmin()}}
     ];
     public rightLinks: Array<NavLink> = [
-        {title: 'Login', path: '/users/login', condition: () => {return !this.userService.isLoggedIn()}},
-        {title: 'Register', path: '/users/register', condition: () => {return !this.userService.isLoggedIn()}},
-        {
-            title: 'Logout', path: '/users/logout', condition: () => {
-                return this.userService.isLoggedIn();
-            }
-        }
+        {title: 'Login', path: '/users/login', condition: () => !this.userService.isLoggedIn()},
+        {title: 'Register', path: '/users/register', condition: () => !this.userService.isLoggedIn()},
+        {title: 'Logout', path: '/users/logout', condition: () => this.userService.isLoggedIn()}
     ];
 
     public constructor(private userService: UserService) {}

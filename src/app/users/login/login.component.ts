@@ -6,6 +6,7 @@ import { RouteService } from "../../services/route.service";
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { JsonApiResource } from "../../models/json-api/json-api-resource";
 import { User } from "../../models/user";
+import { UserService } from "../../services/user.service";
 
 @Component({
     selector: 'blog-login',
@@ -40,7 +41,8 @@ export class LoginComponent implements OnInit {
                        private httpClient: HttpClient,
                        private notifications: NotificationsService,
                        private router: Router,
-                       private routeService: RouteService) {}
+                       private routeService: RouteService,
+                       private userService: UserService) {}
 
     public ngOnInit(): void {
         this.loginForm = this.formBuilder.group({
@@ -56,10 +58,9 @@ export class LoginComponent implements OnInit {
         const headers = new HttpHeaders({
             Authorization: `Basic ${credentials}`
         });
-        this.httpClient.post('authenticate', null, {headers: headers}).subscribe(
+        this.httpClient.post('authenticate', null, {headers: headers, withCredentials: true}).subscribe(
             (response: JsonApiResource<User>) => {
-                localStorage.setItem('API-Token', response.data.attributes.apiToken);
-
+                this.userService.user = response.data;
                 const navigateToUrl = (this.routeService.redirectUrl) ? this.routeService.redirectUrl : '/posts';
                 this.router.navigate([navigateToUrl]).then(() => {});
             },

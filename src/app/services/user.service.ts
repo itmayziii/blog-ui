@@ -4,7 +4,22 @@ import { User } from "../models/user";
 @Injectable()
 export class UserService {
     private _user: User;
-    private _userId: number;
+
+    public isAdmin(): boolean {
+        return this.role() === 'Administrator';
+    }
+
+    public role(): string {
+        if (!this._user || !this._user.attributes.role) {
+            return 'Guest';
+        }
+
+        return this._user.attributes.role;
+    }
+
+    public isLoggedIn(): boolean {
+        return this._user !== undefined && this._user !== null;
+    }
 
     public get user(): User {
         return this._user;
@@ -12,38 +27,5 @@ export class UserService {
 
     public set user(value: User) {
         this._user = value;
-    }
-
-    public get userId(): number {
-        return this._userId;
-    }
-
-    public set userId(value: number) {
-        this._userId = value;
-    }
-
-    public getUserToken(): string {
-        return (this.isLoggedIn()) ? localStorage.getItem('API-Token') : null;
-    }
-
-    public isAdmin(): boolean {
-        return this.userRole() === 'Administrator';
-    }
-
-    public userRole(): string {
-        if (!this.user) {
-            return 'Guest';
-        }
-
-        return this.user.role;
-    }
-
-    public isLoggedIn(): boolean {
-        // We use the presence of the API-Token to determine login, it is the only thing that is persistent and loaded at all times.
-        if (!localStorage.getItem('API-Token')) {
-            return false;
-        }
-
-        return true;
     }
 }

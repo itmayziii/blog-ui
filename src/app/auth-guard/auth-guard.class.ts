@@ -20,20 +20,19 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
     }
 
     public canLoad(route: Route): Promise<boolean> {
-        return this.verifyAccess(route, route.path)
+        return this.verifyAccess(route, route.path);
     }
 
     private verifyAccess(routeSnapshot: ActivatedRouteSnapshot | Route, url: string): Promise<boolean> {
         return new Promise((resolve, reject) => {
+            if (this.isGuestRoute(routeSnapshot)) {
+                resolve(true);
+                return;
+            }
+
             this.authService.checkLogin()
                 .then((isLoggedIn: boolean) => {
                     if (!isLoggedIn) {
-
-                        if (this.isGuestRoute(routeSnapshot)) {
-                            resolve(true);
-                            return;
-                        }
-
                         this.navigateToLogin(url);
                         resolve(false);
                     }
@@ -47,7 +46,8 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
                     resolve(false);
                 })
                 .catch(() => {
-                    reject(false);
+                    resolve(false);
+                    return;
                 });
         });
     }
@@ -63,7 +63,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
             return false;
         }
 
-        const currentUserRole: string = this.userService.userRole();
+        const currentUserRole: string = this.userService.role();
         const roleTree = [
             'Guest',
             'Standard',

@@ -85,7 +85,7 @@ export class PostCreateComponent implements OnInit, OnDestroy {
             "image-path-lg": null
         });
 
-        this._postForm.get('user-id').setValue(this.userService.userId);
+        this._postForm.get('user-id').setValue(this.userService.user.id);
     }
 
     private updateOrCreatePost(post: Post) {

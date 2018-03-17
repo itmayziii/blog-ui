@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { JsonApiError } from "../models/json-api/json-api-error";
 import { JsonApiResource } from "../models/json-api/json-api-resource";
 import { UserService } from "./user.service";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { User } from "../models/user";
 
 @Injectable()
@@ -13,29 +13,16 @@ export class AuthService {
 
     public checkLogin(): Promise<boolean> {
         return new Promise((resolve, reject) => {
-            const apiToken = localStorage.getItem('API-Token');
-            if (!apiToken) {
-                this.userService.user = null;
-                this.userService.userId = null;
-                resolve(false);
-                return;
-            }
-
-            const headers: HttpHeaders = new HttpHeaders({
-                "API-Token": apiToken
-            });
-            this.httpClient.get('token-validation', {headers})
+            this.httpClient.get('token-validation')
                 .subscribe(
                     (results: JsonApiResource<User>) => {
-                        this.userService.user = results.data.attributes;
-                        this.userService.userId = results.data.id;
+                        console.log('results.data ', results.data);
+                        this.userService.user = results.data;
                         resolve(true);
                     },
                     (error: JsonApiError) => {
-                        localStorage.removeItem('API-Token');
                         this.userService.user = null;
-                        this.userService.userId = null;
-                        reject(false);
+                        resolve(false);
                     }
                 );
         });

@@ -34,6 +34,7 @@ import { WindowRef } from "./globals/window-ref";
 import { GoogleAnalyticsService } from "./services/google-analytics.service";
 import { FileUploadComponent } from "./file/upload/file-upload.component";
 import { LoaderComponent } from "./loader/loader.component";
+import { WithCredentialsInterceptor } from "./http-interceptors/with-credentials-interceptor";
 
 @NgModule({
     declarations: [
@@ -73,6 +74,11 @@ import { LoaderComponent } from "./loader/loader.component";
         WindowRef,
         GoogleAnalyticsService,
         HighlightService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: WithCredentialsInterceptor,
+            multi: true
+        },
         {
             provide: HTTP_INTERCEPTORS,
             useClass: HttpErrorInterceptor,
