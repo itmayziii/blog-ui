@@ -36,6 +36,7 @@ import { FileUploadComponent } from "./file/upload/file-upload.component";
 import { LoaderComponent } from "./loader/loader.component";
 import { WithCredentialsInterceptor } from "./http-interceptors/with-credentials-interceptor";
 import { PostsResolver } from "./post/list/posts-resolver";
+import { PrebootModule } from "preboot";
 
 @NgModule({
     declarations: [
@@ -58,6 +59,7 @@ import { PostsResolver } from "./post/list/posts-resolver";
     ],
     imports: [
         BrowserModule.withServerTransition({appId: 'blog'}),
+        PrebootModule.withConfig({appRoot: 'blog-root'}),
         RouterModule.forRoot(routes),
         ReactiveFormsModule,
         BrowserAnimationsModule,
