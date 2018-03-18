@@ -8,10 +8,7 @@
         </div>
     </div>
 
-    <ng-template #loader>
-        <blog-loader></blog-loader>
-    </ng-template>
-    <div class="row" *ngIf="posts; else loader">
+    <div class="row">
         <h1 class="col-12 col-xl-9 text-center text-secondary post-list-title">{{ (isCategory) ? category.attributes.name : 'Latest Posts' }}</h1>
 
         <div class="col-12 d-xl-none">
@@ -33,7 +30,7 @@
 
         <ul class="post-list col-12 col-xl-9">
             <div class="row">
-                <li *ngFor="let post of posts" class="col-12 col-md-6 col-lg-4 col-xxl-3 post-list-item">
+                <li *ngFor="let post of posts; trackBy: trackPost" class="col-12 col-md-6 col-lg-4 col-xxl-3 post-list-item">
                     <div class="row justify-content-center">
                         <a class="col-12 post-list-item-reference" routerLink="/posts/{{ post.attributes.slug }}">
                             <div class="row justify-content-center">

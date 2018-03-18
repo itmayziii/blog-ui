@@ -1,16 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { ISubscription } from "rxjs/Subscription";
 import { JsonApiResources } from "../../models/json-api/json-api-resoures";
 import { UserService } from "../../services/user.service";
 import { NotificationsService } from "angular2-notifications";
-import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Post } from "../../models/post";
 import { Category } from "../../models/category";
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
-import { combineLatest } from "rxjs/observable/combineLatest";
-import { JsonApiResource } from "../../models/json-api/json-api-resource";
 
 @Component({
     selector: 'blog-post-list',
@@ -23,10 +21,10 @@ export class PostListComponent implements OnInit, OnDestroy {
     private _size: string = '12';
     private _firstPageUrl: URL;
     private _lastPageUrl: URL;
-    private _posts: Post[];
+    private _posts: any;
     private _categoriesList: Category[];
     private _category: Category;
-    private _postsSubscription: ISubscription;
+    private _dataSubscription: ISubscription;
 
     public constructor(private httpClient: HttpClient,
                        private route: ActivatedRoute,
@@ -36,16 +34,25 @@ export class PostListComponent implements OnInit, OnDestroy {
     }
 
     public ngOnInit() {
-        this._postsSubscription = this.retrievePosts().subscribe((posts) => {
-            this._posts = posts;
-        });
+
+        // this._dataSubscription = this.route.data.subscribe((data: { posts: JsonApiResources<Post> }) => {
+        //     this._posts = data.posts.data;
+        //     this._firstPageUrl = new URL(data.posts.links.first);
+        //     this._lastPageUrl = new URL(data.posts.links.last);
+        // });
+
+        console.log('this._posts ', this._posts);
+
+        this._posts = this.route.snapshot.data.posts.data;
+        // this._firstPageUrl = new URL(this.route.snapshot.data.posts.links.first);
+        // this._lastPageUrl = new URL(this.route.snapshot.data.posts.links.last);
 
         this.retrieveCategoriesList();
     }
 
     public ngOnDestroy() {
-        if (this._postsSubscription) {
-            this._postsSubscription.unsubscribe();
+        if (this._dataSubscription) {
+            this._dataSubscription.unsubscribe();
         }
     }
 
@@ -54,13 +61,19 @@ export class PostListComponent implements OnInit, OnDestroy {
     }
 
     public isFirstPage(): boolean {
-        const firstPage = this._firstPageUrl.searchParams.get('page');
-        return (firstPage && firstPage === this._page);
+        return true;
+        // const firstPage = this._firstPageUrl.searchParams.get('page');
+        // return (firstPage && firstPage === this._page);
     }
 
     public isLastPage(): boolean {
-        const lastPage = this._lastPageUrl.searchParams.get('page');
-        return (lastPage && lastPage === this._page);
+        return true;
+        // const lastPage = this._lastPageUrl.searchParams.get('page');
+        // return (lastPage && lastPage === this._page);
+    }
+
+    public trackPost(post: Post) {
+        return post ? post.id : undefined;
     }
 
     public loadNextPage(): void {
@@ -113,47 +126,47 @@ export class PostListComponent implements OnInit, OnDestroy {
         });
     }
 
-    private retrievePosts(): any {
-        return combineLatest(this.route.paramMap, this.route.queryParamMap)
-            .switchMap((params: ParamMap[]): any => {
-                this._posts = null;
-                const [paramMap, queryParamMap] = params;
-
-                this._size = queryParamMap.get('size') || this._size;
-                this._page = queryParamMap.get('page') || this._page;
-                const httpParams = new HttpParams({
-                    fromObject: {
-                        size: this._size,
-                        page: this._page
-                    }
-                });
-                const requestOptions = {
-                    params: httpParams
-                };
-
-                const categorySlug = paramMap.get('categorySlug');
-                if (categorySlug) {
-                    return this.httpClient.get(`categories/${categorySlug}/posts`, requestOptions).map((response: JsonApiResource<Category>) => {
-                        this._category = response.data;
-                        this._isCategory = true;
-                        if (!response.included) {
-                            return [];
-                        }
-
-                        return response.included.filter((includedData: any) => {
-                            return includedData.type === 'posts';
-                        });
-                    });
-                }
-
-                this._isCategory = false;
-                return this.httpClient.get(`posts`, requestOptions).map((response: JsonApiResources<Post>) => {
-                    this._firstPageUrl = new URL(response.links.first);
-                    this._lastPageUrl = new URL(response.links.last);
-                    return response.data;
-                });
-            });
-    }
+    // private retrievePosts(): any {
+    //     return combineLatest(this.route.paramMap, this.route.queryParamMap)
+    //         .switchMap((params: ParamMap[]): any => {
+    //             this._posts = null;
+    //             const [paramMap, queryParamMap] = params;
+    //
+    //             this._size = queryParamMap.get('size') || this._size;
+    //             this._page = queryParamMap.get('page') || this._page;
+    //             const httpParams = new HttpParams({
+    //                 fromObject: {
+    //                     size: this._size,
+    //                     page: this._page
+    //                 }
+    //             });
+    //             const requestOptions = {
+    //                 params: httpParams
+    //             };
+    //
+    //             const categorySlug = paramMap.get('categorySlug');
+    //             if (categorySlug) {
+    //                 return this.httpClient.get(`categories/${categorySlug}/posts`, requestOptions).map((response: JsonApiResource<Category>) => {
+    //                     this._category = response.data;
+    //                     this._isCategory = true;
+    //                     if (!response.included) {
+    //                         return [];
+    //                     }
+    //
+    //                     return response.included.filter((includedData: any) => {
+    //                         return includedData.type === 'posts';
+    //                     });
+    //                 });
+    //             }
+    //
+    //             this._isCategory = false;
+    //             return this.httpClient.get(`posts`, requestOptions).map((response: JsonApiResources<Post>) => {
+    //                 this._firstPageUrl = new URL(response.links.first);
+    //                 this._lastPageUrl = new URL(response.links.last);
+    //                 return response.data;
+    //             });
+    //         });
+    // }
 
     private retrieveCategoriesList(): void {
         this.httpClient.get('categories').subscribe(

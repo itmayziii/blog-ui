@@ -35,6 +35,7 @@ import { GoogleAnalyticsService } from "./services/google-analytics.service";
 import { FileUploadComponent } from "./file/upload/file-upload.component";
 import { LoaderComponent } from "./loader/loader.component";
 import { WithCredentialsInterceptor } from "./http-interceptors/with-credentials-interceptor";
+import { PostsResolver } from "./post/list/posts-resolver";
 
 @NgModule({
     declarations: [
@@ -73,6 +74,7 @@ import { WithCredentialsInterceptor } from "./http-interceptors/with-credentials
         MarkdownService,
         WindowRef,
         GoogleAnalyticsService,
+        PostsResolver,
         HighlightService,
         {
             provide: HTTP_INTERCEPTORS,

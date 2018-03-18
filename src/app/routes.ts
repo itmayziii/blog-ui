@@ -10,6 +10,7 @@ import { PostListComponent } from "./post/list/post-list.component";
 import { PostShowComponent } from "./post/show/post-show.component";
 import { PostCreateComponent } from "./post/create/post-create.component";
 import { FileUploadComponent } from "./file/upload/file-upload.component";
+import { PostsResolver } from "./post/list/posts-resolver";
 
 export const routes: Routes = [
     {
@@ -44,7 +45,8 @@ export const routes: Routes = [
             },
             {
                 path: '',
-                component: PostListComponent
+                component: PostListComponent,
+                resolve: {posts: PostsResolver}
             }
         ]
     },
