@@ -4,7 +4,7 @@ import { ISubscription } from "rxjs/Subscription";
 import { JsonApiResources } from "../../models/json-api/json-api-resoures";
 import { UserService } from "../../services/user.service";
 import { NotificationsService } from "angular2-notifications";
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Post } from "../../models/post";
 import { Category } from "../../models/category";
 import 'rxjs/add/operator/switchMap';
@@ -23,7 +23,7 @@ export class PostListComponent implements OnInit, OnDestroy {
     private _firstPageUrl: string;
     private _lastPageUrl: string;
     private _posts: Post[];
-    private _categoriesList: Category[];
+    private _categoryList: Category[];
     private _category: Category;
     private _dataSubscription: ISubscription;
 
@@ -35,21 +35,9 @@ export class PostListComponent implements OnInit, OnDestroy {
     }
 
     public ngOnInit() {
-        this._posts = this.route.snapshot.data.posts.data;
-
+        this.readRouteData();
+        this.observeRouteData();
         this.observeQueryParams();
-
-        // The first observable value is already handled via the snapshot for universal to work, so we skip it
-        this._dataSubscription = this.route.data.skip(1).subscribe((data: any) => {
-            this._posts = data.posts.data;
-            this._size = data.posts.size;
-            this._page = data.posts.page;
-        });
-
-        this._firstPageUrl = (this.route.snapshot.data.posts.links) ? this.route.snapshot.data.posts.links.first : null;
-        this._lastPageUrl = (this.route.snapshot.data.posts.links) ? this.route.snapshot.data.posts.links.last : null;
-
-        this.retrieveCategoriesList();
     }
 
     public ngOnDestroy() {
@@ -154,63 +142,45 @@ export class PostListComponent implements OnInit, OnDestroy {
     //     });
     // }
 
-    // private retrievePosts(): any {
-    //     return combineLatest(this.route.paramMap, this.route.queryParamMap)
-    //         .switchMap((params: ParamMap[]): any => {
-    //             this._posts = null;
-    //             const [paramMap, queryParamMap] = params;
-    //
-    //             this._size = queryParamMap.get('size') || this._size;
-    //             this._page = queryParamMap.get('page') || this._page;
-    //             const httpParams = new HttpParams({
-    //                 fromObject: {
-    //                     size: this._size,
-    //                     page: this._page
-    //                 }
-    //             });
-    //             const requestOptions = {
-    //                 params: httpParams
-    //             };
-    //
-    //             const categorySlug = paramMap.get('categorySlug');
-    //             if (categorySlug) {
-    //                 return this.httpClient.get(`categories/${categorySlug}/posts`, requestOptions).map((response: JsonApiResource<Category>) => {
-    //                     this._category = response.data;
-    //                     this._isCategory = true;
-    //                     if (!response.included) {
-    //                         return [];
-    //                     }
-    //
-    //                     return response.included.filter((includedData: any) => {
-    //                         return includedData.type === 'posts';
-    //                     });
-    //                 });
-    //             }
-    //
-    //             this._isCategory = false;
-    //             return this.httpClient.get(`posts`, requestOptions).map((response: JsonApiResources<Post>) => {
-    //                 this._firstPageUrl = new URL(response.links.first);
-    //                 this._lastPageUrl = new URL(response.links.last);
-    //                 return response.data;
-    //             });
-    //         });
-    // }
-
-    private retrieveCategoriesList(): void {
-        this.httpClient.get('categories').subscribe(
-            (response: JsonApiResources<Category>) => {
-                this._categoriesList = response.data;
-            },
-            (error: HttpErrorResponse) => {
-                this.notifications.error('Error', 'Unable to retrieve categories list.');
-            }
-        )
+    private readRouteData(): void {
+        this._posts = this.route.snapshot.data.posts.data;
+        this._categoryList = this.route.snapshot.data.categoryList.data;
+        this._firstPageUrl = (this.route.snapshot.data.posts.links) ? this.route.snapshot.data.posts.links.first : null;
+        this._lastPageUrl = (this.route.snapshot.data.posts.links) ? this.route.snapshot.data.posts.links.last : null;
+        this._size = this.route.snapshot.data.posts.size;
+        this._page = this.route.snapshot.data.posts.page;
     }
 
     private observeQueryParams(): void {
-        this.route.queryParamMap.subscribe((queryParams: ParamMap) => {
-            this._size = queryParams.get('size') || '12';
-            this._page = queryParams.get('page') || '1';
+        // The first observable value is already handled via the snapshot for universal to work, so we skip it
+        this.route.queryParamMap.skip(1).subscribe((queryParams: ParamMap) => {
+            this._posts = null;
+
+            this._size = queryParams.get('size') || this._size;
+            this._page = queryParams.get('page') || this._page;
+
+            const httpParams = new HttpParams({
+                fromObject: {
+                    size: this._size,
+                    page: this._page
+                }
+            });
+            const requestOptions = {
+                params: httpParams
+            };
+
+            this.httpClient.get('posts', requestOptions).subscribe((response: JsonApiResources<Post>) => {
+                this._posts = response.data;
+            });
+        });
+    }
+
+    private observeRouteData(): void {
+        // The first observable value is already handled via the snapshot for universal to work, so we skip it
+        this._dataSubscription = this.route.data.skip(1).subscribe((data: any) => {
+            this._posts = data.posts.data;
+            this._size = data.posts.size;
+            this._page = data.posts.page;
         });
     }
 
@@ -222,8 +192,8 @@ export class PostListComponent implements OnInit, OnDestroy {
         return this._isCategory;
     }
 
-    public get categoriesList(): Category[] {
-        return this._categoriesList;
+    public get categoryList(): Category[] {
+        return this._categoryList;
     }
 
     public get category(): Category {

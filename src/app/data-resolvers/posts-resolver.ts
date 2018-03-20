@@ -1,14 +1,22 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { JsonApiResources } from "../../models/json-api/json-api-resoures";
-import { Post } from "../../models/post";
 import { HttpClient, HttpParams } from "@angular/common/http";
-import { JsonApiResource } from "../../models/json-api/json-api-resource";
-import { Category } from "../../models/category";
+import { JsonApiResources } from "../models/json-api/json-api-resoures";
+import { Post } from "../models/post";
+import { JsonApiResource } from "../models/json-api/json-api-resource";
+import { Category } from "../models/category";
+import { JsonApiLinks } from "../models/json-api/json-api-links";
+
+interface PostsResolverData {
+    data: Post[],
+    size: string,
+    page: string,
+    links?: JsonApiLinks
+}
 
 @Injectable()
-export class PostsResolver implements Resolve<Observable<any>> {
+export class PostsResolver implements Resolve<Observable<PostsResolverData>> {
     public constructor(private httpClient: HttpClient) {}
 
     public resolve(routeSnapshot: ActivatedRouteSnapshot, routerStateSnapshot: RouterStateSnapshot) {
@@ -24,7 +32,7 @@ export class PostsResolver implements Resolve<Observable<any>> {
 
         const categorySlug = routeSnapshot.paramMap.get('categorySlug');
         if (categorySlug) {
-            return this.httpClient.get(`categories/${categorySlug}/posts`).map((response: JsonApiResource<Category>) => {
+            return this.httpClient.get(`categories/${categorySlug}/posts`, requestOptions).map((response: JsonApiResource<Category>) => {
                 if (!response.included) {
                     return {data: null, size, page};
                 }

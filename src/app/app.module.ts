@@ -35,8 +35,9 @@ import { GoogleAnalyticsService } from "./services/google-analytics.service";
 import { FileUploadComponent } from "./file/upload/file-upload.component";
 import { LoaderComponent } from "./loader/loader.component";
 import { WithCredentialsInterceptor } from "./http-interceptors/with-credentials-interceptor";
-import { PostsResolver } from "./post/list/posts-resolver";
+import { PostsResolver } from "./data-resolvers/posts-resolver";
 import { PrebootModule } from "preboot";
+import { CategoryListResolver } from "./data-resolvers/category-list-resolver";
 
 @NgModule({
     declarations: [
@@ -77,6 +78,7 @@ import { PrebootModule } from "preboot";
         WindowRef,
         GoogleAnalyticsService,
         PostsResolver,
+        CategoryListResolver,
         HighlightService,
         {
             provide: HTTP_INTERCEPTORS,
