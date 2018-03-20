@@ -1,0 +1,23 @@
+@include media-breakpoint-up(md) {
+    html {
+        font-size: 1.05rem;
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    html {
+        font-size: 1.1rem;
+    }
+}
+
+@include media-breakpoint-up(xl) {
+    html {
+        font-size: 1.2rem;
+    }
+}
+
+@include media-breakpoint-up(xxl) {
+    html {
+        font-size: 1.3rem;
+    }
+}
