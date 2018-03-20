@@ -1,7 +1,5 @@
-// All styles are meant to style mobile first, media queries are used to handle larger devices
-@import "assets/scss/defaults";
-@import "assets/scss/utilities";
-@import "assets/scss/variables";
+@import "assets/scss/base/defaults";
+@import "assets/scss/base/variables";
 @import "~bootstrap/scss/bootstrap";
 @import "../highlight.js/src/styles/github-gist";
 @import "assets/scss/modules/loader";

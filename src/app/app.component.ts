@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent } from "@angular/router";
 import { WindowRef } from "./globals/window-ref";
 import { GoogleAnalyticsService } from "./services/google-analytics.service";
 import { AuthService } from "./services/auth.service";
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
     selector: 'blog-root',
@@ -21,7 +22,8 @@ export class AppComponent implements OnInit {
     public constructor(private router: Router,
                        private windowRef: WindowRef,
                        private googleAnalyticsService: GoogleAnalyticsService,
-                       private authService: AuthService) {
+                       private authService: AuthService,
+                       @Inject(PLATFORM_ID) private platformId: Object) {
 
     }
 
@@ -56,8 +58,11 @@ export class AppComponent implements OnInit {
 
     private respondToNavigationEnd(): void {
         this.isLoading = false;
-        this.googleAnalyticsService.pageView();
-        this.windowRef.nativeWindow.document.body.scrollTop = 0;
+
+        if (isPlatformBrowser(this.platformId)) {
+            this.googleAnalyticsService.pageView();
+            this.windowRef.nativeWindow.document.body.scrollTop = 0;
+        }
     }
 
     private respondToNavigationCancel(): void {
