@@ -3,7 +3,13 @@
 <simple-notifications [options]="notificationOptions"></simple-notifications>
 
 <div class="page">
-    <router-outlet></router-outlet>
+
+    <blog-loader [class.d-none]="!isLoading"></blog-loader>
+
+    <span [class.d-none]="isLoading">
+        <router-outlet></router-outlet>
+    </span>
+
 </div>
 
 <!-- TODO create footer -->

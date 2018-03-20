@@ -16,7 +16,6 @@ export class AuthService {
             this.httpClient.get('token-validation')
                 .subscribe(
                     (results: JsonApiResource<User>) => {
-                        console.log('results.data ', results.data);
                         this.userService.user = results.data;
                         resolve(true);
                     },

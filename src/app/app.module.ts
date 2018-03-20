@@ -60,7 +60,7 @@ import { PrebootModule } from "preboot";
     imports: [
         BrowserModule.withServerTransition({appId: 'blog'}),
         PrebootModule.withConfig({appRoot: 'blog-root'}),
-        RouterModule.forRoot(routes),
+        RouterModule.forRoot(routes, {initialNavigation: 'enabled'}),
         ReactiveFormsModule,
         BrowserAnimationsModule,
         SimpleNotificationsModule.forRoot(),

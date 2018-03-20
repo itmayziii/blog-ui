@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router, RouterEvent } from "@angular/router";
-import { filter } from "rxjs/operators";
+import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent } from "@angular/router";
 import { WindowRef } from "./globals/window-ref";
 import { GoogleAnalyticsService } from "./services/google-analytics.service";
 import { AuthService } from "./services/auth.service";
@@ -17,6 +16,7 @@ export class AppComponent implements OnInit {
         lastOnBottom: true,
         theClass: 'bg-primary'
     };
+    public isLoading: boolean = false;
 
     public constructor(private router: Router,
                        private windowRef: WindowRef,
@@ -27,17 +27,44 @@ export class AppComponent implements OnInit {
 
     public ngOnInit(): void {
         this.authService.checkLogin();
-        this.respondToNavigationEnd();
+        this.respondToNavigation();
     }
 
-    private respondToNavigationEnd() {
-        this.router.events.pipe(
-            filter((event) => {
-                return event instanceof NavigationEnd;
-            })
-        ).subscribe((event: RouterEvent) => {
-            this.googleAnalyticsService.pageView();
-            this.windowRef.nativeWindow.document.body.scrollTop = 0;
+    private respondToNavigation(): void {
+        this.router.events.subscribe((routerEvent: RouterEvent) => {
+            if (routerEvent instanceof NavigationStart) {
+                this.respondToNavigationStart();
+            }
+
+            if (routerEvent instanceof NavigationEnd) {
+                this.respondToNavigationEnd();
+            }
+
+            if (routerEvent instanceof NavigationCancel) {
+                this.respondToNavigationCancel();
+            }
+
+            if (routerEvent instanceof NavigationError) {
+                this.respondToNavigationError();
+            }
         });
+    }
+
+    private respondToNavigationStart(): void {
+        this.isLoading = true;
+    }
+
+    private respondToNavigationEnd(): void {
+        this.isLoading = false;
+        this.googleAnalyticsService.pageView();
+        this.windowRef.nativeWindow.document.body.scrollTop = 0;
+    }
+
+    private respondToNavigationCancel(): void {
+        this.isLoading = false;
+    }
+
+    private respondToNavigationError(): void {
+        this.isLoading = false;
     }
 }

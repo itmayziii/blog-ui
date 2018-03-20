@@ -107,7 +107,8 @@ export const routes: Routes = [
         children: [
             {
                 path: ':categorySlug/posts',
-                component: PostListComponent
+                component: PostListComponent,
+                resolve: {posts: PostsResolver}
             },
             {
                 path: '',

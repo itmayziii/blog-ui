@@ -16,12 +16,11 @@
     color: red;
 }
 
-// Notifications
-
 .sn-progress-loader span {
     background: theme-color("info") !important;
 }
 
+// Notifications
 .simple-notification {
     &.bg-primary {
         &.error {

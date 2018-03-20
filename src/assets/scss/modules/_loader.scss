@@ -3,6 +3,7 @@
     display: flex;
     justify-content: center;
     height: 100%;
+    width: 100vw;
 
     .loader {
         color: theme-color("secondary");
