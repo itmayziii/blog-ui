@@ -11,7 +11,7 @@ import { PostShowComponent } from "./post/show/post-show.component";
 import { PostCreateComponent } from "./post/create/post-create.component";
 import { FileUploadComponent } from "./file/upload/file-upload.component";
 import { PostsResolver } from "./data-resolvers/posts-resolver";
-import { CategoryListResolver } from "./data-resolvers/category-list-resolver";
+import { CategoriesResolver } from "./data-resolvers/categories-resolver";
 
 export const routes: Routes = [
     {
@@ -49,7 +49,7 @@ export const routes: Routes = [
                 component: PostListComponent,
                 resolve: {
                     posts: PostsResolver,
-                    categoryList: CategoryListResolver
+                    categories: CategoriesResolver
                 }
             }
         ]
@@ -114,7 +114,7 @@ export const routes: Routes = [
                 component: PostListComponent,
                 resolve: {
                     posts: PostsResolver,
-                    categoryList: CategoryListResolver
+                    categories: CategoriesResolver
                 }
             },
             {

@@ -10,7 +10,7 @@ interface CategoryListData {
 }
 
 @Injectable()
-export class CategoryListResolver implements Resolve<Observable<CategoryListData>> {
+export class CategoriesResolver implements Resolve<Observable<CategoryListData>> {
     public constructor(private httpClient: HttpClient) {}
 
     public resolve(routeSnapshot: ActivatedRouteSnapshot, routerStateSnapshot: RouterStateSnapshot) {

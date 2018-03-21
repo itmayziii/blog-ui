@@ -35,28 +35,28 @@ export class AppComponent implements OnInit {
     private respondToNavigation(): void {
         this.router.events.subscribe((routerEvent: RouterEvent) => {
             if (routerEvent instanceof NavigationStart) {
-                this.respondToNavigationStart();
+                this.respondToNavigationStart(routerEvent);
             }
 
             if (routerEvent instanceof NavigationEnd) {
-                this.respondToNavigationEnd();
+                this.respondToNavigationEnd(routerEvent);
             }
 
             if (routerEvent instanceof NavigationCancel) {
-                this.respondToNavigationCancel();
+                this.respondToNavigationCancel(routerEvent);
             }
 
             if (routerEvent instanceof NavigationError) {
-                this.respondToNavigationError();
+                this.respondToNavigationError(routerEvent);
             }
         });
     }
 
-    private respondToNavigationStart(): void {
+    private respondToNavigationStart(routerEvent: NavigationStart): void {
         this.isLoading = true;
     }
 
-    private respondToNavigationEnd(): void {
+    private respondToNavigationEnd(routerEvent: NavigationEnd): void {
         this.isLoading = false;
 
         if (isPlatformBrowser(this.platformId)) {
@@ -65,11 +65,11 @@ export class AppComponent implements OnInit {
         }
     }
 
-    private respondToNavigationCancel(): void {
+    private respondToNavigationCancel(routerEvent: NavigationCancel): void {
         this.isLoading = false;
     }
 
-    private respondToNavigationError(): void {
+    private respondToNavigationError(routerEvent: NavigationError): void {
         this.isLoading = false;
     }
 }

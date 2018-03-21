@@ -6,5 +6,6 @@
 export const environment = {
     production: true,
     apiVersion: 'v1',
-    apiUri: 'http://api.fullheapdeveloper.local:8080'
+    apiUri: 'http://api.fullheapdeveloper.local:8080',
+    appUrl: 'http://www.fullheapdeveloper.local:8080'
 };

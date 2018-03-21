@@ -3,13 +3,15 @@ import { ActivatedRoute, ParamMap, Router } from "@angular/router";
 import { ISubscription } from "rxjs/Subscription";
 import { JsonApiResources } from "../../models/json-api/json-api-resoures";
 import { UserService } from "../../services/user.service";
-import { NotificationsService } from "angular2-notifications";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Post } from "../../models/post";
 import { Category } from "../../models/category";
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
 import "rxjs/add/operator/skip";
+import { MetaService } from "../../meta.service";
+import { Title } from "@angular/platform-browser";
+import { environment } from "../../../environments/environment";
 
 @Component({
     selector: 'blog-post-list',
@@ -17,27 +19,31 @@ import "rxjs/add/operator/skip";
     styleUrls: ['./post-list.component.scss']
 })
 export class PostListComponent implements OnInit, OnDestroy {
-    private _isCategory: boolean = false;
+    private _category: Category;
     private _page: string = '1';
     private _size: string = '12';
     private _firstPageUrl: string;
     private _lastPageUrl: string;
     private _posts: Post[];
-    private _categoryList: Category[];
-    private _category: Category;
+    private _categories: Category[];
     private _dataSubscription: ISubscription;
 
     public constructor(private httpClient: HttpClient,
                        private route: ActivatedRoute,
                        private userService: UserService,
                        private router: Router,
-                       private notifications: NotificationsService) {
+                       private metaService: MetaService,
+                       private title: Title) {
     }
 
     public ngOnInit() {
-        this.readRouteData();
-        this.observeRouteData();
-        this.observeQueryParams();
+        if (this.route.snapshot.data.posts) {
+            this.readRouteData();
+            this.observeRouteData();
+            this.observeQueryParams();
+        }
+
+        this.addMetadata();
     }
 
     public ngOnDestroy() {
@@ -144,11 +150,12 @@ export class PostListComponent implements OnInit, OnDestroy {
 
     private readRouteData(): void {
         this._posts = this.route.snapshot.data.posts.data;
-        this._categoryList = this.route.snapshot.data.categoryList.data;
+        this._categories = this.route.snapshot.data.categories.data;
         this._firstPageUrl = (this.route.snapshot.data.posts.links) ? this.route.snapshot.data.posts.links.first : null;
         this._lastPageUrl = (this.route.snapshot.data.posts.links) ? this.route.snapshot.data.posts.links.last : null;
         this._size = this.route.snapshot.data.posts.size;
         this._page = this.route.snapshot.data.posts.page;
+        this._category = this.route.snapshot.data.posts.category;
     }
 
     private observeQueryParams(): void {
@@ -181,19 +188,34 @@ export class PostListComponent implements OnInit, OnDestroy {
             this._posts = data.posts.data;
             this._size = data.posts.size;
             this._page = data.posts.page;
+            this._firstPageUrl = (data.links) ? data.links.first : null;
+            this._lastPageUrl = (data.links) ? data.links.last : null;
+            this._category = data.posts.category;
         });
+    }
+
+    private addMetadata(): void {
+        const title = 'Posts: ' + ((this.category) ? this.category.attributes.name : 'Latest');
+        const description = (this.category) ? `Blog posts for "${this.category.attributes.name}" by Full Heap Developer` : 'Latest blog posts by Full Heap Developer';
+        const url = `${environment.appUrl}${this.router.url}`;
+
+        this.title.setTitle(title + ' | Full Heap Developer');
+        this.metaService.setMeta([
+            {property: 'og:title', content: title},
+            {property: 'og:url', content: url},
+            {property: 'og:description', content: description},
+            {property: 'og:image', content: `${environment.appUrl}/images/website-preview.jpg`}, // should be 1200 x 630
+            {property: 'og:image:width', content: '1200px'},
+            {property: 'og:image:height', content: '630px'}
+        ]);
     }
 
     public get posts(): Post[] {
         return this._posts;
     }
 
-    public get isCategory(): boolean {
-        return this._isCategory;
-    }
-
-    public get categoryList(): Category[] {
-        return this._categoryList;
+    public get categories(): Category[] {
+        return this._categories;
     }
 
     public get category(): Category {

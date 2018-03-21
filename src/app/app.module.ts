@@ -37,7 +37,8 @@ import { LoaderComponent } from "./loader/loader.component";
 import { WithCredentialsInterceptor } from "./http-interceptors/with-credentials-interceptor";
 import { PostsResolver } from "./data-resolvers/posts-resolver";
 import { PrebootModule } from "preboot";
-import { CategoryListResolver } from "./data-resolvers/category-list-resolver";
+import { CategoriesResolver } from "./data-resolvers/categories-resolver";
+import { MetaService } from "./meta.service";
 
 @NgModule({
     declarations: [
@@ -72,13 +73,14 @@ import { CategoryListResolver } from "./data-resolvers/category-list-resolver";
         RouteService, // MUST remain as a singleton
         UserService, // MUST remain as a singleton
         FileUploadService,
+        MetaService,
         AuthGuard,
         AuthService,
         MarkdownService,
         WindowRef,
         GoogleAnalyticsService,
         PostsResolver,
-        CategoryListResolver,
+        CategoriesResolver,
         HighlightService,
         {
             provide: HTTP_INTERCEPTORS,

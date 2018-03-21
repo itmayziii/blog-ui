@@ -9,7 +9,7 @@
     </div>
 
     <div class="row">
-        <h1 class="col-12 col-xl-9 text-center text-secondary post-list-title">{{ (isCategory) ? category.attributes.name : 'Latest Posts' }}</h1>
+        <h1 class="col-12 col-xl-9 text-center text-secondary display-4">{{ (category) ? category.attributes.name : 'Latest Posts' }}</h1>
 
         <div class="col-12 d-xl-none">
             <div class="row">
@@ -20,7 +20,7 @@
                             Categories
                         </button>
                         <div class="dropdown-menu col-12" aria-labelledby="categories-dropdown">
-                            <a class="dropdown-item" routerLink="/categories/{{ category.attributes.slug }}/posts" *ngFor="let category of categoryList">
+                            <a class="dropdown-item" routerLink="/categories/{{ category.attributes.slug }}/posts" *ngFor="let category of categories">
                                 {{ category.attributes.name }}</a>
                         </div>
                     </div>
@@ -59,8 +59,8 @@
         <section class="d-none d-xl-block col-3">
             <ul class="list-group category-list">
                 <a class="list-group-item list-group-item-action list-group-item d-flex justify-content-between align-items-center"
-                   [ngClass]="{'list-group-item-active': (isCategory && category.id == categoryListItem.id)}"
-                   routerLink="/categories/{{ categoryListItem.attributes.slug }}/posts" *ngFor="let categoryListItem of categoryList">
+                   [ngClass]="{'list-group-item-active': (category && category.id == categoryListItem.id)}"
+                   routerLink="/categories/{{ categoryListItem.attributes.slug }}/posts" *ngFor="let categoryListItem of categories">
                     {{ categoryListItem.attributes.name }}
                     <span class="badge badge-primary badge-pill">{{ categoryListItem.attributes.posts }}</span>
                 </a>
@@ -68,7 +68,7 @@
             </ul>
         </section>
 
-        <div *ngIf="!isCategory" class="col-12 col-xl-9">
+        <div *ngIf="!category" class="col-12 col-xl-9">
             <div class="row justify-content-center">
                 <div class="col-11">
                     <div class="row justify-content-between">
