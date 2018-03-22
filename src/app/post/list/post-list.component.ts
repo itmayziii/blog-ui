@@ -207,7 +207,7 @@ export class PostListComponent implements OnInit, OnDestroy {
         const title = 'Posts: ' + ((this.category) ? this.category.attributes.name : 'Latest');
         const description = (this.category) ? `Blog posts for "${this.category.attributes.name}" by Full Heap Developer` : 'Latest blog posts by Full Heap Developer';
         const url = `${environment.appUri}${this.router.url}`;
-        const urlWithQueryParams = `${environment.appUr}${this.router.url}?page=${this._page}&size=${this._size}`
+        const urlWithQueryParams = `${environment.appUri}${this.router.url}?page=${this._page}&size=${this._size}`
 
         this.title.setTitle(title + ' | Full Heap Developer');
         this.metaService.setMeta([
