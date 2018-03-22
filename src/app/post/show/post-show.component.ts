@@ -110,7 +110,7 @@ export class PostShowComponent implements OnInit, OnDestroy {
     private addMetadata(): void {
         const title = `Post: ${this._post.attributes.title}`;
         const description = this._post.attributes.preview;
-        const url = `${environment.appUrl}${this.router.url}`;
+        const url = `${environment.appUri}${this.router.url}`;
 
         this.title.setTitle(title + ' | Full Heap Developer');
         this.metaService.setMeta([
@@ -119,7 +119,7 @@ export class PostShowComponent implements OnInit, OnDestroy {
             {property: 'og:title', content: title},
             {property: 'og:url', content: url},
             {property: 'og:description', content: description},
-            {property: 'og:image', content: `${environment.appUrl}/images/website-preview.jpg`}, // should be 1200 x 630
+            {property: 'og:image', content: `${environment.appUri}/images/website-preview.jpg`}, // should be 1200 x 630
             {property: 'og:image:width', content: '1200px'},
             {property: 'og:image:height', content: '630px'}
         ]);
