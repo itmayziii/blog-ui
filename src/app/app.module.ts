@@ -39,6 +39,7 @@ import { PostsResolver } from "./data-resolvers/posts-resolver";
 import { PrebootModule } from "preboot";
 import { CategoriesResolver } from "./data-resolvers/categories-resolver";
 import { MetaService } from "./meta.service";
+import { PostResolver } from "./data-resolvers/post-resolver";
 
 @NgModule({
     declarations: [
@@ -81,6 +82,7 @@ import { MetaService } from "./meta.service";
         GoogleAnalyticsService,
         PostsResolver,
         CategoriesResolver,
+        PostResolver,
         HighlightService,
         {
             provide: HTTP_INTERCEPTORS,

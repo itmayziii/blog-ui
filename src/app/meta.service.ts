@@ -10,12 +10,17 @@ export class MetaService {
     }
 
     public setMeta(metaDefinitions: MetaDefinition[]) {
-        if (this.currentMetaEls) {
-            this.currentMetaEls.forEach((currentMetaEl: HTMLMetaElement) => {
-                this.meta.removeTagElement(currentMetaEl);
-            });
-        }
-
+        this.removeMeta();
         this.currentMetaEls = this.meta.addTags(metaDefinitions);
+    }
+
+    public removeMeta(): void {
+        if (!this.currentMetaEls) return;
+
+        this.currentMetaEls.forEach((currentMetaEl: HTMLMetaElement) => {
+            this.meta.removeTagElement(currentMetaEl);
+        });
+
+        this.currentMetaEls = null;
     }
 }

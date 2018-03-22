@@ -12,6 +12,7 @@ import "rxjs/add/operator/skip";
 import { MetaService } from "../../meta.service";
 import { Title } from "@angular/platform-browser";
 import { environment } from "../../../environments/environment";
+import { NotificationsService } from "angular2-notifications";
 
 @Component({
     selector: 'blog-post-list',
@@ -32,24 +33,30 @@ export class PostListComponent implements OnInit, OnDestroy {
                        private route: ActivatedRoute,
                        private userService: UserService,
                        private router: Router,
+                       private notifications: NotificationsService,
                        private metaService: MetaService,
                        private title: Title) {
     }
 
-    public ngOnInit() {
-        if (this.route.snapshot.data.posts) {
-            this.readRouteData();
-            this.observeRouteData();
-            this.observeQueryParams();
+    public ngOnInit(): void {
+        if (!this.route.snapshot.data.posts) {
+            this.notifications.error('Error', 'Could not retrieve posts.');
+            return;
         }
+
+        this.readRouteData();
+        this.observeRouteData();
+        this.observeQueryParams();
 
         this.addMetadata();
     }
 
-    public ngOnDestroy() {
+    public ngOnDestroy(): void {
         if (this._dataSubscription) {
             this._dataSubscription.unsubscribe();
         }
+
+        this.metaService.removeMeta();
     }
 
     public isAdmin(): boolean {
@@ -191,6 +198,8 @@ export class PostListComponent implements OnInit, OnDestroy {
             this._firstPageUrl = (data.links) ? data.links.first : null;
             this._lastPageUrl = (data.links) ? data.links.last : null;
             this._category = data.posts.category;
+
+            this.addMetadata();
         });
     }
 
@@ -198,9 +207,12 @@ export class PostListComponent implements OnInit, OnDestroy {
         const title = 'Posts: ' + ((this.category) ? this.category.attributes.name : 'Latest');
         const description = (this.category) ? `Blog posts for "${this.category.attributes.name}" by Full Heap Developer` : 'Latest blog posts by Full Heap Developer';
         const url = `${environment.appUrl}${this.router.url}`;
+        const urlWithQueryParams = `${environment.appUrl}${this.router.url}?page=${this._page}&size=${this._size}`
 
         this.title.setTitle(title + ' | Full Heap Developer');
         this.metaService.setMeta([
+            {name: 'url', content: urlWithQueryParams},
+            {name: 'description', content: description},
             {property: 'og:title', content: title},
             {property: 'og:url', content: url},
             {property: 'og:description', content: description},

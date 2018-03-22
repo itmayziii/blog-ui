@@ -12,6 +12,7 @@ import { PostCreateComponent } from "./post/create/post-create.component";
 import { FileUploadComponent } from "./file/upload/file-upload.component";
 import { PostsResolver } from "./data-resolvers/posts-resolver";
 import { CategoriesResolver } from "./data-resolvers/categories-resolver";
+import { PostResolver } from "./data-resolvers/post-resolver";
 
 export const routes: Routes = [
     {
@@ -35,7 +36,10 @@ export const routes: Routes = [
             },
             {
                 path: ':slug',
-                component: PostShowComponent
+                component: PostShowComponent,
+                resolve: {
+                    post: PostResolver
+                }
             },
             {
                 path: 'update/:slug',

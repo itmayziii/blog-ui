@@ -1,14 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, UrlSegment } from "@angular/router";
-import { Subscription } from "rxjs/Subscription";
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from "@angular/router";
+import { ISubscription } from "rxjs/Subscription";
 import { JsonApiResourceObject } from "../../models/json-api/json-api-resource-object";
-import { JsonApiResource } from "../../models/json-api/json-api-resource";
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
+import { DomSanitizer, SafeHtml, Title } from "@angular/platform-browser";
 import { MarkdownService } from "../../services/markdown.service";
 import { Observable } from "rxjs/Observable";
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { Post } from "../../models/post";
+import { HttpClient } from "@angular/common/http";
 import { UserService } from "../../services/user.service";
+import { NotificationsService } from "angular2-notifications";
+import { Post } from "../../models/post";
+import { environment } from "../../../environments/environment";
+import { MetaService } from "../../meta.service";
 
 @Component({
     selector: 'blog-post-show',
@@ -43,54 +45,55 @@ import { UserService } from "../../services/user.service";
                 </div>
             </div>
 
-            <div *ngIf="content" class="post-content col-11">
+            <div *ngIf="content$" class="post-content col-11">
                 <div class="row" [innerHTML]="parsedPostContent"></div>
             </div>
         </div>
     `,
     styleUrls: ['./post-show.component.scss']
 })
-export class PostShowComponent implements OnInit {
-    private _post: JsonApiResourceObject;
-    private $url: Subscription;
+export class PostShowComponent implements OnInit, OnDestroy {
+    private _post: Post;
     private _parsedPostContent: SafeHtml;
-    @Input() public content: Observable<string>;
+    private _contentSubscription: ISubscription;
+    @Input() public content$: Observable<string>;
 
     public constructor(private httpClient: HttpClient,
                        private route: ActivatedRoute,
                        private sanitizer: DomSanitizer,
                        private markdownService: MarkdownService,
+                       private notifications: NotificationsService,
                        private router: Router,
-                       private userService: UserService) { }
+                       private userService: UserService,
+                       private title: Title,
+                       private metaService: MetaService) { }
 
-    public ngOnInit() {
-        if (this.content) {
-            this.content.subscribe((content) => {
+    public ngOnInit(): void {
+        if (this.content$) {
+            this._contentSubscription = this.content$.subscribe((content) => {
                 this.parseMarkdown(content);
             });
             return;
         }
 
-        this.readPostSlug().then((postSlug: string) => {
-            this.getPost(postSlug);
-        });
+        if (!this.route.snapshot.data.post) {
+            this.router.navigate(['/not-found']);
+            return;
+        }
+        this.readRouteData();
+        this.addMetadata();
+    }
+
+    public ngOnDestroy(): void {
+        if (this._contentSubscription) {
+            this._contentSubscription.unsubscribe();
+        }
+
+        this.metaService.removeMeta();
     }
 
     public isAdmin(): boolean {
         return this.userService.isAdmin();
-    }
-
-    private getPost(postSlug: string) {
-        this.httpClient.get(`posts/${postSlug}`)
-            .subscribe(
-                (response: JsonApiResource<Post>) => {
-                    this._post = response.data;
-                    this.parseMarkdown(this._post.attributes.content);
-                },
-                (error: HttpErrorResponse) => {
-                    this.router.navigate(['/not-found'])
-                }
-            );
     }
 
     private parseMarkdown(content) {
@@ -99,12 +102,27 @@ export class PostShowComponent implements OnInit {
         });
     }
 
-    private readPostSlug(): Promise<string> {
-        return new Promise((resolve) => {
-            this.$url = this.route.url.subscribe((urlSegment: UrlSegment[]) => {
-                resolve(urlSegment[0].path);
-            });
-        });
+    private readRouteData(): void {
+        this._post = this.route.snapshot.data.post.data;
+        this._parsedPostContent = this.sanitizer.bypassSecurityTrustHtml(this.route.snapshot.data.post.parsedContent);
+    }
+
+    private addMetadata(): void {
+        const title = `Post: ${this._post.attributes.title}`;
+        const description = this._post.attributes.preview;
+        const url = `${environment.appUrl}${this.router.url}`;
+
+        this.title.setTitle(title + ' | Full Heap Developer');
+        this.metaService.setMeta([
+            {name: 'url', content: url},
+            {name: 'description', content: description},
+            {property: 'og:title', content: title},
+            {property: 'og:url', content: url},
+            {property: 'og:description', content: description},
+            {property: 'og:image', content: `${environment.appUrl}/images/website-preview.jpg`}, // should be 1200 x 630
+            {property: 'og:image:width', content: '1200px'},
+            {property: 'og:image:height', content: '630px'}
+        ]);
     }
 
     public get post(): JsonApiResourceObject {

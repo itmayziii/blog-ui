@@ -7,7 +7,6 @@ import { Post } from "../models/post";
 import { JsonApiResource } from "../models/json-api/json-api-resource";
 import { Category } from "../models/category";
 import { JsonApiLinks } from "../models/json-api/json-api-links";
-import { NotificationsService } from "angular2-notifications";
 import { catchError, map } from "rxjs/operators";
 import "rxjs/add/observable/empty";
 
@@ -21,7 +20,7 @@ interface PostsResolverData {
 
 @Injectable()
 export class PostsResolver implements Resolve<Observable<PostsResolverData>> {
-    public constructor(private httpClient: HttpClient, private notifications: NotificationsService) {}
+    public constructor(private httpClient: HttpClient) {}
 
     public resolve(routeSnapshot: ActivatedRouteSnapshot, routerStateSnapshot: RouterStateSnapshot) {
         const size = routeSnapshot.queryParamMap.get('size') || '12';
@@ -65,7 +64,6 @@ export class PostsResolver implements Resolve<Observable<PostsResolverData>> {
     private handleError() {
         return catchError((error: any) => {
             console.error('Could not retrieve posts with error: ', error);
-            this.notifications.error('Error', 'Could not retrieve posts');
             return Observable.of(null);
         });
     }
