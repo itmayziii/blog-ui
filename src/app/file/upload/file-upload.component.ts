@@ -23,7 +23,7 @@ export class FileUploadComponent {
                     this.notifications.success('Success', 'Files successfully uploaded');
                 },
                 (error) => {
-                    console.error(`Failed to upload file with error ${error}`);
+                    // console.error(`Failed to upload file with error ${error}`);
                     this.notifications.error('Error', 'Failed to upload files');
                 }
             );

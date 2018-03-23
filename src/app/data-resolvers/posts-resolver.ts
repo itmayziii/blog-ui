@@ -63,7 +63,7 @@ export class PostsResolver implements Resolve<Observable<PostsResolverData>> {
 
     private handleError() {
         return catchError((error: any) => {
-            console.error('Could not retrieve posts with error: ', error);
+            // console.error('Could not retrieve posts with error: ', error);
             return Observable.of(null);
         });
     }
