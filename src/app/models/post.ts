@@ -1,4 +1,4 @@
-import { JsonApiResourceObject } from "./json-api/json-api-resource-object";
+import {JsonApiResourceObject} from './json-api/json-api-resource-object';
 
 export interface Post extends JsonApiResourceObject {
     attributes: {
@@ -12,6 +12,7 @@ export interface Post extends JsonApiResourceObject {
         imagePathSm: string,
         imagePathMd: string,
         imagePathLg: string,
+        imagePathMeta: string,
         categoryId: string,
         userId: string
     }

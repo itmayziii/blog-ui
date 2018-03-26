@@ -1,16 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { JsonApiResources } from "../../models/json-api/json-api-resoures";
-import { NotificationsService } from "angular2-notifications";
-import { UserService } from "../../services/user.service";
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { Category } from "../../models/category";
-import { Post } from "../../models/post";
-import { ActivatedRoute, ParamMap, Router } from "@angular/router";
-import { JsonApiResource } from "../../models/json-api/json-api-resource";
-import "rxjs/add/observable/of";
-import { ISubscription } from "rxjs/Subscription";
-import { Observable } from "rxjs/Observable";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {JsonApiResources} from '../../models/json-api/json-api-resoures';
+import {NotificationsService} from 'angular2-notifications';
+import {UserService} from '../../services/user.service';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {Category} from '../../models/category';
+import {Post} from '../../models/post';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {JsonApiResource} from '../../models/json-api/json-api-resource';
+import 'rxjs/add/observable/of';
+import {ISubscription} from 'rxjs/Subscription';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
     selector: 'blog-post-create',
@@ -37,19 +37,21 @@ export class PostCreateComponent implements OnInit, OnDestroy {
         this.retrievePost()
             .then(() => {
                 this._postForm.setValue({
-                    "title": this.post.attributes.title,
-                    "slug": this.post.attributes.slug,
-                    "status": this.post.attributes.status,
-                    "preview": this.post.attributes.preview,
-                    "content": this.post.attributes.content,
-                    "category-id": this.post.attributes.categoryId,
-                    "user-id": this.post.attributes.userId,
-                    "image-path-sm": this.post.attributes.imagePathSm,
-                    "image-path-md": this.post.attributes.imagePathMd,
-                    "image-path-lg": this.post.attributes.imagePathLg
+                    'title': this.post.attributes.title,
+                    'slug': this.post.attributes.slug,
+                    'status': this.post.attributes.status,
+                    'preview': this.post.attributes.preview,
+                    'content': this.post.attributes.content,
+                    'category-id': this.post.attributes.categoryId,
+                    'user-id': this.post.attributes.userId,
+                    'image-path-sm': this.post.attributes.imagePathSm,
+                    'image-path-md': this.post.attributes.imagePathMd,
+                    'image-path-lg': this.post.attributes.imagePathLg,
+                    'image-path-meta': this.post.attributes.imagePathMeta
                 });
             })
-            .catch(() => {});
+            .catch(() => {
+            });
     }
 
     public ngOnDestroy(): void {
@@ -73,16 +75,17 @@ export class PostCreateComponent implements OnInit, OnDestroy {
 
     private createForm(): void {
         this._postForm = this.formBuilder.group({
-            "title": [null, Validators.required],
-            "slug": [null, Validators.required],
-            "status": ['draft', Validators.required],
-            "preview": null,
-            "content": null,
-            "category-id": [null, Validators.required],
-            "user-id": [null, Validators.required],
-            "image-path-sm": null,
-            "image-path-md": null,
-            "image-path-lg": null
+            'title': [null, Validators.required],
+            'slug': [null, Validators.required],
+            'status': ['draft', Validators.required],
+            'preview': null,
+            'content': null,
+            'category-id': [null, Validators.required],
+            'user-id': [null, Validators.required],
+            'image-path-sm': null,
+            'image-path-md': null,
+            'image-path-lg': null,
+            'image-path-meta': null
         });
 
         this._postForm.get('user-id').setValue(this.userService.user.id);
