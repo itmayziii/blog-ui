@@ -11,7 +11,7 @@ import {ISubscription} from 'rxjs/Subscription';
             <nav class="navbar navbar-expand-md navbar-light py-0">
 
                 <span *ngIf="isAppLoading" class="navbar-brand"><blog-loader size="1.5rem"></blog-loader></span>
-                <a *ngIf="!isAppLoading" class="navbar-brand text-success" routerLink="/">TM3</a>
+                <a *ngIf="!isAppLoading" class="navbar-brand text-success" routerLink="/">FHD</a>
 
                 <button class="navbar-toggler navbar-toggler-right" type="button" (click)="toggleNavigationMenu()">
                     <span class="navbar-toggler-icon"></span>
