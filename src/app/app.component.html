@@ -1,15 +1,9 @@
-<app-header></app-header>
+<blog-header></blog-header>
 
 <simple-notifications [options]="notificationOptions"></simple-notifications>
 
 <div class="page">
-
-    <blog-loader [class.d-none]="!isLoading"></blog-loader>
-
-    <span [class.d-none]="isLoading">
-        <router-outlet></router-outlet>
-    </span>
-
+    <router-outlet></router-outlet>
 </div>
 
 <!-- TODO create footer -->

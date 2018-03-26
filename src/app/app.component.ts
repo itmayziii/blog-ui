@@ -4,6 +4,7 @@ import { WindowRef } from "./globals/window-ref";
 import { GoogleAnalyticsService } from "./services/google-analytics.service";
 import { AuthService } from "./services/auth.service";
 import { isPlatformBrowser } from '@angular/common';
+import {LoadingService} from './services/loading.service';
 
 @Component({
     selector: 'blog-root',
@@ -23,6 +24,7 @@ export class AppComponent implements OnInit {
                        private windowRef: WindowRef,
                        private googleAnalyticsService: GoogleAnalyticsService,
                        private authService: AuthService,
+                       private loadingService: LoadingService,
                        @Inject(PLATFORM_ID) private platformId: Object) {
 
     }
@@ -53,11 +55,11 @@ export class AppComponent implements OnInit {
     }
 
     private respondToNavigationStart(routerEvent: NavigationStart): void {
-        this.isLoading = true;
+        this.loadingService.toggleLoading(true);
     }
 
     private respondToNavigationEnd(routerEvent: NavigationEnd): void {
-        this.isLoading = false;
+        this.loadingService.toggleLoading(false);
 
         if (isPlatformBrowser(this.platformId)) {
             this.googleAnalyticsService.pageView();
@@ -66,10 +68,10 @@ export class AppComponent implements OnInit {
     }
 
     private respondToNavigationCancel(routerEvent: NavigationCancel): void {
-        this.isLoading = false;
+        this.loadingService.toggleLoading(false);
     }
 
     private respondToNavigationError(routerEvent: NavigationError): void {
-        this.isLoading = false;
+        this.loadingService.toggleLoading(false);
     }
 }

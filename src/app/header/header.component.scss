@@ -4,38 +4,43 @@
 @import "~bootstrap/scss/mixins/breakpoints";
 
 .header {
-    background-color: theme-color-level("primary", 3);
-    border-bottom: 1px solid theme-color("info");
-    position: fixed;
-    top: 0;
-    width: 100vw;
-    z-index: 1020;
+  background-color: theme-color-level("primary", 3);
+  border-bottom: 1px solid theme-color("info");
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 1020;
 }
 
 .navbar {
-    &-brand {
-        font-size: 2rem;
+  &-brand {
+    align-items: center;
+    display: flex;
+    font-size: 2rem;
+    justify-content: center;
+    min-height: 69px;
+    min-width: 78.08px;
+  }
+
+  .nav {
+
+    &-item {
+      text-align: center;
+      letter-spacing: 3px;
+      font-size: 1.2rem;
+
+      @include media-breakpoint-up(md) {
+        font-size: 1.1rem;
+      }
     }
 
-    .nav {
+    &-link {
+      border-top: solid 1px theme-color("secondary");
 
-        &-item {
-            text-align: center;
-            letter-spacing: 3px;
-            font-size: 1.2rem;
-
-            @include media-breakpoint-up(md) {
-                font-size: 1.1rem;
-            }
-        }
-
-        &-link {
-            border-top: solid 1px theme-color("secondary");
-
-            @include media-breakpoint-up(md) {
-                border: none;
-            }
-        }
+      @include media-breakpoint-up(md) {
+        border: none;
+      }
     }
+  }
 
 }

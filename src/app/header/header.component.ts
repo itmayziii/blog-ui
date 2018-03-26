@@ -1,13 +1,18 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { NavLink } from "../models/nav-link";
-import { UserService } from "../services/user.service";
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {NavLink} from '../models/nav-link';
+import {UserService} from '../services/user.service';
+import {LoadingService} from '../services/loading.service';
+import {ISubscription} from 'rxjs/Subscription';
 
 @Component({
-    selector: 'app-header',
+    selector: 'blog-header',
     template: `
         <header class="header sticky-top">
             <nav class="navbar navbar-expand-md navbar-light py-0">
-                <a class="navbar-brand text-success" routerLink="/">TM3</a>
+
+                <span *ngIf="isAppLoading" class="navbar-brand"><blog-loader size="1.5rem"></blog-loader></span>
+                <a *ngIf="!isAppLoading" class="navbar-brand text-success" routerLink="/">TM3</a>
+
                 <button class="navbar-toggler navbar-toggler-right" type="button" (click)="toggleNavigationMenu()">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -42,14 +47,32 @@ import { UserService } from "../services/user.service";
     `,
     styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit, OnDestroy {
     @ViewChild('collapsibleNav') public collapsibleNav: ElementRef;
     public isNavigationCollapsed: boolean = true;
+    public isAppLoading: boolean = false;
+    private isAppLoadingSubscription: ISubscription;
     public leftLinks: Array<NavLink> = [
-        {title: 'Posts', path: '/posts', condition: () => {return true}},
-        {title: 'Contact', path: '/contacts/create', condition: () => {return true}},
-        {title: 'Categories', path: '/categories', condition: () => {return this.userService.isAdmin()}},
-        {title: 'Files', path: '/files/upload', condition: () => {return this.userService.isAdmin()}}
+        {
+            title: 'Posts', path: '/posts', condition: () => {
+                return true
+            }
+        },
+        {
+            title: 'Contact', path: '/contacts/create', condition: () => {
+                return true
+            }
+        },
+        {
+            title: 'Categories', path: '/categories', condition: () => {
+                return this.userService.isAdmin()
+            }
+        },
+        {
+            title: 'Files', path: '/files/upload', condition: () => {
+                return this.userService.isAdmin()
+            }
+        }
     ];
     public rightLinks: Array<NavLink> = [
         {title: 'Login', path: '/users/login', condition: () => !this.userService.isLoggedIn()},
@@ -57,9 +80,26 @@ export class HeaderComponent {
         {title: 'Logout', path: '/users/logout', condition: () => this.userService.isLoggedIn()}
     ];
 
-    public constructor(private userService: UserService) {}
+    public constructor(private userService: UserService, private loadingService: LoadingService) {
+    }
+
+    public ngOnInit(): void {
+        this.listenToAppLoading();
+    }
+
+    public ngOnDestroy(): void {
+        if (this.isAppLoadingSubscription) {
+            this.isAppLoadingSubscription.unsubscribe();
+        }
+    }
 
     public toggleNavigationMenu() {
         this.isNavigationCollapsed = !this.isNavigationCollapsed;
+    }
+
+    private listenToAppLoading() {
+        this.isAppLoadingSubscription = this.loadingService.isLoading$.subscribe((isLoading: boolean) => {
+            this.isAppLoading = isLoading;
+        });
     }
 }
