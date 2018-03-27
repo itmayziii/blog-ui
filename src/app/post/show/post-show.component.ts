@@ -90,7 +90,7 @@ export class PostShowComponent implements OnInit, OnDestroy {
             {property: 'og:title', content: title},
             {property: 'og:url', content: url},
             {property: 'og:description', content: description},
-            {property: 'og:image', content: `${environment.appUri}${previewImage}`}, // should be 1200 x 630
+            {property: 'og:image', content: `${environment.appUri}${previewImage}`},
             {property: 'og:image:width', content: '1200px'},
             {property: 'og:image:height', content: '630px'}
         ]);

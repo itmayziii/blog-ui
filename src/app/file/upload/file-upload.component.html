@@ -1,7 +1,8 @@
 <div class="container-fluid">
     <div class="row justify-content-center align-content-center">
 
-        <form [formGroup]="fileUploadForm" (ngSubmit)="onSubmit()" method="post" class="contact-form col-12" novalidate enctype="multipart/form-data" target="_blank">
+        <form [formGroup]="fileUploadForm" (ngSubmit)="onSubmit()" method="post" class="contact-form col-12" novalidate enctype="multipart/form-data"
+              target="_blank">
             <div class="row justify-content-center">
 
                 <div class="col-12">
@@ -9,7 +10,7 @@
 
                         <h2 class="col-12 text-center text-secondary">Upload Files</h2>
 
-                        <fieldset class="form-group col-12 col-md-4">
+                        <fieldset class="form-group col-12 col-md-6">
                             <label for="images">Image</label>
                             <input type="file" class="form-control-file" id="images" aria-describedby="imageHelp" #images multiple>
                             <small id="imageHelp" class="form-text text-muted">
@@ -17,6 +18,7 @@
                                     <li>Optimal small image size for posts is 768px x 300px</li>
                                     <li>Optimal medium image size for posts is 992px x 400px</li>
                                     <li>Optimal large image size for posts is 2500px x 500px</li>
+                                    <li>Optimal meta image size for posts be 1200px x 630px</li>
                                 </ol>
                             </small>
                         </fieldset>

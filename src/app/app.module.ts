@@ -65,7 +65,7 @@ import { PostContentComponent } from './post/content/post-content.component';
     ],
     imports: [
         BrowserModule.withServerTransition({appId: 'blog'}),
-        PrebootModule.withConfig({appRoot: 'blog-root'}),
+        PrebootModule.withConfig({appRoot: 'blog-root', buffer: false}),
         RouterModule.forRoot(routes, {initialNavigation: 'enabled'}),
         ReactiveFormsModule,
         BrowserAnimationsModule,
