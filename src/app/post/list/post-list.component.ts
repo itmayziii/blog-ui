@@ -1,18 +1,18 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from "@angular/router";
-import { ISubscription } from "rxjs/Subscription";
-import { JsonApiResources } from "../../models/json-api/json-api-resoures";
-import { UserService } from "../../services/user.service";
-import { HttpClient, HttpParams } from "@angular/common/http";
-import { Post } from "../../models/post";
-import { Category } from "../../models/category";
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ISubscription } from 'rxjs/Subscription';
+import { JsonApiResources } from '../../models/json-api/json-api-resoures';
+import { UserService } from '../../services/user.service';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Post } from '../../models/post';
+import { Category } from '../../models/category';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
-import "rxjs/add/operator/skip";
-import { MetaService } from "../../meta.service";
-import { Title } from "@angular/platform-browser";
-import { environment } from "../../../environments/environment";
-import { NotificationsService } from "angular2-notifications";
+import 'rxjs/add/operator/skip';
+import { MetaService } from '../../meta.service';
+import { Title } from '@angular/platform-browser';
+import { environment } from '../../../environments/environment';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
     selector: 'blog-post-list',
@@ -232,5 +232,9 @@ export class PostListComponent implements OnInit, OnDestroy {
 
     public get category(): Category {
         return this._category;
+    }
+
+    public get page(): string {
+        return this._page;
     }
 }

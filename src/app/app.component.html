@@ -2,9 +2,13 @@
 
 <simple-notifications [options]="notificationOptions"></simple-notifications>
 
-<div class="page">
-    <router-outlet></router-outlet>
-</div>
+<div class="page container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <router-outlet></router-outlet>
+        </div>
 
-<!-- TODO create footer -->
-<blog-footer></blog-footer>
+        <!-- TODO create footer -->
+        <blog-footer class="col-12"></blog-footer>
+    </div>
+</div>

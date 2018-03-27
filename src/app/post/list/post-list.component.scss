@@ -79,3 +79,49 @@
         }
     }
 }
+
+.pagination {
+    font-size: 20px;
+}
+
+.page {
+
+    &-item {
+        display: flex;
+
+        &.active {
+            .page-link {
+                background-color: theme-color-level("primary", 3);
+                border: 1px solid #ddd;
+                color: theme-color("secondary");
+
+                &:hover {
+                    color: theme-color-level("secondary", 3);
+                }
+            }
+        }
+    }
+
+    &-link {
+        background-color: theme-color-level("primary", 3);
+        color: $white;
+        font-size: 1.75rem;
+        padding: 5px 25px;
+
+        @include media-breakpoint-up(md) {
+            font-size: 1rem;
+        }
+
+        i {
+            color: $white;
+        }
+
+        &:hover {
+            color: theme-color-level("secondary", 3);
+            i {
+                color: theme-color-level("secondary", 3);
+            }
+        }
+    }
+
+}
