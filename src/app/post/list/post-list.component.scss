@@ -100,6 +100,14 @@
                 }
             }
         }
+
+        &.disabled {
+            cursor: not-allowed !important;
+
+            .page-link {
+                background-color: $gray-700;
+            }
+        }
     }
 
     &-link {

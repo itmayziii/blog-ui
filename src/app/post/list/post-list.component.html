@@ -74,15 +74,15 @@
                 <nav class="col-12" aria-label="Page navigation">
                     <ul class="pagination justify-content-center">
 
-                        <li class="page-item">
-                            <button class="page-link">
+                        <li [class.disabled]="isFirstPage()" class="page-item">
+                            <button (click)="loadFirstPage()" class="page-link">
                                 <i class="fa fa-angle-double-left d-block d-md-none" aria-hidden="true"></i>
                                 <span class="d-none d-md-block">First Page</span>
                             </button>
                         </li>
 
-                        <li class="page-item">
-                            <button class="page-link">
+                        <li [class.disabled]="isFirstPage()" class="page-item">
+                            <button (click)="loadPreviousPage()" class="page-link">
                                 <i class="fa fa-angle-left d-block d-md-none" aria-hidden="true"></i>
                                 <span class="d-none d-md-block">Previous Page</span>
                             </button>
@@ -94,15 +94,15 @@
                             </button>
                         </li>
 
-                        <li class="page-item">
-                            <button class="page-link">
+                        <li [class.disabled]="isLastPage()" class="page-item">
+                            <button (click)="loadNextPage()" class="page-link">
                                 <i class="fa fa-angle-right d-block d-md-none" aria-hidden="true"></i>
                                 <span class="d-none d-md-block">Next Page</span>
                             </button>
                         </li>
 
-                        <li class="page-item">
-                            <button class="page-link">
+                        <li [class.disabled]="isLastPage()" class="page-item">
+                            <button (click)="loadLastPage()" class="page-link">
                                 <i class="fa fa-angle-double-right d-block d-md-none" aria-hidden="true"></i>
                                 <span class="d-none d-md-block">Last Page</span>
                             </button>

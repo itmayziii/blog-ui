@@ -68,18 +68,8 @@ export class PostListComponent implements OnInit, OnDestroy {
             return true;
         }
 
-        const queryStringPosition = this._firstPageUrl.indexOf('?');
-        if (!queryStringPosition) {
-            return true; // If the last page does not include a query string then we should just bail
-        }
-
-        const queryParamsString = this._firstPageUrl.substring(queryStringPosition + 1);
-        const queryParams = queryParamsString.split('&');
-
-        const pageQueryParam = queryParams.find(queryParam => queryParam.includes('page'));
-        const pageValue = pageQueryParam.substring(pageQueryParam.indexOf('=') + 1);
-
-        return (pageValue === this._page);
+        const queryParamPageValue = this.getQueryStringValue(this._firstPageUrl, 'page');
+        return (queryParamPageValue === this._page);
     }
 
     public isLastPage(): boolean {
@@ -87,18 +77,8 @@ export class PostListComponent implements OnInit, OnDestroy {
             return true;
         }
 
-        const queryStringPosition = this._lastPageUrl.indexOf('?');
-        if (!queryStringPosition) {
-            return true; // If the last page does not include a query string then we should just bail
-        }
-
-        const queryParamsString = this._lastPageUrl.substring(queryStringPosition + 1);
-        const queryParams = queryParamsString.split('&');
-
-        const pageQueryParam = queryParams.find(queryParam => queryParam.includes('page'));
-        const pageValue = pageQueryParam.substring(pageQueryParam.indexOf('=') + 1);
-
-        return (pageValue === this._page);
+        const queryParamPageValue = this.getQueryStringValue(this._lastPageUrl, 'page');
+        return (queryParamPageValue === this._page);
     }
 
     public trackPost(post: Post) {
@@ -107,8 +87,8 @@ export class PostListComponent implements OnInit, OnDestroy {
 
     public loadNextPage(): void {
         const queryParams = {
-            "page": (parseInt(this._page) + 1).toString(),
-            "size": this._size
+            'page': (parseInt(this._page) + 1).toString(),
+            'size': this._size
         };
 
         this.router.navigate(['/posts'], {
@@ -119,8 +99,8 @@ export class PostListComponent implements OnInit, OnDestroy {
 
     public loadPreviousPage(): void {
         const queryParams = {
-            "page": (parseInt(this._page) - 1).toString(),
-            "size": this._size
+            'page': (parseInt(this._page) - 1).toString(),
+            'size': this._size
         };
 
         this.router.navigate(['/posts'], {
@@ -129,31 +109,36 @@ export class PostListComponent implements OnInit, OnDestroy {
         });
     }
 
-    // public loadLastPage(): void {
-    //     const lastPage = this._lastPageUrl.searchParams.get('page');
-    //     const queryParams = {
-    //         "page": lastPage,
-    //         "size": this._size
-    //     };
-    //
-    //     this.router.navigate(['/posts'], {
-    //         queryParams: queryParams,
-    //         queryParamsHandling: 'merge'
-    //     });
-    // }
-    //
-    // public loadFirstPage(): void {
-    //     const firstPage = this._firstPageUrl.searchParams.get('page');
-    //     const queryParams = {
-    //         "page": firstPage,
-    //         "size": this._size
-    //     };
-    //
-    //     this.router.navigate(['/posts'], {
-    //         queryParams: queryParams,
-    //         queryParamsHandling: 'merge'
-    //     });
-    // }
+    public loadLastPage(): void {
+        if (!this._lastPageUrl) return;
+
+        const lastPage = this.getQueryStringValue(this._lastPageUrl, 'page');
+        const queryParams = {
+            'page': lastPage,
+            'size': this._size
+        };
+
+        this.router.navigate(['/posts'], {
+            queryParams: queryParams,
+            queryParamsHandling: 'merge'
+        });
+    }
+
+
+    public loadFirstPage(): void {
+        if (!this._firstPageUrl) return;
+
+        const firstPage = this.getQueryStringValue(this._firstPageUrl, 'page');
+        const queryParams = {
+            'page': firstPage,
+            'size': this._size
+        };
+
+        this.router.navigate(['/posts'], {
+            queryParams: queryParams,
+            queryParamsHandling: 'merge'
+        });
+    }
 
     private readRouteData(): void {
         this._posts = this.route.snapshot.data.posts.data;
@@ -220,6 +205,22 @@ export class PostListComponent implements OnInit, OnDestroy {
             {property: 'og:image:width', content: '1200px'},
             {property: 'og:image:height', content: '630px'}
         ]);
+    }
+
+    /**
+     * I would love to use URL but this is not available in node js so we must parse the query string ourselves
+     */
+    private getQueryStringValue(url: string, queryParamKey: string): string {
+        const queryStringPosition = url.indexOf('?');
+        if (!queryStringPosition) return; // If the url does not include a query string then we should just bail
+
+        const queryParamsString = url.substring(queryStringPosition + 1);
+        const queryParams = queryParamsString.split('&');
+
+        const queryParam = queryParams.find(queryParam => queryParam.includes(queryParamKey));
+        if (!queryParam) return;
+
+        return queryParam.substring(queryParam.indexOf('=') + 1);
     }
 
     public get posts(): Post[] {
