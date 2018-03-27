@@ -1,16 +1,12 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {ISubscription} from 'rxjs/Subscription';
-import {JsonApiResourceObject} from '../../models/json-api/json-api-resource-object';
-import {DomSanitizer, SafeHtml, Title} from '@angular/platform-browser';
-import {MarkdownService} from '../../services/markdown.service';
-import {Observable} from 'rxjs/Observable';
-import {HttpClient} from '@angular/common/http';
-import {UserService} from '../../services/user.service';
-import {NotificationsService} from 'angular2-notifications';
-import {Post} from '../../models/post';
-import {environment} from '../../../environments/environment';
-import {MetaService} from '../../meta.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { JsonApiResourceObject } from '../../models/json-api/json-api-resource-object';
+import { Title } from '@angular/platform-browser';
+import { UserService } from '../../services/user.service';
+import { NotificationsService } from 'angular2-notifications';
+import { Post } from '../../models/post';
+import { environment } from '../../../environments/environment';
+import { MetaService } from '../../meta.service';
 
 @Component({
     selector: 'blog-post-show',
@@ -45,12 +41,8 @@ import {MetaService} from '../../meta.service';
                 </div>
                 <h1 class="post-title d-block d-md-none text-center text-secondary col-11">{{post?.attributes?.title}}</h1>
                 <div class="post-content col-11">
-                    <div class="row" [innerHTML]="parsedPostContent"></div>
+                    <blog-post-content [parsedContent]="content"></blog-post-content>
                 </div>
-            </div>
-
-            <div *ngIf="content$" class="post-content col-11">
-                <div class="row" [innerHTML]="parsedPostContent"></div>
             </div>
         </div>
     `,
@@ -58,42 +50,21 @@ import {MetaService} from '../../meta.service';
 })
 export class PostShowComponent implements OnInit, OnDestroy {
     private _post: Post;
-    private _parsedPostContent: SafeHtml;
-    private _contentSubscription: ISubscription;
-    @Input() public content$: Observable<string>;
+    public content: string;
 
-    public constructor(private httpClient: HttpClient,
-                       private route: ActivatedRoute,
-                       private sanitizer: DomSanitizer,
-                       private markdownService: MarkdownService,
+    public constructor(private route: ActivatedRoute,
                        private notifications: NotificationsService,
-                       private router: Router,
                        private userService: UserService,
                        private title: Title,
                        private metaService: MetaService) {
     }
 
     public ngOnInit(): void {
-        if (this.content$) {
-            this._contentSubscription = this.content$.subscribe((content) => {
-                this.parseMarkdown(content);
-            });
-            return;
-        }
-
-        if (!this.route.snapshot.data.post) {
-            this.router.navigate(['/not-found']);
-            return;
-        }
         this.readRouteData();
         this.addMetadata();
     }
 
     public ngOnDestroy(): void {
-        if (this._contentSubscription) {
-            this._contentSubscription.unsubscribe();
-        }
-
         this.metaService.removeMeta();
     }
 
@@ -101,21 +72,15 @@ export class PostShowComponent implements OnInit, OnDestroy {
         return this.userService.isAdmin();
     }
 
-    private parseMarkdown(content) {
-        this.markdownService.parse(content, (err, result) => {
-            this._parsedPostContent = this.sanitizer.bypassSecurityTrustHtml(result);
-        });
-    }
-
     private readRouteData(): void {
         this._post = this.route.snapshot.data.post.data;
-        this._parsedPostContent = this.sanitizer.bypassSecurityTrustHtml(this.route.snapshot.data.post.parsedContent);
+        this.content = this.route.snapshot.data.post.parsedContent;
     }
 
     private addMetadata(): void {
         const title = `Post: ${this._post.attributes.title}`;
         const description = this._post.attributes.preview;
-        const url = `${environment.appUri}${this.router.url}`;
+        const url = `${environment.appUri}${this.route.url}`;
         const previewImage = this._post.attributes.imagePathMeta;
 
         this.title.setTitle(title + ' | Full Heap Developer');
@@ -133,9 +98,5 @@ export class PostShowComponent implements OnInit, OnDestroy {
 
     public get post(): JsonApiResourceObject {
         return this._post;
-    }
-
-    public get parsedPostContent(): SafeHtml {
-        return this._parsedPostContent;
     }
 }
