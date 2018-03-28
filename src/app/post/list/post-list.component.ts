@@ -198,6 +198,8 @@ export class PostListComponent implements OnInit, OnDestroy {
         this.metaService.setMeta([
             {name: 'url', content: urlWithQueryParams},
             {name: 'description', content: description},
+            {name: 'twitter:card', content: 'summary'},
+            {name: 'twitter:creator', content: '@itmayziii'},
             {property: 'og:title', content: title},
             {property: 'og:url', content: url},
             {property: 'og:description', content: description},

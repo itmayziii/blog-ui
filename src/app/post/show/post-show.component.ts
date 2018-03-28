@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { JsonApiResourceObject } from '../../models/json-api/json-api-resource-object';
 import { Title } from '@angular/platform-browser';
 import { UserService } from '../../services/user.service';
@@ -56,6 +56,7 @@ export class PostShowComponent implements OnInit, OnDestroy {
                        private notifications: NotificationsService,
                        private userService: UserService,
                        private title: Title,
+                       private router: Router,
                        private metaService: MetaService) {
     }
 
@@ -80,13 +81,15 @@ export class PostShowComponent implements OnInit, OnDestroy {
     private addMetadata(): void {
         const title = `Post: ${this._post.attributes.title}`;
         const description = this._post.attributes.preview;
-        const url = `${environment.appUri}${this.route.url}`;
+        const url = `${environment.appUri}${this.router.url}`;
         const previewImage = this._post.attributes.imagePathMeta;
 
         this.title.setTitle(title + ' | Full Heap Developer');
         this.metaService.setMeta([
             {name: 'url', content: url},
             {name: 'description', content: description},
+            {name: 'twitter:card', content: 'summary'},
+            {name: 'twitter:creator', content: '@itmayziii'},
             {property: 'og:title', content: title},
             {property: 'og:url', content: url},
             {property: 'og:description', content: description},
