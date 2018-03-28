@@ -1,8 +1,8 @@
-import { ElementRef, Injectable } from "@angular/core";
-import { Observable } from "rxjs/Observable";
-import { Observer } from "rxjs/Observer";
-import { UserService } from "../user.service";
-import { environment } from "../../../environments/environment";
+import { ElementRef, Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Observer } from 'rxjs/Observer';
+import { UserService } from '../user.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class FileUploadService {
@@ -19,7 +19,7 @@ export class FileUploadService {
         return Observable.create((observer: Observer<string>) => {
             const xhr = new XMLHttpRequest();
             xhr.open('POST', `${environment.apiUri}/${environment.apiVersion}/images`, true);
-            xhr.setRequestHeader('API-Token', this.userService.user.apiToken);
+            xhr.withCredentials = true;
             xhr.send(formData);
 
             xhr.onreadystatechange = () => {
@@ -39,7 +39,7 @@ export class FileUploadService {
         });
     }
 
-    private addAppendFilesToFormData(files: FileList, formData: FormData) {
+    private addAppendFilesToFormData(files: FileList, formData: FormData): void {
         for (let i = 0, numberOfFiles = files.length; i < numberOfFiles; i++) {
             formData.append(files[i].name, files[i]);
         }
