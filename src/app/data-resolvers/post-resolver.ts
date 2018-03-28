@@ -51,6 +51,7 @@ export class PostResolver implements Resolve<Observable<PostResolverData>> {
 
     private handleError() {
         return catchError((error: any) => {
+            console.log('PostResolver: Could not resolve post with error ', error);
             this.router.navigate(['/not-found']);
             return Observable.of(null);
         });
