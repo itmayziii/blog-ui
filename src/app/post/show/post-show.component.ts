@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JsonApiResourceObject } from '../../models/json-api/json-api-resource-object';
 import { Title } from '@angular/platform-browser';
@@ -7,62 +7,40 @@ import { NotificationsService } from 'angular2-notifications';
 import { Post } from '../../models/post';
 import { environment } from '../../../environments/environment';
 import { MetaService } from '../../meta.service';
+import { isPlatformBrowser } from '@angular/common';
+
+declare var $: any;
 
 @Component({
     selector: 'blog-post-show',
-    template: `
-        <div class="container-fluid post">
-            <div class="row justify-content-center align-items-center" *ngIf="post">
-                <div class="col-12">
-                    <div class="row justify-content-center">
-                        <div *ngIf="isAdmin()" class="col-11">
-                            <div class="post-actions row justify-content-center justify-content-md-end">
-                                <button class="btn btn-secondary btn-sm post-actions-item" routerLink="/posts/create">Create New Post
-                                </button>
-                                <button *ngIf="post" class="btn btn-secondary btn-sm post-actions-item"
-                                        routerLink="/posts/update/{{ post.attributes.slug }}">Update Post
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12 post-hero d-block d-md-none" [style.background-image]="'url(' + post.attributes.imagePathSm + ')'"></div>
-                <div class="col-12 post-hero d-none d-md-block d-lg-none"
-                     [style.background-image]="'url(' + post.attributes.imagePathMd + ')'">
-                    <div class="row align-items-center h-100">
-                        <h1 class="col-5 offset-1 post-title text-secondary">{{post?.attributes?.title}}</h1>
-                    </div>
-                </div>
-                <div class="col-12 post-hero d-none d-lg-block" [style.background-image]="'url(' + post.attributes.imagePathLg + ')'">
-                    <div class="row align-items-center h-100">
-                        <h1 class="col-5 offset-1 post-title text-secondary">{{post?.attributes?.title}}</h1>
-                    </div>
-                </div>
-                <h1 class="post-title d-block d-md-none text-center text-secondary col-11">{{post?.attributes?.title}}</h1>
-                <div class="post-content col-11">
-                    <blog-post-content [parsedContent]="content"></blog-post-content>
-                </div>
-            </div>
-        </div>
-    `,
+    templateUrl: './post-show.component.html',
     styleUrls: ['./post-show.component.scss']
 })
-export class PostShowComponent implements OnInit, OnDestroy {
+export class PostShowComponent implements OnInit, OnDestroy, AfterViewInit {
     private _post: Post;
+    @ViewChild('postTitleMedium') private postTitleMediumElRef: ElementRef;
+    @ViewChild('postTitleLarge') private postTitleLargeElRef: ElementRef;
     public content: string;
+    public test: boolean = true;
 
     public constructor(private route: ActivatedRoute,
                        private notifications: NotificationsService,
                        private userService: UserService,
                        private title: Title,
                        private router: Router,
-                       private metaService: MetaService) {
+                       private metaService: MetaService,
+                       @Inject(PLATFORM_ID) private platformId: Object) {
     }
 
     public ngOnInit(): void {
         this.readRouteData();
         this.addMetadata();
+
+        this.initializePopovers();
+    }
+
+    public ngAfterViewInit(): void {
+        this.observeIfTitleIsInView();
     }
 
     public ngOnDestroy(): void {
@@ -97,6 +75,39 @@ export class PostShowComponent implements OnInit, OnDestroy {
             {property: 'og:image:width', content: '1200px'},
             {property: 'og:image:height', content: '630px'}
         ]);
+    }
+
+    private initializePopovers() {
+        if (isPlatformBrowser(this.platformId)) {
+            const popperContent = document.createElement('div');
+            popperContent.innerHTML = `
+                <i class="fa fa-facebook-square facebook-icon" aria-hidden="true"></i>
+                <i class="fa fa-twitter-square twitter-icon" aria-hidden="true"></i>
+            `;
+
+            $('[data-post-share]').popover({
+                content: popperContent,
+                html: true
+            });
+        }
+    }
+
+    private observeIfTitleIsInView() {
+        const observerOptions = {
+            threshold: [0]
+        };
+
+        const windowObserver = new IntersectionObserver((entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
+            if (entries[0].isIntersecting || entries[0].boundingClientRect.top === 0) {
+                this.test = true;
+                return;
+            }
+
+            this.test = false;
+        }, observerOptions);
+
+        windowObserver.observe(this.postTitleLargeElRef.nativeElement);
+        windowObserver.observe(this.postTitleMediumElRef.nativeElement);
     }
 
     public get post(): JsonApiResourceObject {

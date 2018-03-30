@@ -35,4 +35,25 @@
             margin: 0 5px;
         }
     }
+
+    &-share {
+        &--desktop {
+            font-size: 2.2rem;
+            margin-top: 20px;
+        }
+
+        &-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            text-align: right;
+        }
+
+        &--mobile {
+            bottom: 20px;
+            position: fixed;
+            left: 30px;
+            z-index: $zindex-popover;
+        }
+    }
 }

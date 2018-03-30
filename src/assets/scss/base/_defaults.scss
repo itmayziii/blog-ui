@@ -4,9 +4,10 @@ html, body {
     font-size: $font-size-base;
     height: 100%;
     min-height: 100%;
+    overflow-x: hidden;
     overflow-y: scroll; /* has to be scroll, not auto */
     -webkit-overflow-scrolling: touch;
-    width: 100vw;
+    width: 100%;
 }
 
 pre code {
