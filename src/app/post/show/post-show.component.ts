@@ -10,6 +10,7 @@ import { MetaService } from '../../meta.service';
 import { isPlatformBrowser } from '@angular/common';
 
 declare var $: any;
+declare var FB: any;
 
 @Component({
     selector: 'blog-post-show',
@@ -22,6 +23,10 @@ export class PostShowComponent implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild('postTitleLarge') private postTitleLargeElRef: ElementRef;
     public content: string;
     public test: boolean = true;
+    public encodedComponents = {
+        url: null,
+        title: null
+    };
 
     public constructor(private route: ActivatedRoute,
                        private notifications: NotificationsService,
@@ -34,6 +39,7 @@ export class PostShowComponent implements OnInit, OnDestroy, AfterViewInit {
 
     public ngOnInit(): void {
         this.readRouteData();
+        this.prepareEncodedComponents();
         this.addMetadata();
 
         this.initializePopovers();
@@ -45,6 +51,19 @@ export class PostShowComponent implements OnInit, OnDestroy, AfterViewInit {
 
     public ngOnDestroy(): void {
         this.metaService.removeMeta();
+    }
+
+    public facebookSharePost(): void {
+        if (!FB) {
+            console.error('PostShowComponent: facebook has not been initialied to share the post');
+            return;
+        }
+
+        FB.ui({
+            method: 'share',
+            href: this.encodedComponents.url,
+        }, function (response) {
+        });
     }
 
     public isAdmin(): boolean {
@@ -77,22 +96,24 @@ export class PostShowComponent implements OnInit, OnDestroy, AfterViewInit {
         ]);
     }
 
-    private initializePopovers() {
-        if (isPlatformBrowser(this.platformId)) {
-            const popperContent = document.createElement('div');
-            popperContent.innerHTML = `
+    private initializePopovers(): void {
+        if (!isPlatformBrowser(this.platformId)) {
+            return;
+        }
+
+        const popperContent = document.createElement('div');
+        popperContent.innerHTML = `
                 <i class="fa fa-facebook-square facebook-icon" aria-hidden="true"></i>
                 <i class="fa fa-twitter-square twitter-icon" aria-hidden="true"></i>
             `;
 
-            $('[data-post-share]').popover({
-                content: popperContent,
-                html: true
-            });
-        }
+        $('[data-post-share]').popover({
+            content: popperContent,
+            html: true
+        });
     }
 
-    private observeIfTitleIsInView() {
+    private observeIfTitleIsInView(): void {
         const observerOptions = {
             threshold: [0]
         };
@@ -108,6 +129,11 @@ export class PostShowComponent implements OnInit, OnDestroy, AfterViewInit {
 
         windowObserver.observe(this.postTitleLargeElRef.nativeElement);
         windowObserver.observe(this.postTitleMediumElRef.nativeElement);
+    }
+
+    private prepareEncodedComponents() {
+        this.encodedComponents.url = encodeURI(`${environment.appUri}${this.router.url}`);
+        this.encodedComponents.title = encodeURIComponent(this._post.attributes.title);
     }
 
     public get post(): JsonApiResourceObject {

@@ -47,6 +47,19 @@
             margin: 0;
             padding: 0;
             text-align: right;
+
+            &-link {
+                i {
+                    transition: all .2s ease-in-out;
+                }
+
+                &:hover {
+                    i {
+                        color: $white;
+                        transform: scale(1.2);
+                    }
+                }
+            }
         }
 
         &--mobile {
