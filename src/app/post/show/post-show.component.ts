@@ -111,6 +111,7 @@ export class PostShowComponent implements OnInit, OnDestroy, AfterViewInit {
 
     private observeIfTitleIsInView(): void {
         if (!isPlatformBrowser(this.platformId) || !('IntersectionObserver' in this.windowRef.nativeWindow)) {
+            this.shouldHideSocialIcons = false;
             return;
         }
 
