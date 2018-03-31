@@ -8,6 +8,7 @@ import { Post } from '../../models/post';
 import { environment } from '../../../environments/environment';
 import { MetaService } from '../../meta.service';
 import { isPlatformBrowser } from '@angular/common';
+import { WindowRef } from '../../globals/window-ref';
 
 declare var $: any;
 declare var FB: any;
@@ -35,6 +36,7 @@ export class PostShowComponent implements OnInit, OnDestroy, AfterViewInit {
                        private title: Title,
                        private router: Router,
                        private metaService: MetaService,
+                       private windowRef: WindowRef,
                        @Inject(PLATFORM_ID) private platformId: Object) {
     }
 
@@ -108,10 +110,13 @@ export class PostShowComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     private observeIfTitleIsInView(): void {
+        if (!isPlatformBrowser(this.platformId) || !('IntersectionObserver' in this.windowRef.nativeWindow)) {
+            return;
+        }
+
         const observerOptions = {
             threshold: [0]
         };
-
         const windowObserver = new IntersectionObserver((entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
             if (entries[0].isIntersecting || entries[0].boundingClientRect.top === 0) {
                 this.shouldHideSocialIcons = true;
