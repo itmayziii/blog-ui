@@ -13,13 +13,14 @@
 }
 
 .navbar {
+    min-height: 55px;
+
     &-brand {
         align-items: center;
         display: flex;
-        font-size: 2rem;
+        font-size: 1.5rem;
         justify-content: center;
-        min-height: 69px;
-        min-width: 78.08px;
+        min-width: 60px;
     }
 
     .nav {

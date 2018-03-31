@@ -46,6 +46,9 @@
             list-style: none;
             margin: 0;
             padding: 0;
+            position: fixed;
+            top: 50%;
+            left: 4%;
             text-align: right;
 
             &-link {
@@ -55,7 +58,7 @@
 
                 &:hover {
                     i {
-                        color: $white;
+                        color: $info;
                         transform: scale(1.2);
                     }
                 }

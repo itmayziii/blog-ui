@@ -1,8 +1,8 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {NavLink} from '../models/nav-link';
-import {UserService} from '../services/user.service';
-import {LoadingService} from '../services/loading.service';
-import {ISubscription} from 'rxjs/Subscription';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { NavLink } from '../models/nav-link';
+import { UserService } from '../services/user.service';
+import { LoadingService } from '../services/loading.service';
+import { ISubscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'blog-header',
@@ -10,7 +10,7 @@ import {ISubscription} from 'rxjs/Subscription';
         <header class="header sticky-top">
             <nav class="navbar navbar-expand-md navbar-light py-0">
 
-                <span *ngIf="isAppLoading" class="navbar-brand"><blog-loader size="1.5rem"></blog-loader></span>
+                <span *ngIf="isAppLoading" class="navbar-brand"><blog-loader size="1.2rem"></blog-loader></span>
                 <a *ngIf="!isAppLoading" class="navbar-brand text-success" routerLink="/">FHD</a>
 
                 <button class="navbar-toggler navbar-toggler-right" type="button" (click)="toggleNavigationMenu()">

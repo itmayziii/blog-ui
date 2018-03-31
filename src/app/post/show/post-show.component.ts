@@ -21,8 +21,9 @@ export class PostShowComponent implements OnInit, OnDestroy, AfterViewInit {
     private _post: Post;
     @ViewChild('postTitleMedium') private postTitleMediumElRef: ElementRef;
     @ViewChild('postTitleLarge') private postTitleLargeElRef: ElementRef;
+    @ViewChild('shareButtons') private shareButtons: ElementRef;
     public content: string;
-    public test: boolean = true;
+    public shouldHideSocialIcons: boolean = true;
     public encodedComponents = {
         url: null,
         title: null
@@ -41,12 +42,11 @@ export class PostShowComponent implements OnInit, OnDestroy, AfterViewInit {
         this.readRouteData();
         this.prepareEncodedComponents();
         this.addMetadata();
-
-        this.initializePopovers();
     }
 
     public ngAfterViewInit(): void {
         this.observeIfTitleIsInView();
+        this.initializePopovers();
     }
 
     public ngOnDestroy(): void {
@@ -101,14 +101,8 @@ export class PostShowComponent implements OnInit, OnDestroy, AfterViewInit {
             return;
         }
 
-        const popperContent = document.createElement('div');
-        popperContent.innerHTML = `
-                <i class="fa fa-facebook-square facebook-icon" aria-hidden="true"></i>
-                <i class="fa fa-twitter-square twitter-icon" aria-hidden="true"></i>
-            `;
-
         $('[data-post-share]').popover({
-            content: popperContent,
+            content: this.shareButtons.nativeElement,
             html: true
         });
     }
@@ -120,11 +114,11 @@ export class PostShowComponent implements OnInit, OnDestroy, AfterViewInit {
 
         const windowObserver = new IntersectionObserver((entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
             if (entries[0].isIntersecting || entries[0].boundingClientRect.top === 0) {
-                this.test = true;
+                this.shouldHideSocialIcons = true;
                 return;
             }
 
-            this.test = false;
+            this.shouldHideSocialIcons = false;
         }, observerOptions);
 
         windowObserver.observe(this.postTitleLargeElRef.nativeElement);
