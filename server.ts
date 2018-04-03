@@ -43,7 +43,7 @@ app.set('views', join(DIST_FOLDER, 'browser'));
 
 // Server static files from /browser
 app.get('*.*', express.static(join(DIST_FOLDER, 'browser'), {
-    maxAge: '1m'
+    maxAge: '30d'
 }));
 
 // ALl regular routes use the Universal engine

@@ -42,7 +42,8 @@
                             <div class="row justify-content-center">
                                 <div class="post-list-item-card card text-white bg-dark col-11">
                                     <div class="post-list-item-card-image-container">
-                                        <img class="card-img post-list-item-card-image" src="{{ post.attributes.imagePathSm }}" alt="Card image">
+                                        <span class="card-img post-list-item-card-image"
+                                              [style.background-image]="'url(' + post.attributes.imagePathSm + ')'"></span>
                                         <div *ngIf="post.attributes.status === 'draft'" class="post-list-item-card-image-overlay text-light">Draft</div>
                                     </div>
                                     <div class="card-img-overlay">
