@@ -42,6 +42,7 @@ import { MetaService } from './meta.service';
 import { PostResolver } from './data-resolvers/post-resolver';
 import { LoadingService } from './services/loading.service';
 import { PostContentComponent } from './post/content/post-content.component';
+import { PageShowComponent } from './page/show/page-show.component';
 
 @NgModule({
     declarations: [
@@ -61,7 +62,8 @@ import { PostContentComponent } from './post/content/post-content.component';
         SlugifyDirective,
         FileUploadComponent,
         LoaderComponent,
-        PostContentComponent
+        PostContentComponent,
+        PageShowComponent
     ],
     imports: [
         BrowserModule.withServerTransition({appId: 'blog'}),
