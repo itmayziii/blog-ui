@@ -5,8 +5,7 @@
             <div class="row">
                 <div *ngIf="isAdmin()" class="col-11">
                     <div class="post-actions row justify-content-center justify-content-md-end">
-                        <button class="btn btn-secondary btn-sm post-actions-item" routerLink="/posts/create">Create New Post
-                        </button>
+                        <button class="btn btn-secondary btn-sm post-actions-item" routerLink="/posts/create">Create New Post</button>
                         <button *ngIf="post" class="btn btn-secondary btn-sm post-actions-item"
                                 routerLink="/posts/update/{{ post.attributes.slug }}">Update Post
                         </button>
@@ -47,7 +46,7 @@
                     </ul>
                 </div>
                 <div class="post-content col-12 col-md-11">
-                    <blog-post-content [parsedContent]="content"></blog-post-content>
+                    <blog-markdown-content [parsedContent]="content"></blog-markdown-content>
                 </div>
             </div>
         </div>

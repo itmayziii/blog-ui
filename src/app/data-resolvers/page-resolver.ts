@@ -2,29 +2,29 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
-import { Post } from '../models/post';
 import { catchError, flatMap } from 'rxjs/operators';
 import 'rxjs/add/observable/empty';
 import { JsonApiResource } from '../models/json-api/json-api-resource';
 import { MarkdownService } from '../services/markdown.service';
 import { Observer } from 'rxjs/Observer';
 import 'rxjs/add/observable/merge';
+import { Page } from '../models/page';
 
-interface PostResolverData {
-    data: Post,
+interface PageResolverData {
+    data: Page,
     parsedContent: string
 }
 
 @Injectable()
-export class PostResolver implements Resolve<Observable<PostResolverData>> {
+export class PageResolver implements Resolve<Observable<PageResolverData>> {
     public constructor(private httpClient: HttpClient, private markdownService: MarkdownService, private router: Router) {
     }
 
     public resolve(routeSnapshot: ActivatedRouteSnapshot, routerStateSnapshot: RouterStateSnapshot) {
-        const postSlug = routeSnapshot.paramMap.get('slug');
-        return this.httpClient.get(`posts/${postSlug}`)
+        const pageSlug = routeSnapshot.paramMap.get('pageSlug');
+        return this.httpClient.get(`pages/${pageSlug}`)
             .pipe(
-                flatMap((response: JsonApiResource<Post>) => {
+                flatMap((response: JsonApiResource<Page>) => {
                     return this.parseContent(response.data.attributes.content)
                         .pipe(
                             flatMap((parsedContent: string) => {
@@ -50,7 +50,7 @@ export class PostResolver implements Resolve<Observable<PostResolverData>> {
 
     private handleError() {
         return catchError((error: any) => {
-            console.log('PostResolver: Could not resolve post with error ', error);
+            console.log('PageResolver: Could not resolve page with error ', error);
             this.router.navigate(['/not-found']);
             return Observable.of(null);
         });

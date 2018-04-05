@@ -1,0 +1,10 @@
+@import "../../../assets/scss/base/variables";
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins/breakpoints";
+
+.page-title {
+    color: theme-color("secondary");
+    display: block;
+    text-align: center;
+}

@@ -13,14 +13,21 @@
 }
 
 .navbar {
-    min-height: 55px;
+    height: 55px;
 
     &-brand {
         align-items: center;
+        border: 1px solid theme-color-level("secondary", 3);
         display: flex;
         font-size: 1.5rem;
         justify-content: center;
-        min-width: 60px;
+        margin: 0.3125rem 5px;
+        padding: 0 10px;
+        min-width: 77.94px;
+
+        &--loading {
+            border: none;
+        }
     }
 
     .nav {

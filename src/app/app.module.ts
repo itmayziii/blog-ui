@@ -41,7 +41,9 @@ import { CategoriesResolver } from './data-resolvers/categories-resolver';
 import { MetaService } from './meta.service';
 import { PostResolver } from './data-resolvers/post-resolver';
 import { LoadingService } from './services/loading.service';
-import { PostContentComponent } from './post/content/post-content.component';
+import { PageShowComponent } from './page/show/page-show.component';
+import { PageResolver } from './data-resolvers/page-resolver';
+import { MarkdownContentComponent } from './markdown-content/markdown-content.component';
 
 @NgModule({
     declarations: [
@@ -61,7 +63,8 @@ import { PostContentComponent } from './post/content/post-content.component';
         SlugifyDirective,
         FileUploadComponent,
         LoaderComponent,
-        PostContentComponent
+        MarkdownContentComponent,
+        PageShowComponent
     ],
     imports: [
         BrowserModule.withServerTransition({appId: 'blog'}),
@@ -85,6 +88,7 @@ import { PostContentComponent } from './post/content/post-content.component';
         GoogleAnalyticsService,
         PostsResolver,
         CategoriesResolver,
+        PageResolver,
         PostResolver,
         HighlightService,
         LoadingService,
