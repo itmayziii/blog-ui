@@ -1,17 +1,17 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { ISubscription } from 'rxjs/Subscription';
-import { MarkdownService } from '../../services/markdown.service';
+import { MarkdownService } from '../services/markdown.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
-    selector: 'blog-post-content',
+    selector: 'blog-markdown-content',
     template: `
-        <div class="post-content" [innerHTML]="content"></div>
+        <div class="markdown-content" [innerHTML]="content"></div>
     `,
-    styleUrls: ['./post-content.component.scss']
+    styleUrls: ['./markdown-content.component.scss']
 })
-export class PostContentComponent implements OnInit, OnDestroy {
+export class MarkdownContentComponent implements OnInit, OnDestroy {
     @Input() public content$: Observable<string>;
     @Input() public parsedContent: string;
     private _contentSubscription: ISubscription;

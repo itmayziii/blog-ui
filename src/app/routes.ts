@@ -14,6 +14,7 @@ import { PostsResolver } from './data-resolvers/posts-resolver';
 import { CategoriesResolver } from './data-resolvers/categories-resolver';
 import { PostResolver } from './data-resolvers/post-resolver';
 import { PageShowComponent } from './page/show/page-show.component';
+import { PageResolver } from './data-resolvers/page-resolver';
 
 export const routes: Routes = [
     {
@@ -167,7 +168,10 @@ export const routes: Routes = [
         children: [
             {
                 path: ':pageSlug',
-                component: PageShowComponent
+                component: PageShowComponent,
+                resolve: {
+                    page: PageResolver
+                }
             }
         ]
     },

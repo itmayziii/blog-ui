@@ -22,7 +22,6 @@ export class PostResolver implements Resolve<Observable<PostResolverData>> {
 
     public resolve(routeSnapshot: ActivatedRouteSnapshot, routerStateSnapshot: RouterStateSnapshot) {
         const postSlug = routeSnapshot.paramMap.get('slug');
-
         return this.httpClient.get(`posts/${postSlug}`)
             .pipe(
                 flatMap((response: JsonApiResource<Post>) => {
