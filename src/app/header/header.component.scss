@@ -33,9 +33,10 @@
     .nav {
 
         &-item {
-            text-align: center;
-            letter-spacing: 3px;
+            background-color: theme-color("primary");
             font-size: 1.2rem;
+            letter-spacing: 3px;
+            text-align: center;
 
             @include media-breakpoint-up(md) {
                 font-size: 1.1rem;
