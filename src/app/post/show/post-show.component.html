@@ -7,14 +7,14 @@
                     <div class="post-actions row justify-content-center justify-content-md-end">
                         <button class="btn btn-secondary btn-sm post-actions-item" routerLink="/posts/create">Create New Post</button>
                         <button *ngIf="post" class="btn btn-secondary btn-sm post-actions-item"
-                                routerLink="/posts/update/{{ post.attributes.slug }}">Update Post
+                                routerLink="/posts/update/{{ post?.attributes?.slug }}">Update Post
                         </button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-12 post-hero d-block d-md-none" [style.background-image]="'url(' + post.attributes.imagePathSm + ')'"></div>
+        <div class="col-12 post-hero d-block d-md-none" [style.background-image]="'url(' + post?.attributes?.imagePathSm + ')'"></div>
         <h1 class="post-title d-block d-md-none text-left text-sm-center text-secondary col-11">{{post?.attributes?.title}}</h1>
 
         <div class="col-12 post-hero d-none d-md-block d-lg-none"
@@ -24,12 +24,11 @@
             </div>
         </div>
 
-        <div class="col-12 post-hero d-none d-lg-block" [style.background-image]="'url(' + post.attributes.imagePathLg + ')'">
+        <div class="col-12 post-hero d-none d-lg-block" [style.background-image]="'url(' + post?.attributes?.imagePathLg + ')'">
             <div class="row align-items-center h-100">
-                <h1 #postTitleLarge class="col-6 offset-1 offset-xl-2 post-title text-secondary">{{post?.attributes?.title}}</h1>
+                <h1 #postTitleLarge class="col-6 offset-1 post-title text-secondary">{{post?.attributes?.title}}</h1>
             </div>
         </div>
-
 
         <div class="col-12">
             <div class="row">
@@ -40,7 +39,7 @@
                         </li>
                         <li>
                             <a class="post-share-list-link" target="_blank"
-                               href="https://twitter.com/intent/tweet?text={{ encodedComponents.title }}&url={{ encodedComponents.url }}&hashtags=fullheapdeveloper">
+                               href="https://twitter.com/intent/tweet?text={{ encodedComponents?.title }}&url={{ encodedComponents?.url }}&hashtags=fullheapdeveloper">
                                 <i class="fa fa-twitter-square twitter-icon" aria-hidden="true"></i></a>
                         </li>
                     </ul>
@@ -54,7 +53,7 @@
         <div #shareButtons>
             <a (click)="facebookSharePost()" class="post-share-list-link"><i class="fa fa-facebook-square facebook-icon" aria-hidden="true"></i></a>
             <a class="post-share-list-link" target="_blank"
-               href="https://twitter.com/intent/tweet?text={{ encodedComponents.title }}&url={{ encodedComponents.url }}&hashtags=fullheapdeveloper">
+               href="https://twitter.com/intent/tweet?text={{ encodedComponents?.title }}&url={{ encodedComponents?.url }}&hashtags=fullheapdeveloper">
                 <i class="fa fa-twitter-square twitter-icon" aria-hidden="true"></i></a>
         </div>
 
