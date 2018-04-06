@@ -1,8 +1,11 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnDestroy, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { NavLink } from '../models/nav-link';
 import { UserService } from '../services/user.service';
 import { LoadingService } from '../services/loading.service';
 import { ISubscription } from 'rxjs/Subscription';
+import { isPlatformBrowser } from '@angular/common';
+
+declare var $: any;
 
 @Component({
     selector: 'blog-header',
@@ -22,6 +25,7 @@ import { ISubscription } from 'rxjs/Subscription';
                 <ul class="navbar-nav mr-auto">
                     <li *ngFor="let leftLink of leftLinks" class="nav-item">
                         <a routerLink="{{ leftLink.path }}"
+                           (click)="closeNavbar()"
                            routerLinkActive="active"
                            class="nav-link"
                            *ngIf="leftLink.condition()"
@@ -32,6 +36,7 @@ import { ISubscription } from 'rxjs/Subscription';
                 <ul class="navbar-nav ml-auto">
                     <li *ngFor="let rightLink of rightLinks" class="nav-item">
                         <a routerLink="{{ rightLink.path }}"
+                           (click)="closeNavbar()"
                            routerLinkActive="active"
                            class="nav-link"
                            *ngIf="rightLink.condition()"
@@ -77,7 +82,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         {title: 'Logout', path: '/users/logout', condition: () => this.userService.isLoggedIn()}
     ];
 
-    public constructor(private userService: UserService, private loadingService: LoadingService) {
+    public constructor(private userService: UserService, private loadingService: LoadingService, @Inject(PLATFORM_ID) private platformId: Object) {
     }
 
     public ngOnInit(): void {
@@ -100,6 +105,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
         this.navbarToggler.nativeElement.classList.remove('fa-times');
         this.navbarToggler.nativeElement.classList.add('fa-bars');
+    }
+
+    public closeNavbar() {
+        if (!isPlatformBrowser(this.platformId)) {
+            return;
+        }
+        this.swapTogglerIcon();
+
+        $('.navbar-collapse').collapse('hide');
     }
 
     private listenToAppLoading() {
