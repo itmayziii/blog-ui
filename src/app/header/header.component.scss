@@ -4,25 +4,30 @@
 @import "~bootstrap/scss/mixins/breakpoints";
 
 .header {
-    background-color: theme-color-level("primary", 3);
-    border-bottom: 1px solid theme-color("info");
-    position: fixed;
-    top: 0;
     width: 100vw;
-    z-index: 1020;
 }
 
 .navbar {
+    background-color: theme-color-level("primary", 3);
+    border-bottom: 1px solid theme-color("info");
     height: 55px;
+    z-index: $zindex-sticky;
+
+    &-toggler-hamburger {
+        color: $white;
+    }
+
+    &-collapse {
+        background-color: theme-color-level("primary", 3);
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
 
     &-brand {
-        align-items: center;
         border: 1px solid theme-color-level("secondary", 3);
-        display: flex;
         font-size: 1.5rem;
-        justify-content: center;
-        margin: 0.3125rem 5px;
         padding: 0 10px;
+        text-align: center;
         min-width: 77.94px;
 
         &--loading {
@@ -31,18 +36,6 @@
     }
 
     .nav {
-
-        &-item {
-            background-color: theme-color("primary");
-            font-size: 1.2rem;
-            letter-spacing: 3px;
-            text-align: center;
-
-            @include media-breakpoint-up(md) {
-                font-size: 1.1rem;
-            }
-        }
-
         &-link {
             border-top: solid 1px theme-color("secondary");
 
@@ -51,5 +44,4 @@
             }
         }
     }
-
 }
