@@ -27,6 +27,12 @@
         border: 1px solid theme-color-level("secondary", 3);
         font-size: 1.5rem;
         padding: 0 10px;
+        text-align: center;
+        min-width: 77.94px;
+
+        &--loading {
+            border: none;
+        }
     }
 
     .nav {
