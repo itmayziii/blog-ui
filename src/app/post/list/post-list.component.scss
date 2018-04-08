@@ -52,9 +52,10 @@
                 }
 
                 &-timestamp {
-                    position: absolute;
                     bottom: 8px;
-                    left: 16px;
+                    font-size: .9rem;
+                    left: 10px;
+                    position: absolute;
                 }
             }
         }
