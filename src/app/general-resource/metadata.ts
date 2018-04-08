@@ -7,5 +7,14 @@ export const metadata = {
                 attributeName: "name"
             }
         ]
+    },
+    pages: {
+        id: 'slug',
+        listViewColumns: [
+            {
+                displayName: 'Title',
+                attributeName: 'title'
+            }
+        ]
     }
 };

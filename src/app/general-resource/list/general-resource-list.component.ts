@@ -32,7 +32,6 @@ export class GeneralResourceListComponent implements OnInit {
     }
 
     public deleteResource() {
-        console.log('this._toDelete ', this._toDelete);
         this.httpClient.delete(`${this.resourceType}/${this._toDelete}`).subscribe(
             (resources) => {
             },
