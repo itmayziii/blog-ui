@@ -44,7 +44,8 @@
                                     <div class="post-list-item-card-image-container">
                                         <span class="card-img post-list-item-card-image"
                                               [style.background-image]="'url(' + post.attributes.imagePathSm + ')'"></span>
-                                        <div *ngIf="post.attributes.status === 'draft'" class="post-list-item-card-image-overlay text-light">Draft</div>
+                                        <div class="post-list-item-card-image-timestamp text-light">{{ formatDateToLocale(post.attributes.updatedAt) }}</div>
+                                        <div *ngIf="post.attributes.status === 'draft'" class="post-list-item-card-image-status text-light">Draft</div>
                                     </div>
                                     <div class="card-img-overlay">
                                         <h5 class="card-title">{{ post.attributes.title }}</h5>
