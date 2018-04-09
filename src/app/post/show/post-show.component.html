@@ -17,21 +17,32 @@
         <div class="col-12 post-hero d-block d-md-none" [style.background-image]="'url(' + post?.attributes?.imagePathSm + ')'"></div>
         <h1 class="post-title d-block d-md-none text-left text-sm-center text-secondary col-11">{{post?.attributes?.title}}</h1>
 
-        <div class="col-12 post-hero d-none d-md-block d-lg-none"
-             [style.background-image]="'url(' + post.attributes.imagePathMd + ')'">
+        <div class="col-12 post-hero d-none d-md-block d-lg-none" [style.background-image]="'url(' + post.attributes.imagePathMd + ')'">
             <div class="row align-items-center h-100">
                 <h1 #postTitleMedium class="col-6 offset-1 post-title text-secondary">{{post?.attributes?.title}}</h1>
+                <div class="text-info">Updated: {{ post.attributes.updatedAt }}</div>
             </div>
         </div>
 
         <div class="col-12 post-hero d-none d-lg-block" [style.background-image]="'url(' + post?.attributes?.imagePathLg + ')'">
             <div class="row align-items-center h-100">
-                <h1 #postTitleLarge class="col-6 offset-1 post-title text-secondary">{{post?.attributes?.title}}</h1>
+                <h1 #postTitleLarge class="col-6 offset-1 col-xl-4 offset-xl-2 post-title text-secondary">{{post?.attributes?.title}}</h1>
+            </div>
+        </div>
+
+        <div class="col-12 text-info">
+            <div class="row justify-content-between">
+                <span class="post-info">Written By: Tommy May</span>
+
+                <span class="post-info">
+                    <span class="post-info-timestamp">Created: {{ formatDateToLocale(post.attributes.createdAt) }}</span>
+                    <span class="post-info-timestamp">Updated: {{ formatDateToLocale(post.attributes.updatedAt) }}</span>
+                </span>
             </div>
         </div>
 
         <div class="col-12">
-            <div class="row">
+            <div class="row justify-content-center">
                 <div class="post-share--desktop d-none d-md-block col-1">
                     <ul class="post-share-list" [class.d-none]="shouldHideSocialIcons">
                         <li>
@@ -44,7 +55,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="post-content col-12 col-md-11">
+                <div class="col-12 col-md-11 post-content">
                     <blog-markdown-content [parsedContent]="content"></blog-markdown-content>
                 </div>
             </div>
@@ -64,6 +75,5 @@
             data-placement="top">
         Share
     </button>
-
 
 </div>

@@ -51,29 +51,24 @@ declare var $: any;
 export class HeaderComponent implements OnInit, OnDestroy {
     @ViewChild('navbarToggler') public navbarToggler: ElementRef;
 
-    public isNavigationCollapsed: boolean = true;
     public isAppLoading: boolean = false;
     private isAppLoadingSubscription: ISubscription;
     public leftLinks: Array<NavLink> = [
         {
-            title: 'Posts', path: '/posts', condition: () => {
-                return true
-            }
+            title: 'Posts', path: '/posts', condition: () => true
         },
         {
-            title: 'Contact', path: '/contacts/create', condition: () => {
-                return true
-            }
+            title: 'Contact', path: '/contacts/create', condition: () => true
         },
         {
-            title: 'Categories', path: '/categories', condition: () => {
-                return this.userService.isAdmin()
-            }
+            title: 'Pages', path: '/pages', condition: () => this.userService.isAdmin()
         },
         {
-            title: 'Files', path: '/files/upload', condition: () => {
-                return this.userService.isAdmin()
-            }
+            title: 'Categories', path: '/categories', condition: () => this.userService.isAdmin()
+
+        },
+        {
+            title: 'Files', path: '/files/upload', condition: () => this.userService.isAdmin()
         }
     ];
     public rightLinks: Array<NavLink> = [

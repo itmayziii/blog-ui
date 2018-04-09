@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import * as marked from 'marked';
 import { MarkedOptions, Renderer } from 'marked';
-import { HighlightService } from "./highlight.service";
+import { HighlightService } from './highlight.service';
 
 @Injectable()
 export class MarkdownService {
 
-    public constructor(private highlightService: HighlightService) {}
+    public constructor(private highlightService: HighlightService) {
+    }
 
     public parse(src, callback): string {
         const renderer = this.createMarkedRenderer();
@@ -36,7 +37,7 @@ export class MarkdownService {
         };
 
         renderer.code = function (code, language, isEscaped): string {
-            return `<pre class="bg-light p-3 rounded col-12"><code>${code}</code></pre>`
+            return `<pre class="bg-light p-3 rounded offset-1 col-10 offset-md-0 col-md-11"><code>${code}</code></pre>`
         };
 
         return renderer;

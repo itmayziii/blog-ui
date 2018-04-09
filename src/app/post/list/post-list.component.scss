@@ -45,10 +45,17 @@
                     position: relative;
                 }
 
-                &-overlay {
+                &-status {
                     position: absolute;
+                    top: 2px;
+                    right: 10px;
+                }
+
+                &-timestamp {
                     bottom: 8px;
-                    right: 16px;
+                    font-size: .9rem;
+                    left: 10px;
+                    position: absolute;
                 }
             }
         }

@@ -140,6 +140,17 @@ export class PostListComponent implements OnInit, OnDestroy {
         });
     }
 
+    public formatDateToLocale(dateString) {
+        const utcDate = new Date(dateString);
+        const usersOptions = Intl.DateTimeFormat().resolvedOptions();
+        const dateTimeFormatOptions = {
+            weekday: 'short', year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric',
+            timeZone: usersOptions.timeZone
+        };
+
+        return Intl.DateTimeFormat(usersOptions.locale, dateTimeFormatOptions).format(utcDate);
+    }
+
     private readRouteData(): void {
         this._posts = this.route.snapshot.data.posts.data;
         this._categories = this.route.snapshot.data.categories.data;

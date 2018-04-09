@@ -7,7 +7,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 @Component({
     selector: 'blog-markdown-content',
     template: `
-        <div class="markdown-content" [innerHTML]="content"></div>
+        <div class="markdown-content row" [innerHTML]="content"></div>
     `,
     styleUrls: ['./markdown-content.component.scss']
 })

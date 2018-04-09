@@ -1,14 +1,9 @@
-import { Routes } from "@angular/router";
-import { GeneralResourceComponent } from "./general-resource.component";
+import { Routes } from '@angular/router';
+import { GeneralResourceListComponent } from './list/general-resource-list.component';
 
 export const routes: Routes = [
     {
         path: '',
-        children: [
-            {
-                path: '',
-                component: GeneralResourceComponent
-            }
-        ]
+        component: GeneralResourceListComponent
     }
 ];

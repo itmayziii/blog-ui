@@ -68,6 +68,17 @@ export class PostShowComponent implements OnInit, OnDestroy, AfterViewInit {
         });
     }
 
+    public formatDateToLocale(dateString) {
+        const utcDate = new Date(dateString);
+        const usersOptions = Intl.DateTimeFormat().resolvedOptions();
+        const dateTimeFormatOptions = {
+            weekday: 'short', year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric',
+            timeZone: usersOptions.timeZone
+        };
+
+        return Intl.DateTimeFormat(usersOptions.locale, dateTimeFormatOptions).format(utcDate);
+    }
+
     public isAdmin(): boolean {
         return this.userService.isAdmin();
     }
@@ -110,7 +121,11 @@ export class PostShowComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     private observeIfTitleIsInView(): void {
-        if (!isPlatformBrowser(this.platformId) || !('IntersectionObserver' in this.windowRef.nativeWindow)) {
+        if (!isPlatformBrowser(this.platformId)) {
+            return;
+        }
+
+        if (!('IntersectionObserver' in this.windowRef.nativeWindow)) {
             this.shouldHideSocialIcons = false;
             return;
         }

@@ -135,6 +135,24 @@ export const routes: Routes = [
         ],
     },
     {
+        path: 'pages',
+        data: {
+            'authorizedRole': 'Administrator'
+        },
+        canActivateChild: [AuthGuard],
+        children: [
+            {
+                path: '',
+                data: {
+                    'resourceType': 'pages',
+                    'authorizedRole': 'Administrator'
+                },
+                canLoad: [AuthGuard],
+                loadChildren: 'app/general-resource/general-resource.module#GeneralResourceModule'
+            }
+        ],
+    },
+    {
         path: 'files',
         data: {
             'authorizedRole': 'Administrator'
@@ -160,20 +178,15 @@ export const routes: Routes = [
         component: NotFoundComponent
     },
     {
-        path: '',
+        path: ':pageSlug',
         data: {
             'authorizedRole': 'Guest'
         },
-        canActivateChild: [AuthGuard],
-        children: [
-            {
-                path: ':pageSlug',
-                component: PageShowComponent,
-                resolve: {
-                    page: PageResolver
-                }
-            }
-        ]
+        canActivate: [AuthGuard],
+        component: PageShowComponent,
+        resolve: {
+            page: PageResolver
+        }
     },
     {
         path: '**',

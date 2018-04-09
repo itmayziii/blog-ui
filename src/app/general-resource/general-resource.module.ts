@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from "@angular/router";
-import { routes } from "./routes";
+import { RouterModule } from '@angular/router';
+import { routes } from './routes';
 import { GeneralResourceComponent } from './general-resource.component';
-import { ReactiveFormsModule } from "@angular/forms";
+import { ReactiveFormsModule } from '@angular/forms';
+import { GeneralResourceListComponent } from './list/general-resource-list.component';
 
 @NgModule({
     imports: [
@@ -12,7 +13,8 @@ import { ReactiveFormsModule } from "@angular/forms";
         ReactiveFormsModule
     ],
     declarations: [
-        GeneralResourceComponent
+        GeneralResourceComponent,
+        GeneralResourceListComponent
     ]
 })
 export class GeneralResourceModule {
