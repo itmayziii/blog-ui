@@ -31,11 +31,11 @@
 
         <div class="col-12 text-info">
             <div class="row justify-content-between">
-                <span class="post-info">Written By: Tommy May</span>
+                <span class="col-12 col-md-4 post-info">Written By: Tommy May</span>
 
-                <span class="post-info">
-                    <span class="post-info-timestamp">Created: {{ formatDateToLocale(post.attributes.createdAt) }}</span>
-                    <span class="post-info-timestamp">Updated: {{ formatDateToLocale(post.attributes.updatedAt) }}</span>
+                <span class="col-12 col-md-8 text-md-right">
+                    <div>Created: {{ formatDateToLocale(post.attributes.createdAt) }}</div>
+                    <div>Updated: {{ formatDateToLocale(post.attributes.updatedAt) }}</div>
                 </span>
             </div>
         </div>
