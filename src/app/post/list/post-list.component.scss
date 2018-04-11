@@ -14,7 +14,7 @@
             text-decoration: none;
 
             .post-list-item-card-image {
-                opacity: .4;
+                opacity: .9;
             }
 
             .post-list-item-reference {
@@ -35,7 +35,7 @@
                 background-size: cover;
                 display: block;
                 height: 190px;
-                opacity: .65;
+                opacity: .55;
 
                 @include media-breakpoint-up(md) {
                     height: 220px;
