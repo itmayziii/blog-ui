@@ -10,7 +10,6 @@ import { MetaService } from '../../meta.service';
 import { isPlatformBrowser } from '@angular/common';
 import { WindowRef } from '../../globals/window-ref';
 
-declare var $: any;
 declare var FB: any;
 
 @Component({
@@ -22,9 +21,9 @@ export class PostShowComponent implements OnInit, OnDestroy, AfterViewInit {
     private _post: Post;
     @ViewChild('postTitleMedium') private postTitleMediumElRef: ElementRef;
     @ViewChild('postTitleLarge') private postTitleLargeElRef: ElementRef;
-    @ViewChild('shareButtons') private shareButtons: ElementRef;
     public content: string;
-    public shouldHideSocialIcons: boolean = true;
+    public shouldHideDesktopSocialIcons: boolean = true;
+    public shouldHideMobileSocialIcons: boolean = true;
     public encodedComponents = {
         url: null,
         title: null
@@ -48,7 +47,6 @@ export class PostShowComponent implements OnInit, OnDestroy, AfterViewInit {
 
     public ngAfterViewInit(): void {
         this.observeIfTitleIsInView();
-        this.initializePopovers();
     }
 
     public ngOnDestroy(): void {
@@ -57,7 +55,7 @@ export class PostShowComponent implements OnInit, OnDestroy, AfterViewInit {
 
     public facebookSharePost(): void {
         if (!FB) {
-            console.error('PostShowComponent: facebook has not been initialied to share the post');
+            console.error('PostShowComponent: facebook has not been initialized to share the post');
             return;
         }
 
@@ -81,6 +79,10 @@ export class PostShowComponent implements OnInit, OnDestroy, AfterViewInit {
 
     public isAdmin(): boolean {
         return this.userService.isAdmin();
+    }
+
+    public toggleMobileShareDialog(): void {
+        this.shouldHideMobileSocialIcons = !this.shouldHideMobileSocialIcons;
     }
 
     private readRouteData(): void {
@@ -109,24 +111,13 @@ export class PostShowComponent implements OnInit, OnDestroy, AfterViewInit {
         ]);
     }
 
-    private initializePopovers(): void {
-        if (!isPlatformBrowser(this.platformId)) {
-            return;
-        }
-
-        $('[data-post-share]').popover({
-            content: this.shareButtons.nativeElement,
-            html: true
-        });
-    }
-
     private observeIfTitleIsInView(): void {
         if (!isPlatformBrowser(this.platformId)) {
             return;
         }
 
         if (!('IntersectionObserver' in this.windowRef.nativeWindow)) {
-            this.shouldHideSocialIcons = false;
+            this.shouldHideDesktopSocialIcons = false;
             return;
         }
 
@@ -134,12 +125,16 @@ export class PostShowComponent implements OnInit, OnDestroy, AfterViewInit {
             threshold: [0]
         };
         const windowObserver = new IntersectionObserver((entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
-            if (entries[0].isIntersecting || entries[0].boundingClientRect.top === 0) {
-                this.shouldHideSocialIcons = true;
+            if (this.windowRef.nativeWindow.innerWidth < 768) {// Share icons on mobile display when a user clicks share, not on scroll
                 return;
             }
 
-            this.shouldHideSocialIcons = false;
+            if (entries[0].isIntersecting || entries[0].boundingClientRect.top === 0) {
+                this.shouldHideDesktopSocialIcons = true;
+                return;
+            }
+
+            this.shouldHideDesktopSocialIcons = false;
         }, observerOptions);
 
         windowObserver.observe(this.postTitleLargeElRef.nativeElement);

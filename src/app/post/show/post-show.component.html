@@ -42,37 +42,29 @@
 
         <div class="col-12">
             <div class="row justify-content-center">
-                <div class="post-share--desktop d-none d-md-block col-1">
-                    <ul class="post-share-list" [class.d-none]="shouldHideSocialIcons">
-                        <li>
-                            <a (click)="facebookSharePost()" class="post-share-list-link"><i class="fa fa-facebook-square facebook-icon" aria-hidden="true"></i></a>
-                        </li>
-                        <li>
-                            <a class="post-share-list-link" target="_blank"
-                               href="https://twitter.com/intent/tweet?text={{ encodedComponents?.title }}&url={{ encodedComponents?.url }}&hashtags=fullheapdeveloper">
-                                <i class="fa fa-twitter-square twitter-icon" aria-hidden="true"></i></a>
-                        </li>
-                    </ul>
-                </div>
+                <div class="d-none d-md-block col-1"></div>
                 <div class="col-12 col-md-11 post-content">
                     <blog-markdown-content [parsedContent]="content"></blog-markdown-content>
                 </div>
             </div>
         </div>
 
-        <div #shareButtons>
+    </div>
+
+    <ul #shareButtons class="post-share-list"
+        [class.d-md-none]="shouldHideDesktopSocialIcons"
+        [class.d-md-block]="!shouldHideDesktopSocialIcons"
+        [class.d-none]="shouldHideMobileSocialIcons">
+        <li>
             <a (click)="facebookSharePost()" class="post-share-list-link"><i class="fa fa-facebook-square facebook-icon" aria-hidden="true"></i></a>
+        </li>
+        <li>
             <a class="post-share-list-link" target="_blank"
                href="https://twitter.com/intent/tweet?text={{ encodedComponents?.title }}&url={{ encodedComponents?.url }}&hashtags=fullheapdeveloper">
                 <i class="fa fa-twitter-square twitter-icon" aria-hidden="true"></i></a>
-        </div>
+        </li>
+    </ul>
 
-    </div>
-
-    <button type="button" class="d-md-none post-share--mobile btn btn-sm btn-secondary" data-post-share data-container="body"
-            data-toggle="popover"
-            data-placement="top">
-        Share
-    </button>
+    <button (click)="toggleMobileShareDialog()" type="button" class="d-md-none post-share-btn btn btn-sm btn-secondary">Share</button>
 
 </div>

@@ -5,8 +5,6 @@ import { LoadingService } from '../services/loading.service';
 import { ISubscription } from 'rxjs/Subscription';
 import { isPlatformBrowser } from '@angular/common';
 
-declare var $: any;
-
 @Component({
     selector: 'blog-header',
     template: `
@@ -107,8 +105,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
             return;
         }
         this.swapTogglerIcon();
-
-        $('.navbar-collapse').collapse('hide');
     }
 
     private listenToAppLoading() {

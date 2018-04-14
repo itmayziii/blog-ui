@@ -1,6 +1,6 @@
 @import "assets/scss/base/variables";
 // Custom variables and bootstrap overrides
-@import "~bootstrap/scss/bootstrap";
+@import "assets/scss/vendor/bootstrap";
 @import "assets/scss/base/defaults";
 @import "assets/scss/base/typography";
 @import "../highlight.js/src/styles/github-gist";
