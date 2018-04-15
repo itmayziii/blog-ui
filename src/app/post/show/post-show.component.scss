@@ -41,25 +41,33 @@
     &-share {
 
         &-list {
-            bottom: 20px;
+            background-color: $gray-100;
+            border-radius: 5px;
+            border: 2px solid $info;
+            bottom: 48px;
             display: flex;
             font-size: 2.2rem;
-            left: 10px;
+            left: 15px;
             list-style: none;
+            line-height: normal;
             margin: 0;
-            padding: 0;
+            padding: 0 10px;
             position: fixed;
             z-index: $zindex-popover;
 
-            &-link {
-                i {
-                    transition: all .2s ease-in-out;
-                }
+            &-item {
+                padding: 10px;
 
-                &:hover {
+                &-link {
                     i {
-                        color: $info;
-                        transform: scale(1.2);
+                        transition: all .2s ease-in-out;
+                    }
+
+                    &:hover {
+                        i {
+                            color: $info;
+                            transform: scale(1.2);
+                        }
                     }
                 }
             }
@@ -67,6 +75,23 @@
             @include media-breakpoint-up(md) {
                 top: 65%;
                 left: 3%;
+            }
+
+            &:before, &:after {
+                top: 100%;
+                left: 17%;
+                border: solid transparent;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+            }
+
+            &:after {
+                border-color: rgba(241, 241, 241, 0);
+                border-top-color: $gray-100;
+                border-width: 7px;
             }
         }
 

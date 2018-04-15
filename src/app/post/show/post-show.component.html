@@ -51,15 +51,15 @@
 
     </div>
 
-    <ul #shareButtons class="post-share-list"
+    <ul #shareButtons class="post-share-list arrow"
         [class.d-md-none]="shouldHideDesktopSocialIcons"
         [class.d-md-block]="!shouldHideDesktopSocialIcons"
         [class.d-none]="shouldHideMobileSocialIcons">
-        <li>
-            <a (click)="facebookSharePost()" class="post-share-list-link"><i class="fa fa-facebook-square facebook-icon" aria-hidden="true"></i></a>
+        <li class="post-share-list-item">
+            <a (click)="facebookSharePost()" class="post-share-list-item-link"><i class="fa fa-facebook-square facebook-icon" aria-hidden="true"></i></a>
         </li>
-        <li>
-            <a class="post-share-list-link" target="_blank"
+        <li class="post-share-list-item">
+            <a class="post-share-list-item-link" target="_blank"
                href="https://twitter.com/intent/tweet?text={{ encodedComponents?.title }}&url={{ encodedComponents?.url }}&hashtags=fullheapdeveloper">
                 <i class="fa fa-twitter-square twitter-icon" aria-hidden="true"></i></a>
         </li>
