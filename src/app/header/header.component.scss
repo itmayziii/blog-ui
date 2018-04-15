@@ -11,6 +11,7 @@
     background-color: theme-color-level("primary", 3);
     border-bottom: 1px solid theme-color("info");
     height: 55px;
+
     z-index: $zindex-sticky;
 
     &-toggler-hamburger {
@@ -21,6 +22,17 @@
         background-color: theme-color-level("primary", 3);
         border-bottom-left-radius: 5px;
         border-bottom-right-radius: 5px;
+        transform: scale(1, 0);
+        transform-origin: top center;
+        transition: transform .2s ease-in;
+
+        &.show {
+            transform: scale(1);
+        }
+
+        @include media-breakpoint-up(md) {
+            transform: none;
+        }
     }
 
     &-brand {

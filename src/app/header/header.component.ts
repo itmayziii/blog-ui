@@ -13,13 +13,11 @@ import { isPlatformBrowser } from '@angular/common';
             <span *ngIf="isAppLoading" class="navbar-brand navbar-brand--loading"><blog-loader size="1.2rem"></blog-loader></span>
             <a *ngIf="!isAppLoading" class="navbar-brand text-success" routerLink="/">FHD</a>
 
-            <button (click)="swapTogglerIcon()" class="navbar-toggler ml-auto" type="button" data-toggle="collapse"
-                    data-target="#navbarItems"
-                    aria-controls="navbarItems"
+            <button (click)="swapTogglerIcon()" class="navbar-toggler ml-auto" type="button" aria-controls="navbarItems"
                     aria-label="Toggle navigation"><i #navbarToggler class="fa fa-bars navbar-toggler-hamburger" aria-hidden="true"></i>
             </button>
 
-            <div class="collapse navbar-collapse mt-2 mt-md-0 text-center" id="navbarItems">
+            <div #navbarCollapse class="navbar-collapse mt-2 mt-md-0 text-center" id="navbarItems">
                 <ul class="navbar-nav mr-auto">
                     <li *ngFor="let leftLink of leftLinks" class="nav-item">
                         <a routerLink="{{ leftLink.path }}"
@@ -48,6 +46,7 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
     @ViewChild('navbarToggler') public navbarToggler: ElementRef;
+    @ViewChild('navbarCollapse') public navbarCollapse: ElementRef;
 
     public isAppLoading: boolean = false;
     private isAppLoadingSubscription: ISubscription;
@@ -89,6 +88,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
 
     public swapTogglerIcon() {
+        this.navbarCollapse.nativeElement.classList.toggle('show');
         const isClosed = this.navbarToggler.nativeElement.classList.contains('fa-bars');
         if (isClosed) {
             this.navbarToggler.nativeElement.classList.remove('fa-bars');
