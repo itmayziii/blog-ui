@@ -3,7 +3,6 @@ import { NavLink } from '../models/nav-link';
 import { UserService } from '../services/user.service';
 import { LoadingService } from '../services/loading.service';
 import { ISubscription } from 'rxjs/Subscription';
-import { isPlatformBrowser } from '@angular/common';
 
 @Component({
     selector: 'blog-header',
@@ -13,15 +12,17 @@ import { isPlatformBrowser } from '@angular/common';
             <span *ngIf="isAppLoading" class="navbar-brand navbar-brand--loading"><blog-loader size="1.2rem"></blog-loader></span>
             <a *ngIf="!isAppLoading" class="navbar-brand text-success" routerLink="/">FHD</a>
 
-            <button (click)="swapTogglerIcon()" class="navbar-toggler ml-auto" type="button" aria-controls="navbarItems"
-                    aria-label="Toggle navigation"><i #navbarToggler class="fa fa-bars navbar-toggler-hamburger" aria-hidden="true"></i>
+            <button #navbarToggler (click)="toggleNavbarCollapse()" class="navbar-toggler ml-auto" type="button" aria-controls="navbarItems"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"><i data-navbar-toggler class="fa fa-bars navbar-toggler-hamburger"
+                                                      aria-hidden="true"></i>
             </button>
 
             <div #navbarCollapse class="navbar-collapse mt-2 mt-md-0 text-center" id="navbarItems">
                 <ul class="navbar-nav mr-auto">
                     <li *ngFor="let leftLink of leftLinks" class="nav-item">
                         <a routerLink="{{ leftLink.path }}"
-                           (click)="closeNavbar()"
+                           (click)="toggleNavbarCollapse()"
                            routerLinkActive="active"
                            class="nav-link"
                            *ngIf="leftLink.condition()"
@@ -32,7 +33,7 @@ import { isPlatformBrowser } from '@angular/common';
                 <ul class="navbar-nav ml-auto">
                     <li *ngFor="let rightLink of rightLinks" class="nav-item">
                         <a routerLink="{{ rightLink.path }}"
-                           (click)="closeNavbar()"
+                           (click)="toggleNavbarCollapse()"
                            routerLinkActive="active"
                            class="nav-link"
                            *ngIf="rightLink.condition()"
@@ -87,24 +88,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
     }
 
-    public swapTogglerIcon() {
+    public toggleNavbarCollapse() {
         this.navbarCollapse.nativeElement.classList.toggle('show');
-        const isClosed = this.navbarToggler.nativeElement.classList.contains('fa-bars');
+
+        const navbarTogglerIcon = this.navbarToggler.nativeElement.querySelector('[data-navbar-toggler]');
+        navbarTogglerIcon.classList.toggle('fa-bars');
+        navbarTogglerIcon.classList.toggle('fa-times');
+
+        const isClosed = navbarTogglerIcon.classList.contains('fa-bars');
         if (isClosed) {
-            this.navbarToggler.nativeElement.classList.remove('fa-bars');
-            this.navbarToggler.nativeElement.classList.add('fa-times');
+            this.navbarToggler.nativeElement.setAttribute('aria-expanded', 'false');
             return;
         }
 
-        this.navbarToggler.nativeElement.classList.remove('fa-times');
-        this.navbarToggler.nativeElement.classList.add('fa-bars');
-    }
-
-    public closeNavbar() {
-        if (!isPlatformBrowser(this.platformId)) {
-            return;
-        }
-        this.swapTogglerIcon();
+        this.navbarToggler.nativeElement.setAttribute('aria-expanded', 'true');
     }
 
     private listenToAppLoading() {
