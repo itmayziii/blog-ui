@@ -15,12 +15,12 @@
             <div class="row">
                 <div class="dropdown col-12 justify-content-center">
                     <div class="row justify-content-center">
-                        <button class="btn btn-info dropdown-toggle col-8 col-sm-6" type="button" id="categories-dropdown" data-toggle="dropdown"
+                        <button class="btn btn-info dropdown-toggle col-8 col-sm-6" type="button" id="categories-dropdown" dropdown="category-list-dropdown"
                                 aria-haspopup="true"
                                 aria-expanded="false">
                             Categories
                         </button>
-                        <div class="dropdown-menu col-12" aria-labelledby="categories-dropdown">
+                        <div class="dropdown-menu col-12" aria-labelledby="categories-dropdown" data-dropdown="category-list-dropdown">
                             <a class="dropdown-item" routerLink="/categories/{{ category.attributes.slug }}/posts" *ngFor="let category of categories">
                                 {{ category.attributes.name }}</a>
                         </div>

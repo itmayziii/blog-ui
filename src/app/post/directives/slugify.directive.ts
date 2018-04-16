@@ -8,7 +8,7 @@ import { PostCreateComponent } from "../create/post-create.component";
 })
 export class SlugifyDirective {
 
-    @Input() private blogSlugify;
+    @Input() public blogSlugify;
 
     public constructor(private el: ElementRef, private host: PostCreateComponent) {}
 

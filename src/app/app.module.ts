@@ -44,6 +44,7 @@ import { LoadingService } from './services/loading.service';
 import { PageShowComponent } from './page/show/page-show.component';
 import { PageResolver } from './data-resolvers/page-resolver';
 import { MarkdownContentComponent } from './markdown-content/markdown-content.component';
+import { DropdownDirective } from './directives/dropdown.directive';
 
 @NgModule({
     declarations: [
@@ -61,6 +62,7 @@ import { MarkdownContentComponent } from './markdown-content/markdown-content.co
         PostShowComponent,
         PostCreateComponent,
         SlugifyDirective,
+        DropdownDirective,
         FileUploadComponent,
         LoaderComponent,
         MarkdownContentComponent,
